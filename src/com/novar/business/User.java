@@ -173,7 +173,7 @@ public class User
 		{
 			roles.set(2, role);
 		}
-		else
+		else if (role instanceof Member)
 		{
 			roles.set(3, role);
 		}
