@@ -15,6 +15,8 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
+import com.novar.util.ConnectionUtil;
+
 public class LoginWindow
 {
 	private JFrame frame;
@@ -49,6 +51,7 @@ public class LoginWindow
 	 */
 	public LoginWindow()
 	{
+		ConnectionUtil.start();
 		//business = new LoginBL();
 		initialize();
 	}
@@ -155,6 +158,7 @@ public class LoginWindow
 
 	private void closeWindow()
 	{
+		ConnectionUtil.stop();
 		frame.dispose();
 	}
 }
