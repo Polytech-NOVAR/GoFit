@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.regex.*;
 
 import com.novar.exception.LoginFailedException;
+import com.novar.exception.RegisterFailedException;
 import com.novar.exception.SyntaxException;
 import com.novar.persist.JdbcKit;
 import com.novar.persist.PersistKit;
@@ -25,28 +26,42 @@ public abstract class User
 	private ArrayList<Address> address;
 	private List<Role> roles = Arrays.asList(new Role[4]);
 	
-	public User(HashMap<String,Object> data)
+	public User()
+	{
+		
+	}
+	
+	
+	public User(HashMap<String,Object> data) throws RegisterFailedException
 	{
 		//TODO Faire le cas de la verif mdp. Login 1arg, register 2args.
 		Class[] typeArg = new Class[1];
 		Object[] arg = new Object[1];
+		ArrayList<String> errors = new ArrayList<String>();
 		
 		for (String mapKey : data.keySet())
 		{
 			String setterName = "set" + StringUtil.toCapitalizeCase(mapKey);
 			typeArg[0] = data.get(mapKey).getClass();
 			arg[0] = data.get(mapKey);
-			
-			try
-			{
-				Method setter = this.getClass().getMethod(setterName, typeArg);
-				setter.invoke(this, arg);
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
+			Method setter;
+			try {
+				setter = this.getClass().getMethod(setterName, typeArg);
+				try
+				{
+					setter.invoke(this, arg);
+				}
+				catch (Exception e)
+				{
+					errors.add(e.getCause().getMessage());
+				}
+			} catch (NoSuchMethodException | SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
+		if(!errors.isEmpty())
+			throw new RegisterFailedException(errors);
 	}
 	
 	public User(String pseudo, String password){}
@@ -209,7 +224,7 @@ public abstract class User
 	}
 	
 	////////////// HOOKS ////////////////
-	public void insert(){}
+	public void insert() throws Exception{}
 	public void update(){}
 	public void delete(){}
 	
@@ -220,14 +235,17 @@ public abstract class User
 		
 		PersistKit fabric = new JdbcKit();
 		
+		/*
+		 * Test Register
+		 */
 		// TODO Auto-generated method stub
-		HashMap<String,Object> map = new HashMap<String,Object>();
-		map.put("pseudo", "Antoine");
-		map.put("password", "123456");
-		map.put("lastName", "JOERG");
+		/*HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("pseudo", "pip");
+		map.put("password", "popo");
+		map.put("lastName", "JORG");
 		map.put("firstName", "Antoine");
-		map.put("phone", "0629940262");
-		map.put("email", "antoine@gmail.fr");
+		map.put("phone", "0629294062");
+		map.put("email", "pip@ppo.fr");
 		
 		ArrayList<Address> adds = new ArrayList<Address>();
 		
@@ -237,19 +255,51 @@ public abstract class User
 		mapAddress.put("zipCode", "12345");
 		mapAddress.put("country", "Pays 1");
 		
-		Address ad1 = fabric.makeAddress(mapAddress);
-		adds.add(ad1);
-		map.put("address", adds);
+		HashMap<String,Object> mapAddress2 = new HashMap<String,Object>();
+		mapAddress2.put("street", "Rue 2");
+		mapAddress2.put("town", "Ville 2");
+		mapAddress2.put("zipCode", "1245");
+		mapAddress2.put("country", "Pays 2");
 		
+		Address ad1 = fabric.makeAddress(mapAddress);
+		Address ad2 = fabric.makeAddress(mapAddress2);
+		
+		adds.add(ad1);
+		adds.add(ad2);
+		
+		map.put("address", adds);
 		
 		User u = null;
 		try {
-			u = fabric.makeUser("Antoine",StringUtil.sha256("123456"));
-		} catch (LoginFailedException e) {
+			u = fabric.makeUser(map);
+			try {
+				u.insert();
+				System.out.println(u);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.getMessage());
+			}
+		} catch (RegisterFailedException e1) {
 			// TODO Auto-generated catch block
-			e.getMessage();
+			System.out.println(e1.getMessage()+ e1.getFalseFields());
 		}
 		
-		System.out.println(u);
+		*/
+		
+		
+		
+		
+		/*
+		 * Test Login
+		 */
+		User u = null;
+		try {
+			u = fabric.makeUser("pipi",StringUtil.sha256("popo"));
+			System.out.println(u);
+		} catch (LoginFailedException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
+		
 	}
 }

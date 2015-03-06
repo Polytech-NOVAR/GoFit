@@ -2,6 +2,7 @@ package com.novar.ui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Canvas;
@@ -11,18 +12,26 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
+import com.novar.business.FacadeMain;
+import com.novar.exception.LoginFailedException;
 import com.novar.util.ConnectionUtil;
+import com.novar.persist.JdbcKit;
+import com.novar.persist.PersistKit;
 
 public class LoginWindow
 {
+	
+	final public static String IMAGE_PATH = "../images/";
 	private JFrame frame;
 	private JTextField pseudoTextField;
 	private JPasswordField passwordField;
-	//private LoginBL business;
+	private FacadeMain facade;
+	private JLabel logo;
 	
 	/**
 	 * Launch the application.
@@ -52,7 +61,8 @@ public class LoginWindow
 	public LoginWindow()
 	{
 		ConnectionUtil.start();
-		//business = new LoginBL();
+		PersistKit kit = new JdbcKit();
+		facade = new FacadeMain(kit);
 		initialize();
 	}
 
@@ -63,7 +73,7 @@ public class LoginWindow
 	{
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(400, 400, 380, 520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblError = new JLabel("");
@@ -74,6 +84,8 @@ public class LoginWindow
 		pseudoTextField.setColumns(10);
 		
 		passwordField = new JPasswordField();
+		
+		logo = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource(IMAGE_PATH+"logo.jpg")).getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH)));
 		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener()
@@ -94,6 +106,13 @@ public class LoginWindow
 					lblError.setText((String) connectedUser);
 				}*/
 				//System.out.println(business.login(pseudoTextField.getText(), new String(passwordField.getPassword())));
+				try {
+					facade.login(pseudoTextField.getText(), new String(passwordField.getPassword()));
+					System.out.println("Connexion réussie");
+				} catch (LoginFailedException e1) {
+					System.out.println(e1.getMessage());
+				}
+				
 			}
 		});
 		
@@ -107,7 +126,6 @@ public class LoginWindow
 			}
 		});
 		
-		JLabel logo = new JLabel();
 	    
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(

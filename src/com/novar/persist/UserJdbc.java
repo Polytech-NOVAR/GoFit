@@ -4,14 +4,16 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.novar.business.Address;
 import com.novar.business.User;
 import com.novar.exception.LoginFailedException;
+import com.novar.exception.RegisterFailedException;
 import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
 
 public class UserJdbc extends User{
 	
-	public UserJdbc(HashMap<String,Object> data)
+	public UserJdbc(HashMap<String,Object> data) throws RegisterFailedException
 	{
 		super(data);
 	}
@@ -44,20 +46,22 @@ public class UserJdbc extends User{
 							+ "AND u.pseudo = ?;");
 					
 					selectAddress.setObject(1, pseudo, Types.VARCHAR);
-					ResultSet resAddress = selectUser.executeQuery();
+					ResultSet resAddress = selectAddress.executeQuery();
 					JdbcKit fabric = new JdbcKit();
-					ArrayList<AddressJdbc> adds = new ArrayList<AddressJdbc>();
+					ArrayList<Address> adds = new ArrayList<Address>();
 					
 					while(resAddress.next())
 					{
 						HashMap<String,Object> mapAddress = new HashMap<String,Object>();
+						mapAddress.put("addressID", resAddress.getInt("addressID"));
 						mapAddress.put("street", resAddress.getString("street"));
-						mapAddress.put("town", resAddress.getString("street"));
-						mapAddress.put("zipCode", resAddress.getString("street"));
-						mapAddress.put("country", resAddress.getString("street"));
+						mapAddress.put("town", resAddress.getString("town"));
+						mapAddress.put("zipCode", resAddress.getString("zipCode"));
+						mapAddress.put("country", resAddress.getString("country"));
 						AddressJdbc ad1 = fabric.makeAddress(mapAddress);
 						adds.add(ad1);
 					}
+					this.setAddress(adds);
 					this.setPseudo(res.getString("pseudo"));
 					this.setPassword(res.getString("password"));
 					this.setEmail(res.getString("email"));
@@ -79,9 +83,8 @@ public class UserJdbc extends User{
 		}
 	}
 	
-	public void insert()
+	public void insert() throws SQLException
 	{
-		try {
 			//Insertion de l'utilisateur dans la table User
 			PreparedStatement insertUser = ConnectionUtil.connection.prepareStatement("INSERT INTO User (pseudo,password,lastName,firstName,phone,email) "
 																		+ "VALUES (?, ?, ?, ?, ?, ?);");
@@ -94,22 +97,16 @@ public class UserJdbc extends User{
 			insertUser.executeUpdate();
 			
 			//Insertion des addresses dans la table Address et des couples (Pseudo,AdressID) dans la table UserAddress
+			PreparedStatement insertUserAdress = ConnectionUtil.connection.prepareStatement("INSERT INTO UserAddress (addressID,pseudo) "
+					+ "VALUES (?, ?);");
 			for(int i = 0; i<getAddress().size(); i++)
 			{
 				getAddress().get(i).insert();
-				
-				PreparedStatement insertUserAdress = ConnectionUtil.connection.prepareStatement("INSERT INTO UserAddress (addressID,pseudo) "
-																				+ "VALUES (?, ?);");
 				insertUserAdress.setObject(1, getAddress().get(i).getAddressID() ,Types.INTEGER);
 				insertUserAdress.setObject(2, getPseudo(),Types.VARCHAR);
 				insertUserAdress.executeUpdate();
 			}
 			
-		} 
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
 	}
 
 }
