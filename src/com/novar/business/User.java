@@ -2,7 +2,9 @@ package com.novar.business;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.*;
 
 import com.novar.exception.SyntaxException;
@@ -17,6 +19,7 @@ public class User
 	private String phone;
 	private String email;
 	private ArrayList<Address> address;
+	private List<Role> roles = Arrays.asList(new Role[4]);
 	
 	public void setUp(HashMap<String,Object> data)
 	{
@@ -151,14 +154,51 @@ public class User
 		this.address = adds;
 	}
 	
+	public List<Role> getRoles()
+	{
+		return this.roles;
+	}
+	
+	public void setRoles(Role role)
+	{
+		if (role instanceof Administrator)
+		{
+			roles.set(0, role);
+		}
+		else if (role instanceof Manager)
+		{
+			roles.set(1, role);
+		}
+		else if (role instanceof Speaker)
+		{
+			roles.set(2, role);
+		}
+		else
+		{
+			roles.set(3, role);
+		}
+	}
+	
 	public String toString()
 	{
-		return ("Pseudo : " + this.getPseudo() + "\n"
+		String result = new String();
+		
+		result = "Pseudo : " + this.getPseudo() + "\n"
 				+ "LastName : " + this.getLastName() + "\n"
 				+ "Password : " + this.getPassword() + "\n"
 				+ "FirstName : " + this.getFirstName() + "\n"
 				+ "Phone : " + this.getPhone() + "\n"
 				+ "Email : " + this.getEmail() + "\n"
-				+ "Adrress : " + this.getAddress());
+				+ "Adrress : " + this.getAddress() + "\n";
+		
+		for (int ind = 0; ind < roles.size(); ind++)
+		{
+			if (roles.get(ind) != null)
+			{
+				result += "Role : " + roles.get(ind).getClass().getSimpleName() + "\n";
+			}
+		}
+		
+		return result;	
 	}
 }
