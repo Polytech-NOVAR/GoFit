@@ -7,10 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.regex.*;
 
+import com.novar.exception.LoginFailedException;
 import com.novar.exception.SyntaxException;
+import com.novar.persist.JdbcKit;
+import com.novar.persist.PersistKit;
+import com.novar.util.ConnectionUtil;
 import com.novar.util.StringUtil;
 
-public class User
+public abstract class User
 {
 	private String pseudo;
 	private String password;
@@ -21,7 +25,7 @@ public class User
 	private ArrayList<Address> address;
 	private List<Role> roles = Arrays.asList(new Role[4]);
 	
-	public void setUp(HashMap<String,Object> data)
+	public User(HashMap<String,Object> data)
 	{
 		//TODO Faire le cas de la verif mdp. Login 1arg, register 2args.
 		Class[] typeArg = new Class[1];
@@ -44,6 +48,8 @@ public class User
 			}
 		}
 	}
+	
+	public User(String pseudo, String password){}
 	
 	public String getPseudo()
 	{
@@ -200,5 +206,50 @@ public class User
 		}
 		
 		return result;	
+	}
+	
+	////////////// HOOKS ////////////////
+	public void insert(){}
+	public void update(){}
+	public void delete(){}
+	
+	public static void main(String[] args)
+	{
+		
+		ConnectionUtil.start();
+		
+		PersistKit fabric = new JdbcKit();
+		
+		// TODO Auto-generated method stub
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("pseudo", "Antoine");
+		map.put("password", "123456");
+		map.put("lastName", "JOERG");
+		map.put("firstName", "Antoine");
+		map.put("phone", "0629940262");
+		map.put("email", "antoine@gmail.fr");
+		
+		ArrayList<Address> adds = new ArrayList<Address>();
+		
+		HashMap<String,Object> mapAddress = new HashMap<String,Object>();
+		mapAddress.put("street", "Rue 1");
+		mapAddress.put("town", "Ville 1");
+		mapAddress.put("zipCode", "12345");
+		mapAddress.put("country", "Pays 1");
+		
+		Address ad1 = fabric.makeAddress(mapAddress);
+		adds.add(ad1);
+		map.put("address", adds);
+		
+		
+		User u = null;
+		try {
+			u = fabric.makeUser("Antoine",StringUtil.sha256("123456"));
+		} catch (LoginFailedException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
+		
+		System.out.println(u);
 	}
 }
