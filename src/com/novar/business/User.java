@@ -7,8 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.regex.*;
 
+import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
-import com.novar.exception.RegisterFailedException;
 import com.novar.exception.SyntaxException;
 import com.novar.persist.JdbcKit;
 import com.novar.persist.PersistKit;
@@ -32,7 +32,7 @@ public abstract class User
 	}
 	
 	
-	public User(HashMap<String,Object> data) throws RegisterFailedException
+	public User(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		//TODO Faire le cas de la verif mdp. Login 1arg, register 2args.
 		Class[] typeArg = new Class[1];
@@ -61,7 +61,7 @@ public abstract class User
 			}
 		}
 		if(!errors.isEmpty())
-			throw new RegisterFailedException(errors);
+			throw new FalseFieldsException(errors);
 	}
 	
 	public User(String pseudo, String password){}
@@ -210,23 +210,17 @@ public abstract class User
 				+ "FirstName : " + this.getFirstName() + "\n"
 				+ "Phone : " + this.getPhone() + "\n"
 				+ "Email : " + this.getEmail() + "\n"
-				+ "Adrress : " + this.getAddress() + "\n";
-		
-		for (int ind = 0; ind < roles.size(); ind++)
-		{
-			if (roles.get(ind) != null)
-			{
-				result += "Role : " + roles.get(ind).getClass().getSimpleName() + "\n";
-			}
-		}
+				+ "Adrress : " + this.getAddress() + "\n"
+				+ "Rôles : " + this.getRoles() + "\n";
 		
 		return result;	
 	}
 	
 	////////////// HOOKS ////////////////
-	public void insert() throws Exception{}
-	public void update(){}
-	public void delete(){}
+	public abstract void load() throws LoginFailedException;
+	public abstract void save() throws Exception;
+	/*public abstract void update();
+	public abstract void delete();*/
 	
 	public static void main(String[] args)
 	{
@@ -292,14 +286,14 @@ public abstract class User
 		/*
 		 * Test Login
 		 */
-		User u = null;
+		/*User u = null;
 		try {
 			u = fabric.makeUser("pipi",StringUtil.sha256("popo"));
 			System.out.println(u);
 		} catch (LoginFailedException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
-		}
+		}*/
 		
 	}
 }

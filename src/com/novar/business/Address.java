@@ -89,12 +89,12 @@ public abstract class Address
 	
 	public String toString()
 	{
-		return ("ID : " + this.getAddressID() + "\n"
+		return ("\nID : " + this.getAddressID() + "\n"
 				+ "Street : " + this.getStreet() + "\n"
 				+ "Town : " + this.getTown() + "\n"
 				+ "ZipCode : " + this.getZipCode() + "\n"
 				+ "Country : " + this.getCountry());
 	}
 	
-	public void insert(){}
+	public abstract void save();
 }

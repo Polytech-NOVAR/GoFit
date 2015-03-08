@@ -17,7 +17,7 @@ public class AddressJdbc extends Address
 		super(data);
 	}
 	
-	public void insert()
+	public void save()
 	{
 		try {
 			PreparedStatement insertQuery = ConnectionUtil.connection.prepareStatement("INSERT INTO Address (street, town, zipCode, country) "

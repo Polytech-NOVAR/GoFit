@@ -1,6 +1,9 @@
 package com.novar.business;
 
-import com.novar.exception.LoginFailedException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.novar.exception.*;
 import com.novar.persist.PersistKit;
 import com.novar.util.StringUtil;
 
@@ -14,9 +17,23 @@ public class FacadeMain {
 		this.kit = kit;
 	}
 	
-	public void login(String pseudo, String password) throws LoginFailedException
+	public void register(HashMap<String,Object> dataUser, HashMap<String,Object> dataAddress) throws Exception
 	{
-		theUser = kit.makeUser(pseudo,StringUtil.sha256(password));
+		Address registrationAdress = kit.makeAddress(dataAddress);
+		ArrayList<Address> listAdress = new ArrayList<Address>(); 
+		listAdress.add(registrationAdress); //Une seule adresse pour l'inscription
+		
+		dataUser.put("address", listAdress);
+		
+		User userInRegistration = kit.makeUser(dataUser);
+		userInRegistration.save();
+	}
+	
+	public void login(HashMap<String,Object> dataUser) throws LoginFailedException, FalseFieldsException
+	{
+		theUser = kit.makeUser(dataUser);
+		theUser.load();
+		System.out.println(theUser);
 	}
 
 }

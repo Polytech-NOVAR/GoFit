@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Canvas;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
@@ -18,8 +19,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
 import com.novar.business.FacadeMain;
+import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
+import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
+import com.novar.util.StringUtil;
 import com.novar.persist.JdbcKit;
 import com.novar.persist.PersistKit;
 
@@ -60,9 +64,10 @@ public class LoginWindow
 	 */
 	public LoginWindow()
 	{
-		ConnectionUtil.start();
 		PersistKit kit = new JdbcKit();
+		ConnectionUtil.start();
 		facade = new FacadeMain(kit);
+		
 		initialize();
 	}
 
@@ -71,7 +76,7 @@ public class LoginWindow
 	 */
 	private void initialize()
 	{
-		frame = new JFrame();
+		frame = new JFrame("GoFit");
 		frame.setResizable(false);
 		frame.setBounds(400, 400, 380, 520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -106,13 +111,55 @@ public class LoginWindow
 					lblError.setText((String) connectedUser);
 				}*/
 				//System.out.println(business.login(pseudoTextField.getText(), new String(passwordField.getPassword())));
-				try {
-					facade.login(pseudoTextField.getText(), new String(passwordField.getPassword()));
+				
+				
+				HashMap<String,Object> mapUser = new HashMap<String,Object>();
+				mapUser.put("pseudo", pseudoTextField.getText());
+				mapUser.put("password", new String(passwordField.getPassword()));
+				
+				try 
+				{
+					facade.login(mapUser);
 					System.out.println("Connexion réussie");
-				} catch (LoginFailedException e1) {
-					System.out.println(e1.getMessage());
+				} 
+				catch (FalseFieldsException e1) 
+				{
+					System.out.println(e1.getMessage()+ e1.getFalseFields());
+				}
+				catch (LoginFailedException e2) 
+				{
+					System.out.println(e2.getMessage());
 				}
 				
+				/* Pour le Register
+				HashMap<String,Object> map = new HashMap<String,Object>();
+				map.put("pseudo", "pipyi");
+				map.put("password", "popo");
+				map.put("lastName", "JORG");
+				map.put("firstName", "Antoine");
+				map.put("phone", "0621940612");
+				map.put("email", "ipp@kjh.fr");
+				
+				
+				HashMap<String,Object> mapAddress = new HashMap<String,Object>();
+				mapAddress.put("street", "Rue 1");
+				mapAddress.put("town", "Ville 1");
+				mapAddress.put("zipCode", "12345");
+				mapAddress.put("country", "Pays 1");
+				
+				
+				try 
+				{
+					facade.register(map, mapAddress);
+				} 
+				catch (FalseFieldsException e2) 
+				{
+					System.out.println(e2.getMessage()+ e2.getFalseFields());
+				}
+				catch (Exception e1) 
+				{
+					System.out.println(e1.getMessage());
+				}*/
 			}
 		});
 		
