@@ -18,12 +18,12 @@ import com.novar.exception.LoginFailedException;
  * @see FacadeMain
  * @see JdbcKit
  */
-public interface PersistKit 
+public interface PersistKit
 {
-	// ===== DEFINITION METHODS =====
+	// ===== DECLARATION METHODS =====
 	
 	/**
-	 * This is the definition of the method to make an address
+	 * This is the declaration of the method to make an address
 	 * @param data of an address
 	 * @return the address
 	 * @see Address
@@ -32,7 +32,7 @@ public interface PersistKit
 	public Address makeAddress(HashMap<String,Object> data);
 	
 	/**
-	 * This is the definition of the method to make a user
+	 * This is the declaration of the method to make a user
 	 * @param data of a user
 	 * @return the user
 	 * @throws FalseFieldsException

@@ -19,10 +19,10 @@ import com.novar.persist.UserJdbc;
  */
 public class JdbcKit implements PersistKit
 {
-	// ===== DECLARATION METHODS =====
+	// ===== DEFINITION METHODS =====
 	
 	/**
-	 * This is the declaration of the method to make an address
+	 * This is the definition of the method to make an address
 	 * @param data of an address
 	 * @return the address with persistance methods
 	 * @see AddressJdbc
