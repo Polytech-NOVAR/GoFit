@@ -14,7 +14,7 @@ public class FalseFieldsException extends Exception
 	
 	public FalseFieldsException(ArrayList<String> fieldsList)
 	{
-		super("Champs Incorrect");
+		super("False field(s).");
 		this.fieldsList = fieldsList;
 	}
 	

@@ -71,6 +71,7 @@ public class LoginWindow
 	private void initialize()
 	{
 		frame = new JFrame("GoFit");
+		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setResizable(false);
 		frame.setBounds(400, 400, 380, 520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,43 +112,13 @@ public class LoginWindow
 					lblError.setForeground(Color.RED);
 					lblError.setText(e2.getMessage());
 				}
-				
-				/* Pour le Register
-				HashMap<String,Object> map = new HashMap<String,Object>();
-				map.put("pseudo", "pipyi");
-				map.put("password", "popo");
-				map.put("lastName", "JORG");
-				map.put("firstName", "Antoine");
-				map.put("phone", "0621940612");
-				map.put("email", "ipp@kjh.fr");
-				
-				
-				HashMap<String,Object> mapAddress = new HashMap<String,Object>();
-				mapAddress.put("street", "Rue 1");
-				mapAddress.put("town", "Ville 1");
-				mapAddress.put("zipCode", "12345");
-				mapAddress.put("country", "Pays 1");
-				
-				
-				try 
-				{
-					facade.register(map, mapAddress);
-				} 
-				catch (FalseFieldsException e2) 
-				{
-					System.out.println(e2.getMessage()+ e2.getFalseFields());
-				}
-				catch (Exception e1) 
-				{
-					System.out.println(e1.getMessage());
-				}*/
 			}
 		});
 		
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RegisterWindow register = new RegisterWindow(frame);
+				RegisterWindow register = new RegisterWindow(frame,facade);
 				register.setVisible(true);
 			}
 		});
@@ -157,31 +128,36 @@ public class LoginWindow
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(37)
+					.addComponent(logo)
+					.addGap(43))
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addContainerGap(68, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(134)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblPassword)
-								.addComponent(lblPseudo))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnRegister)
-								.addComponent(btnLogin)
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(passwordField)
-									.addComponent(pseudoTextField)
-									.addComponent(lblError))))
+							.addGap(14)
+							.addComponent(lblPseudo)
+							.addPreferredGap(ComponentPlacement.RELATED))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(lblPassword)
+							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(37)
-							.addComponent(logo)))
-					.addContainerGap(170, Short.MAX_VALUE))
+							.addComponent(btnLogin)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnRegister))
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+							.addComponent(lblError)
+							.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+							.addComponent(pseudoTextField)))
+					.addGap(63))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(38)
 					.addComponent(logo)
-					.addGap(24)
+					.addPreferredGap(ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
 					.addComponent(lblError)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
@@ -189,13 +165,13 @@ public class LoginWindow
 						.addComponent(pseudoTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPassword)
-						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblPassword))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnLogin)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnRegister)
-					.addContainerGap(86, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnLogin)
+						.addComponent(btnRegister))
+					.addGap(20))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}

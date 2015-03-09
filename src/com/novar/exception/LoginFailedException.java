@@ -9,7 +9,7 @@ public class LoginFailedException extends Exception {
 	
 	public LoginFailedException()
 	{
-		super("Le mot de passe ou le pseudo est incorrect.");
+		super("Wrong pseudo and/or password.");
 	}
 
 }
