@@ -54,7 +54,7 @@ public class LoginWindow{
 	private JTextField pseudoTextField;
 	private JPasswordField passwordField;
 	private LoginBL business;
->>>>>>> origin/uis
+
 	
 	/**
 	 * Launch the application.
@@ -75,31 +75,22 @@ public class LoginWindow{
 	/**
 	 * Create the application.
 	 */
-<<<<<<< HEAD
 	public LoginWindow()
 	{
 		PersistKit kit = new JdbcKit();
 		ConnectionUtil.start();
 		facade = new FacadeMain(kit);
-		
-=======
-	public LoginWindow() {
-		business = new LoginBL();
->>>>>>> origin/uis
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-<<<<<<< HEAD
+
+	
 	private void initialize()
 	{
-		frame = new JFrame("GoFit");
-=======
-	private void initialize() {
 		frame = new JFrame();
->>>>>>> origin/uis
 		frame.setResizable(false);
 		frame.setBounds(400, 400, 380, 520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -142,7 +133,7 @@ public class LoginWindow{
 				try 
 				{
 					facade.login(mapUser);
-					System.out.println("Connexion réussie");
+					System.out.println("Connexion rï¿½ussie");
 				} 
 				catch (FalseFieldsException e1) 
 				{
