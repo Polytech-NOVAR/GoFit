@@ -66,7 +66,6 @@ public class LoginWindow
 	/**
 	 * Initialize the contents of the frame.
 	 */
-
 	
 	private void initialize()
 	{
@@ -88,7 +87,7 @@ public class LoginWindow
 		passwordField = new JPasswordField();
 		
 		logo = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource(IMAGE_PATH+"logo.jpg")).getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH)));
-		
+	
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -96,6 +95,10 @@ public class LoginWindow
 				HashMap<String,Object> mapUser = new HashMap<String,Object>();
 				mapUser.put("pseudo", pseudoTextField.getText());
 				mapUser.put("password", new String(passwordField.getPassword()));
+				
+				ConnectedWindow connectWindow = new ConnectedWindow();
+				connectWindow.setVisible(true);
+				closeWindow();
 				
 				try 
 				{
