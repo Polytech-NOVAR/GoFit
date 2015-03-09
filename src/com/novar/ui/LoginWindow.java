@@ -2,27 +2,40 @@ package com.novar.ui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Canvas;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
+import com.novar.business.FacadeMain;
+import com.novar.exception.FalseFieldsException;
+import com.novar.exception.LoginFailedException;
+import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
+import com.novar.util.StringUtil;
+import com.novar.persist.JdbcKit;
+import com.novar.persist.PersistKit;
 
 public class LoginWindow
 {
+	
+	final public static String IMAGE_PATH = "../images/";
 	private JFrame frame;
 	private JTextField pseudoTextField;
 	private JPasswordField passwordField;
-	//private LoginBL business;
+	private FacadeMain facade;
+	private JLabel logo;
 	
 	/**
 	 * Launch the application.
@@ -51,8 +64,10 @@ public class LoginWindow
 	 */
 	public LoginWindow()
 	{
+		PersistKit kit = new JdbcKit();
 		ConnectionUtil.start();
-		//business = new LoginBL();
+		facade = new FacadeMain(kit);
+		
 		initialize();
 	}
 
@@ -61,9 +76,9 @@ public class LoginWindow
 	 */
 	private void initialize()
 	{
-		frame = new JFrame();
+		frame = new JFrame("GoFit");
 		frame.setResizable(false);
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(400, 400, 380, 520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblError = new JLabel("");
@@ -74,6 +89,8 @@ public class LoginWindow
 		pseudoTextField.setColumns(10);
 		
 		passwordField = new JPasswordField();
+		
+		logo = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource(IMAGE_PATH+"logo.jpg")).getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH)));
 		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener()
@@ -94,6 +111,55 @@ public class LoginWindow
 					lblError.setText((String) connectedUser);
 				}*/
 				//System.out.println(business.login(pseudoTextField.getText(), new String(passwordField.getPassword())));
+				
+				
+				HashMap<String,Object> mapUser = new HashMap<String,Object>();
+				mapUser.put("pseudo", pseudoTextField.getText());
+				mapUser.put("password", new String(passwordField.getPassword()));
+				
+				try 
+				{
+					facade.login(mapUser);
+					System.out.println("Connexion réussie");
+				} 
+				catch (FalseFieldsException e1) 
+				{
+					System.out.println(e1.getMessage()+ e1.getFalseFields());
+				}
+				catch (LoginFailedException e2) 
+				{
+					System.out.println(e2.getMessage());
+				}
+				
+				/* Pour le Register
+				HashMap<String,Object> map = new HashMap<String,Object>();
+				map.put("pseudo", "pipyi");
+				map.put("password", "popo");
+				map.put("lastName", "JORG");
+				map.put("firstName", "Antoine");
+				map.put("phone", "0621940612");
+				map.put("email", "ipp@kjh.fr");
+				
+				
+				HashMap<String,Object> mapAddress = new HashMap<String,Object>();
+				mapAddress.put("street", "Rue 1");
+				mapAddress.put("town", "Ville 1");
+				mapAddress.put("zipCode", "12345");
+				mapAddress.put("country", "Pays 1");
+				
+				
+				try 
+				{
+					facade.register(map, mapAddress);
+				} 
+				catch (FalseFieldsException e2) 
+				{
+					System.out.println(e2.getMessage()+ e2.getFalseFields());
+				}
+				catch (Exception e1) 
+				{
+					System.out.println(e1.getMessage());
+				}*/
 			}
 		});
 		
@@ -107,7 +173,6 @@ public class LoginWindow
 			}
 		});
 		
-		JLabel logo = new JLabel();
 	    
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(

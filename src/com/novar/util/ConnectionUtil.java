@@ -6,7 +6,7 @@ public class ConnectionUtil
 	private final static String url = "jdbc:mysql://gofit.cb9xv2w6phgt.us-west-2.rds.amazonaws.com:3306/GOFIT";
 	private final static String user = "gofit";
 	private final static String pwd = "gofit5151";
-	public static Connection connnection = null;
+	public static Connection connection = null;
 	
 	public static void start()
 	{
@@ -14,7 +14,7 @@ public class ConnectionUtil
 		{
 			//Chargement du pilote
 			Class.forName("com.mysql.jdbc.Driver");
-			connnection = DriverManager.getConnection(url, user, pwd);
+			connection = DriverManager.getConnection(url, user, pwd);
 		}
 		catch (Exception e)
 		{
@@ -27,7 +27,7 @@ public class ConnectionUtil
 	{
 		try
 		{
-			connnection.close();
+			connection.close();
 		}
 		catch (SQLException e)
 		{

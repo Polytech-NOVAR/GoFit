@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import com.novar.util.StringUtil;
 
-public class Address
+public abstract class Address
 {
 	private Integer addressID;
 	private String street;
@@ -13,7 +13,7 @@ public class Address
 	private String zipCode;
 	private String country;
 	
-	public void setUp(HashMap<String,Object> data)
+	public Address(HashMap<String,Object> data)
 	{
 		
 		Class[] typeArg = new Class[1];
@@ -89,10 +89,12 @@ public class Address
 	
 	public String toString()
 	{
-		return ("ID : " + this.getAddressID() + "\n"
+		return ("\nID : " + this.getAddressID() + "\n"
 				+ "Street : " + this.getStreet() + "\n"
 				+ "Town : " + this.getTown() + "\n"
 				+ "ZipCode : " + this.getZipCode() + "\n"
 				+ "Country : " + this.getCountry());
 	}
+	
+	public abstract void save();
 }
