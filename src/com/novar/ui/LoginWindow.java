@@ -71,6 +71,7 @@ public class LoginWindow
 	private void initialize()
 	{
 		frame = new JFrame("GoFit");
+		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setResizable(false);
 		frame.setBounds(400, 400, 380, 520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,6 +90,7 @@ public class LoginWindow
 		logo = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource(IMAGE_PATH+"logo.jpg")).getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH)));
 		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.setBackground(Color.WHITE);
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -159,43 +161,47 @@ public class LoginWindow
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(134)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblPassword)
-								.addComponent(lblPseudo))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnRegister)
-								.addComponent(btnLogin)
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(passwordField)
-									.addComponent(pseudoTextField)
-									.addComponent(lblError))))
-						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(37)
-							.addComponent(logo)))
-					.addContainerGap(170, Short.MAX_VALUE))
+							.addComponent(logo))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(51)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblPseudo)
+										.addComponent(lblPassword))
+									.addGap(25)
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(lblError)
+										.addComponent(pseudoTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+										.addComponent(passwordField, Alignment.LEADING)))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(btnLogin)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(btnRegister)
+									.addGap(10)))))
+					.addContainerGap(37, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(38)
 					.addComponent(logo)
-					.addGap(24)
+					.addGap(18)
 					.addComponent(lblError)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPseudo)
-						.addComponent(pseudoTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(pseudoTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblPseudo))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPassword)
-						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnLogin)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnRegister)
-					.addContainerGap(86, Short.MAX_VALUE))
+						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblPassword))
+					.addGap(33)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnLogin)
+						.addComponent(btnRegister))
+					.addContainerGap(28, Short.MAX_VALUE))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}
