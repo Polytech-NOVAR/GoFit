@@ -18,7 +18,6 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
-import com.novar.business.RegisterBL;
 
 public class RegisterWindow extends JDialog {
 
@@ -123,8 +122,8 @@ public class RegisterWindow extends JDialog {
 					mapAddress.put("country", countryTextField.getText());
 					
 					
-					RegisterBL reg = new RegisterBL();
-					reg.register(mapUser, mapAddress);
+					/*RegisterBL reg = new RegisterBL();
+					reg.register(mapUser, mapAddress);*/
 					
 					//if(Pas d'erreur)
 					//	closeWindow();

@@ -33,7 +33,6 @@ public class FacadeMain {
 	{
 		theUser = kit.makeUser(dataUser);
 		theUser.load();
-		System.out.println(theUser);
 	}
 
 }

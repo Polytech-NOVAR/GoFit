@@ -2,14 +2,11 @@ package com.novar.ui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-<<<<<<< HEAD
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Canvas;
 import java.util.HashMap;
-=======
->>>>>>> origin/uis
 
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
@@ -20,8 +17,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
-
-<<<<<<< HEAD
 import com.novar.business.FacadeMain;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
@@ -34,27 +29,12 @@ import com.novar.persist.PersistKit;
 public class LoginWindow
 {
 	
-	final public static String IMAGE_PATH = "../images/";
+	final public static String IMAGE_PATH = "../img/";
 	private JFrame frame;
 	private JTextField pseudoTextField;
 	private JPasswordField passwordField;
 	private FacadeMain facade;
 	private JLabel logo;
-=======
-import com.novar.business.LoginBL;
-import com.novar.persistence.User;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Canvas;
-
-public class LoginWindow{
-
-	private JFrame frame;
-	private JTextField pseudoTextField;
-	private JPasswordField passwordField;
-	private LoginBL business;
-
 	
 	/**
 	 * Launch the application.
@@ -90,7 +70,7 @@ public class LoginWindow{
 	
 	private void initialize()
 	{
-		frame = new JFrame();
+		frame = new JFrame("GoFit");
 		frame.setResizable(false);
 		frame.setBounds(400, 400, 380, 520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,20 +91,6 @@ public class LoginWindow{
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Object connectedUser = business.login(pseudoTextField.getText(), new String(passwordField.getPassword()));
-				if(connectedUser instanceof User)
-				{
-					ConnectedWindow connected  = new ConnectedWindow();
-					connected.setVisible(true);
-					closeWindow();
-				}
-				else
-				{
-					lblError.setForeground(Color.RED);
-					lblError.setText((String) connectedUser);
-				}
-				//System.out.println(business.login(pseudoTextField.getText(), new String(passwordField.getPassword())));
-				
 				
 				HashMap<String,Object> mapUser = new HashMap<String,Object>();
 				mapUser.put("pseudo", pseudoTextField.getText());
@@ -133,15 +99,17 @@ public class LoginWindow{
 				try 
 				{
 					facade.login(mapUser);
-					System.out.println("Connexion r�ussie");
+					System.out.println("Connexion reussie");
 				} 
 				catch (FalseFieldsException e1) 
 				{
-					System.out.println(e1.getMessage()+ e1.getFalseFields());
+					lblError.setForeground(Color.RED);
+					lblError.setText(e1.getMessage()+ e1.getFalseFields());
 				}
 				catch (LoginFailedException e2) 
 				{
-					System.out.println(e2.getMessage());
+					lblError.setForeground(Color.RED);
+					lblError.setText(e2.getMessage());
 				}
 				
 				/* Pour le Register

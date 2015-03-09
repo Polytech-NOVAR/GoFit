@@ -211,7 +211,7 @@ public abstract class User
 				+ "Phone : " + this.getPhone() + "\n"
 				+ "Email : " + this.getEmail() + "\n"
 				+ "Adrress : " + this.getAddress() + "\n"
-				+ "Rôles : " + this.getRoles() + "\n";
+				+ "Roles : " + this.getRoles() + "\n";
 		
 		return result;	
 	}
