@@ -2,9 +2,6 @@ package com.novar.ui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Canvas;
 
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
@@ -15,31 +12,30 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
-import com.novar.util.ConnectionUtil;
+import com.novar.business.LoginBL;
+import com.novar.persistence.User;
 
-public class LoginWindow
-{
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Canvas;
+
+public class LoginWindow{
+
 	private JFrame frame;
 	private JTextField pseudoTextField;
 	private JPasswordField passwordField;
-	//private LoginBL business;
+	private LoginBL business;
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args)
-	{
-		EventQueue.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				try
-				{
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
 					LoginWindow window = new LoginWindow();
 					window.frame.setVisible(true);
-				}
-				catch (Exception e)
-				{
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -49,25 +45,24 @@ public class LoginWindow
 	/**
 	 * Create the application.
 	 */
-	public LoginWindow()
-	{
-		ConnectionUtil.start();
-		//business = new LoginBL();
+	public LoginWindow() {
+		business = new LoginBL();
 		initialize();
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize()
-	{
+	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblError = new JLabel("");
+		
 		JLabel lblPseudo = new JLabel("Pseudo:");
+		
 		JLabel lblPassword = new JLabel("Password:");
 		
 		pseudoTextField = new JTextField();
@@ -76,13 +71,10 @@ public class LoginWindow
 		passwordField = new JPasswordField();
 		
 		JButton btnLogin = new JButton("Login");
-		btnLogin.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				//Object connectedUser = business.login(pseudoTextField.getText(), new String(passwordField.getPassword()));
-				
-				/*if (connectedUser instanceof User)
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Object connectedUser = business.login(pseudoTextField.getText(), new String(passwordField.getPassword()));
+				if(connectedUser instanceof User)
 				{
 					ConnectedWindow connected  = new ConnectedWindow();
 					connected.setVisible(true);
@@ -92,18 +84,16 @@ public class LoginWindow
 				{
 					lblError.setForeground(Color.RED);
 					lblError.setText((String) connectedUser);
-				}*/
+				}
 				//System.out.println(business.login(pseudoTextField.getText(), new String(passwordField.getPassword())));
 			}
 		});
 		
 		JButton btnRegister = new JButton("Register");
-		btnRegister.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				/*RegisterWindow register = new RegisterWindow(frame);
-				register.setVisible(true);*/
+		btnRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RegisterWindow register = new RegisterWindow(frame);
+				register.setVisible(true);
 			}
 		});
 		
@@ -156,9 +146,7 @@ public class LoginWindow
 		frame.getContentPane().setLayout(groupLayout);
 	}
 
-	private void closeWindow()
-	{
-		ConnectionUtil.stop();
+	private void closeWindow(){
 		frame.dispose();
 	}
 }
