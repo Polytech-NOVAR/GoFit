@@ -1,11 +1,11 @@
-package com.novar.test;
+package com.novar.business;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 public class UserTest {
-
+	
 	@Test
 	public void testUser() {
 		fail("Not yet implemented");
@@ -118,6 +118,11 @@ public class UserTest {
 
 	@Test
 	public void testSave() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testMain() {
 		fail("Not yet implemented");
 	}
 

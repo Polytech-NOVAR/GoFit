@@ -1,13 +1,13 @@
-package com.novar.test;
+package com.novar.business;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class SpeakerTest {
+public class AdministratorTest {
 
 	@Test
-	public void testToString() {
+	public void test() {
 		fail("Not yet implemented");
 	}
 

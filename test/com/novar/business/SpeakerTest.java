@@ -1,10 +1,10 @@
-package com.novar.test;
+package com.novar.business;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class ManagerTest {
+public class SpeakerTest {
 
 	@Test
 	public void testToString() {

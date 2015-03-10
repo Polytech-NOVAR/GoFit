@@ -1,23 +1,23 @@
-package com.novar.test;
+package com.novar.business;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class FacadeMainTest {
+public class ConnectedUserTest {
 
 	@Test
-	public void testFacadeMain() {
+	public void testLoad() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testRegister() {
+	public void testSave() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testLogin() {
+	public void testCreate() {
 		fail("Not yet implemented");
 	}
 

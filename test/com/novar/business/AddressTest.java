@@ -1,4 +1,4 @@
-package com.novar.test;
+package com.novar.business;
 
 import static org.junit.Assert.*;
 

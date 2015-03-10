@@ -1,13 +1,13 @@
-package com.novar.test;
+package com.novar.ui;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class AdministratorTest {
+public class ConnectedWindowTest {
 
 	@Test
-	public void testToString() {
+	public void testConnectedWindow() {
 		fail("Not yet implemented");
 	}
 
