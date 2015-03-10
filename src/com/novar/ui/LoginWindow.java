@@ -1,8 +1,10 @@
 package com.novar.ui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Canvas;
@@ -17,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+
 import com.novar.business.FacadeMain;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
@@ -25,6 +28,10 @@ import com.novar.util.ConnectionUtil;
 import com.novar.util.StringUtil;
 import com.novar.persist.JdbcKit;
 import com.novar.persist.PersistKit;
+
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 public class LoginWindow
 {
@@ -69,58 +76,111 @@ public class LoginWindow
 	
 	private void initialize()
 	{
-<<<<<<< HEAD
 		frame = new JFrame("GoFit");
-=======
-		frame = new JFrame("GoFit");
->>>>>>> origin/login
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setResizable(false);
-		frame.setBounds(400, 400, 380, 520);
+		Toolkit tk = Toolkit.getDefaultToolkit(); 
+		Dimension d = tk.getScreenSize();
+		int hauteurEcran = d.height;
+		int largeurEcran = d.width; 
+		frame.setBounds(largeurEcran/3, hauteurEcran/5, 380, 520);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		JLabel lblError = new JLabel("");
-		
-		JLabel lblPseudo = new JLabel("Pseudo:");
-		
-		JLabel lblPassword = new JLabel("Password:");
-		
-		pseudoTextField = new JTextField();
-		pseudoTextField.setColumns(10);
-		
-		passwordField = new JPasswordField();
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{37, 103, 57, 128, 0};
+		gridBagLayout.rowHeights = new int[]{38, 300, 39, 14, 20, 20, 23, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		frame.getContentPane().setLayout(gridBagLayout);
 		
 		logo = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource(IMAGE_PATH+"logo.jpg")).getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH)));
-	
-		JButton btnLogin = new JButton("Login");
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				HashMap<String,Object> mapUser = new HashMap<String,Object>();
-				mapUser.put("pseudo", pseudoTextField.getText());
-				mapUser.put("password", new String(passwordField.getPassword()));
-				
-				ConnectedWindow connectWindow = new ConnectedWindow();
-				connectWindow.setVisible(true);
-				closeWindow();
-				
-				try 
-				{
-					facade.login(mapUser);
-					System.out.println("Connexion reussie");
-				} 
-				catch (FalseFieldsException e1) 
-				{
-					lblError.setForeground(Color.RED);
-					lblError.setText(e1.getMessage()+ e1.getFalseFields());
+		GridBagConstraints gbc_logo = new GridBagConstraints();
+		gbc_logo.anchor = GridBagConstraints.NORTHWEST;
+		gbc_logo.insets = new Insets(0, 0, 5, 0);
+		gbc_logo.gridwidth = 3;
+		gbc_logo.gridx = 1;
+		gbc_logo.gridy = 1;
+		frame.getContentPane().add(logo, gbc_logo);
+		
+		JLabel lblError = new JLabel("Error");
+		lblError.setForeground(Color.WHITE);
+		GridBagConstraints gbc_lblError = new GridBagConstraints();
+		gbc_lblError.gridwidth = 2;
+		gbc_lblError.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lblError.insets = new Insets(0, 0, 5, 5);
+		gbc_lblError.gridx = 2;
+		gbc_lblError.gridy = 3;
+		frame.getContentPane().add(lblError, gbc_lblError);
+		
+		JLabel lblPseudo = new JLabel("Pseudo:");
+		GridBagConstraints gbc_lblPseudo = new GridBagConstraints();
+		gbc_lblPseudo.anchor = GridBagConstraints.EAST;
+		gbc_lblPseudo.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPseudo.gridx = 1;
+		gbc_lblPseudo.gridy = 4;
+		frame.getContentPane().add(lblPseudo, gbc_lblPseudo);
+		
+			JButton btnLogin = new JButton("Login");
+			btnLogin.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					HashMap<String,Object> mapUser = new HashMap<String,Object>();
+					mapUser.put("pseudo", pseudoTextField.getText());
+					mapUser.put("password", new String(passwordField.getPassword()));
+					
+					try 
+					{
+						facade.login(mapUser);
+						ConnectedWindow connectWindow = new ConnectedWindow();
+						connectWindow.setVisible(true);
+						closeWindow();
+					} 
+					catch (FalseFieldsException e1) 
+					{
+						lblError.setForeground(Color.RED);
+						lblError.setText(e1.getMessage()+ e1.getFalseFields());
+					}
+					catch (LoginFailedException e2) 
+					{
+						lblError.setForeground(Color.RED);
+						lblError.setText(e2.getMessage());
+					}
 				}
-				catch (LoginFailedException e2) 
-				{
-					lblError.setForeground(Color.RED);
-					lblError.setText(e2.getMessage());
-				}
-			}
-		});
+			});
+			
+			pseudoTextField = new JTextField();
+			pseudoTextField.setColumns(10);
+			GridBagConstraints gbc_pseudoTextField = new GridBagConstraints();
+			gbc_pseudoTextField.anchor = GridBagConstraints.NORTH;
+			gbc_pseudoTextField.fill = GridBagConstraints.HORIZONTAL;
+			gbc_pseudoTextField.insets = new Insets(0, 0, 5, 0);
+			gbc_pseudoTextField.gridwidth = 2;
+			gbc_pseudoTextField.gridx = 2;
+			gbc_pseudoTextField.gridy = 4;
+			frame.getContentPane().add(pseudoTextField, gbc_pseudoTextField);
+			
+			JLabel lblPassword = new JLabel("Password:");
+			GridBagConstraints gbc_lblPassword = new GridBagConstraints();
+			gbc_lblPassword.anchor = GridBagConstraints.EAST;
+			gbc_lblPassword.insets = new Insets(0, 0, 5, 5);
+			gbc_lblPassword.gridx = 1;
+			gbc_lblPassword.gridy = 5;
+			frame.getContentPane().add(lblPassword, gbc_lblPassword);
+			
+			passwordField = new JPasswordField();
+			GridBagConstraints gbc_passwordField = new GridBagConstraints();
+			gbc_passwordField.anchor = GridBagConstraints.NORTH;
+			gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
+			gbc_passwordField.insets = new Insets(0, 0, 5, 0);
+			gbc_passwordField.gridwidth = 2;
+			gbc_passwordField.gridx = 2;
+			gbc_passwordField.gridy = 5;
+			frame.getContentPane().add(passwordField, gbc_passwordField);
+			GridBagConstraints gbc_btnLogin = new GridBagConstraints();
+			gbc_btnLogin.anchor = GridBagConstraints.NORTHWEST;
+			gbc_btnLogin.insets = new Insets(0, 0, 0, 5);
+			gbc_btnLogin.gridx = 2;
+			gbc_btnLogin.gridy = 6;
+			frame.getContentPane().add(btnLogin, gbc_btnLogin);
 		
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
@@ -129,108 +189,11 @@ public class LoginWindow
 				register.setVisible(true);
 			}
 		});
-		
-	    
-<<<<<<< HEAD
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(37)
-					.addComponent(logo)
-					.addGap(43))
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(68, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(14)
-							.addComponent(lblPseudo)
-							.addPreferredGap(ComponentPlacement.RELATED))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(lblPassword)
-							.addPreferredGap(ComponentPlacement.RELATED)))
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnLogin)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnRegister))
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(lblError)
-							.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-							.addComponent(pseudoTextField)))
-					.addGap(63))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(38)
-					.addComponent(logo)
-					.addPreferredGap(ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-					.addComponent(lblError)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPseudo)
-						.addComponent(pseudoTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPassword))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnLogin)
-						.addComponent(btnRegister))
-					.addGap(20))
-=======
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(37)
-							.addComponent(logo))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(51)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblPseudo)
-										.addComponent(lblPassword))
-									.addGap(25)
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(lblError)
-										.addComponent(pseudoTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-										.addComponent(passwordField, Alignment.LEADING)))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(btnLogin)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(btnRegister)
-									.addGap(10)))))
-					.addContainerGap(37, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(38)
-					.addComponent(logo)
-					.addGap(18)
-					.addComponent(lblError)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(pseudoTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPseudo))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPassword))
-					.addGap(33)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnLogin)
-						.addComponent(btnRegister))
-					.addContainerGap(28, Short.MAX_VALUE))
->>>>>>> origin/login
-		);
-		frame.getContentPane().setLayout(groupLayout);
+		GridBagConstraints gbc_btnRegister = new GridBagConstraints();
+		gbc_btnRegister.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnRegister.gridx = 3;
+		gbc_btnRegister.gridy = 6;
+		frame.getContentPane().add(btnRegister, gbc_btnRegister);
 	}
 
 	private void closeWindow(){

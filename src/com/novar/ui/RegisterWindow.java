@@ -2,6 +2,8 @@ package com.novar.ui;
 
 import java.awt.Color;
 import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -50,7 +52,11 @@ public class RegisterWindow extends JDialog {
 		super(frame, "Register", Dialog.ModalityType.DOCUMENT_MODAL);
 		this.facade = facade;
 		setResizable(false);
-		setBounds(100, 100, 550, 504);
+		Toolkit tk = Toolkit.getDefaultToolkit(); 
+		Dimension d = tk.getScreenSize();
+		int hauteurEcran = d.height;
+		int largeurEcran = d.width; 
+		setBounds(largeurEcran/4, hauteurEcran/4, 550, 504);
 		setAlwaysOnTop(true);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
