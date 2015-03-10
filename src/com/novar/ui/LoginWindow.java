@@ -66,11 +66,14 @@ public class LoginWindow
 	/**
 	 * Initialize the contents of the frame.
 	 */
-
 	
 	private void initialize()
 	{
+<<<<<<< HEAD
 		frame = new JFrame("GoFit");
+=======
+		frame = new JFrame("GoFit");
+>>>>>>> origin/login
 		frame.getContentPane().setBackground(Color.WHITE);
 		frame.setResizable(false);
 		frame.setBounds(400, 400, 380, 520);
@@ -88,7 +91,7 @@ public class LoginWindow
 		passwordField = new JPasswordField();
 		
 		logo = new JLabel(new ImageIcon(new ImageIcon(getClass().getResource(IMAGE_PATH+"logo.jpg")).getImage().getScaledInstance(300, 300, Image.SCALE_SMOOTH)));
-		
+	
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -96,6 +99,10 @@ public class LoginWindow
 				HashMap<String,Object> mapUser = new HashMap<String,Object>();
 				mapUser.put("pseudo", pseudoTextField.getText());
 				mapUser.put("password", new String(passwordField.getPassword()));
+				
+				ConnectedWindow connectWindow = new ConnectedWindow();
+				connectWindow.setVisible(true);
+				closeWindow();
 				
 				try 
 				{
@@ -124,6 +131,7 @@ public class LoginWindow
 		});
 		
 	    
+<<<<<<< HEAD
 		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -172,6 +180,55 @@ public class LoginWindow
 						.addComponent(btnLogin)
 						.addComponent(btnRegister))
 					.addGap(20))
+=======
+		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(37)
+							.addComponent(logo))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(51)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblPseudo)
+										.addComponent(lblPassword))
+									.addGap(25)
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(lblError)
+										.addComponent(pseudoTextField, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+										.addComponent(passwordField, Alignment.LEADING)))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(btnLogin)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(btnRegister)
+									.addGap(10)))))
+					.addContainerGap(37, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(38)
+					.addComponent(logo)
+					.addGap(18)
+					.addComponent(lblError)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(pseudoTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblPseudo))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblPassword))
+					.addGap(33)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnLogin)
+						.addComponent(btnRegister))
+					.addContainerGap(28, Short.MAX_VALUE))
+>>>>>>> origin/login
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}
