@@ -7,10 +7,10 @@ import com.novar.exception.*;
 import com.novar.persist.PersistKit;
 import com.novar.util.StringUtil;
 
-public class FacadeMain {
-	
-	private User theUser;
-	private PersistKit kit;
+public class FacadeMain
+{
+	private User theUser = null;
+	private PersistKit kit = null;
 	
 	public FacadeMain(PersistKit kit)
 	{
@@ -31,8 +31,11 @@ public class FacadeMain {
 	
 	public void login(HashMap<String,Object> dataUser) throws LoginFailedException, FalseFieldsException
 	{
-		theUser = kit.makeUser(dataUser);
-		theUser.load();
+		if (theUser == null)
+		{
+			theUser = kit.makeUser(dataUser);
+			theUser.load();
+		}
 	}
 
 }
