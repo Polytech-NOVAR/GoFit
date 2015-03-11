@@ -29,7 +29,7 @@ public interface PersistKit
 	 * @see Address
 	 * @see HashMap
 	 */
-	public Address makeAddress(HashMap<String,Object> data);
+	public Address makeAddress(HashMap<String,Object> data) throws FalseFieldsException;
 	
 	/**
 	 * This is the declaration of the method to make a user

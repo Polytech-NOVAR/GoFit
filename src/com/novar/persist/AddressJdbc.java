@@ -8,11 +8,12 @@ import java.sql.Types;
 import java.util.HashMap;
 
 import com.novar.business.Address;
+import com.novar.exception.FalseFieldsException;
 import com.novar.util.ConnectionUtil;
 
 public class AddressJdbc extends Address
 {
-	public AddressJdbc(HashMap<String,Object> data)
+	public AddressJdbc(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		super(data);
 	}

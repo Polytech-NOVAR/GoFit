@@ -28,7 +28,7 @@ public class JdbcKit implements PersistKit
 	 * @see AddressJdbc
 	 * @see HashMap
 	 */
-	public AddressJdbc makeAddress(HashMap<String,Object> data)
+	public AddressJdbc makeAddress(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		return new AddressJdbc(data);
 	}

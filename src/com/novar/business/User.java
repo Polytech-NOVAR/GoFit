@@ -71,9 +71,16 @@ public abstract class User
 		return pseudo;
 	}
 	
-	public void setPseudo(String pseudo)
+	public void setPseudo(String pseudo) throws SyntaxException
 	{
-		this.pseudo = pseudo;
+		Pattern pPseudo = Pattern.compile("^[a-zA-Z0-9-_]{6,51}$");
+		Matcher mPseudo = pPseudo.matcher(pseudo);
+		if(mPseudo.matches())
+		{
+			this.pseudo = pseudo;
+		}
+		else
+			throw new SyntaxException("pseudo");
 	}
 	
 	public String getPassword()
@@ -81,16 +88,23 @@ public abstract class User
 		return password;
 	}
 	
-	public void setPassword(String password)
+	public void setPassword(String password) throws SyntaxException
 	{
-		this.password = StringUtil.sha256(password);
+		Pattern pPass = Pattern.compile("^[a-zA-Z0-9]{6,51}$");
+		Matcher mPass = pPass.matcher(password);
+		if(mPass.matches())
+		{
+			this.password = StringUtil.sha256(password);
+		}
+		else
+			throw new SyntaxException("password");
 	}
 	
 	public void setPassword(String password, String confirmPassword)
 	{
 		if (password == confirmPassword)
 		{
-			setPassword(password);
+			//setPassword(password);
 		}
 	}
 	
@@ -101,7 +115,7 @@ public abstract class User
 	
 	public void setLastName(String lastName) throws SyntaxException
 	{
-		Pattern pLast = Pattern.compile("^[a-zA-Z-]{1,51}");
+		Pattern pLast = Pattern.compile("^[a-zA-Z-]{1,51}$");
 		Matcher mLast = pLast.matcher(lastName);
 		
 		if(mLast.matches())
@@ -119,7 +133,7 @@ public abstract class User
 	
 	public void setFirstName(String firstName) throws SyntaxException
 	{
-		Pattern pFirst = Pattern.compile("^[a-zA-Z-]{1,51}");
+		Pattern pFirst = Pattern.compile("^[a-zA-Z-]{1,51}$");
 		Matcher mFirst = pFirst.matcher(firstName);
 		if(mFirst.matches())
 		{

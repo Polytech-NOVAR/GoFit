@@ -32,6 +32,7 @@ import com.novar.persist.PersistKit;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.Font;
 
 public class LoginWindow
 {
@@ -112,6 +113,7 @@ public class LoginWindow
 		frame.getContentPane().add(lblError, gbc_lblError);
 		
 		JLabel lblPseudo = new JLabel("Pseudo:");
+		lblPseudo.setFont(new Font("Calibri", Font.PLAIN, 11));
 		GridBagConstraints gbc_lblPseudo = new GridBagConstraints();
 		gbc_lblPseudo.anchor = GridBagConstraints.EAST;
 		gbc_lblPseudo.insets = new Insets(0, 0, 5, 5);
@@ -120,6 +122,7 @@ public class LoginWindow
 		frame.getContentPane().add(lblPseudo, gbc_lblPseudo);
 		
 			JButton btnLogin = new JButton("Login");
+			btnLogin.setFont(new Font("Calibri", Font.PLAIN, 12));
 			btnLogin.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
@@ -159,6 +162,7 @@ public class LoginWindow
 			frame.getContentPane().add(pseudoTextField, gbc_pseudoTextField);
 			
 			JLabel lblPassword = new JLabel("Password:");
+			lblPassword.setFont(new Font("Calibri", Font.PLAIN, 11));
 			GridBagConstraints gbc_lblPassword = new GridBagConstraints();
 			gbc_lblPassword.anchor = GridBagConstraints.EAST;
 			gbc_lblPassword.insets = new Insets(0, 0, 5, 5);
@@ -183,6 +187,7 @@ public class LoginWindow
 			frame.getContentPane().add(btnLogin, gbc_btnLogin);
 		
 		JButton btnRegister = new JButton("Register");
+		btnRegister.setFont(new Font("Calibri", Font.PLAIN, 12));
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegisterWindow register = new RegisterWindow(frame,facade);

@@ -26,6 +26,7 @@ import javax.swing.border.EmptyBorder;
 
 import com.novar.business.FacadeMain;
 import com.novar.exception.FalseFieldsException;
+import java.awt.Font;
 
 
 public class RegisterWindow extends JDialog {
@@ -56,7 +57,7 @@ public class RegisterWindow extends JDialog {
 		Dimension d = tk.getScreenSize();
 		int hauteurEcran = d.height;
 		int largeurEcran = d.width; 
-		setBounds(largeurEcran/4, hauteurEcran/4, 550, 504);
+		setBounds(largeurEcran/4, hauteurEcran/4,600, 504);
 		setAlwaysOnTop(true);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
@@ -64,26 +65,57 @@ public class RegisterWindow extends JDialog {
 		setContentPane(contentPane);
 		
 		JLabel lblPseudo = new JLabel("Pseudo:");	
+		lblPseudo.setFont(new Font("Calibri", Font.PLAIN, 11));
 		JLabel lblFisrtname = new JLabel("FisrtName:");
+		lblFisrtname.setFont(new Font("Calibri", Font.PLAIN, 11));
 		JLabel lblLastname = new JLabel("LastName:");
+		lblLastname.setFont(new Font("Calibri", Font.PLAIN, 11));
 		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setFont(new Font("Calibri", Font.PLAIN, 11));
 		JLabel lblConfirmpassword = new JLabel("Confirm password:");
+		lblConfirmpassword.setFont(new Font("Calibri", Font.PLAIN, 11));
 		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setFont(new Font("Calibri", Font.PLAIN, 11));
 		JLabel lblTel = new JLabel("Tel:");
+		lblTel.setFont(new Font("Calibri", Font.PLAIN, 11));
 		JLabel lblStreet = new JLabel("Street:");
+		lblStreet.setFont(new Font("Calibri", Font.PLAIN, 11));
 		JLabel lblCity = new JLabel("City:");
+		lblCity.setFont(new Font("Calibri", Font.PLAIN, 11));
 		JLabel lblZipcode = new JLabel("ZipCode:");
+		lblZipcode.setFont(new Font("Calibri", Font.PLAIN, 11));
 		JLabel lblCountry = new JLabel("Country:");
-		JLabel lblErrorPseudo = new JLabel("");
-		JLabel lblErrorFirst = new JLabel("");
-		JLabel lblErrorLast = new JLabel("");
-		JLabel lblErrorEmail = new JLabel("");	
-		JLabel lblErrorPass = new JLabel("");
-		JLabel lblErrorTel = new JLabel("");
-		JLabel lblErrorStreet = new JLabel("");
-		JLabel lblErrorCity = new JLabel("");
-		JLabel lblErrorZip = new JLabel("");
-		JLabel lblErrorCountry = new JLabel("");
+		lblCountry.setFont(new Font("Calibri", Font.PLAIN, 11));
+		JLabel lblErrorPseudo = new JLabel("The pseudo field must contains 6 to 32 letters or numbers.");
+		lblErrorPseudo.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorPseudo.setVisible(false);
+		JLabel lblErrorFirst = new JLabel("The pseudo field must contains 1 to 50 letters.");
+		lblErrorFirst.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorFirst.setVisible(false);
+		JLabel lblErrorLast = new JLabel("The pseudo field must contains 1 to 50 letters.");
+		lblErrorLast.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorLast.setVisible(false);
+		JLabel lblErrorEmail = new JLabel("Invalid email.");
+		lblErrorEmail.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorEmail.setVisible(false);
+		JLabel lblErrorPass = new JLabel("The password must contains 6 to 50 letters or numbers.");
+		lblErrorPass.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorPass.setVisible(false);
+		JLabel lblErrorTel = new JLabel("Invalid phone number.");
+		lblErrorTel.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorTel.setVisible(false);
+		JLabel lblErrorStreet = new JLabel("The street field must contains 1 to 50 letters or numbers.");
+		lblErrorStreet.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorStreet.setVisible(false);
+		JLabel lblErrorCity = new JLabel("The city field must contains 1 to 50 letters.");
+		lblErrorCity.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorCity.setVisible(false);
+		JLabel lblErrorZip = new JLabel("The zipCode field must contains 6 to  numbers.");
+		lblErrorZip.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorZip.setVisible(false);
+		JLabel lblErrorCountry = new JLabel("The country field must contains 6 to  letters.");
+		lblErrorCountry.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorCountry.setVisible(false);
 		
 		pseudoTextField = new JTextField();
 		pseudoTextField.setColumns(10);
@@ -119,6 +151,7 @@ public class RegisterWindow extends JDialog {
 		defaultBorder = countryTextField.getBorder();
 		
 		JButton btnRegister = new JButton("Register");
+		btnRegister.setFont(new Font("Calibri", Font.PLAIN, 11));
 		
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -135,6 +168,16 @@ public class RegisterWindow extends JDialog {
 					cityTextField.setBorder(defaultBorder);
 					zipTextField.setBorder(defaultBorder);
 					countryTextField.setBorder(defaultBorder);
+					lblErrorPseudo.setVisible(false);
+					lblErrorFirst.setVisible(false);
+					lblErrorLast.setVisible(false);
+					lblErrorPass.setVisible(false);
+					lblErrorEmail.setVisible(false);
+					lblErrorTel.setVisible(false);
+					lblErrorStreet.setVisible(false);
+					lblErrorCity.setVisible(false);
+					lblErrorZip.setVisible(false);
+					lblErrorCountry.setVisible(false);
 					
 					HashMap<String,Object> mapUser = new HashMap<String,Object>();
 					mapUser.put("pseudo", pseudoTextField.getText());
@@ -157,43 +200,52 @@ public class RegisterWindow extends JDialog {
 					catch (FalseFieldsException e2) 
 					{
 						ArrayList<String> errors = e2.getFalseFields();
-						
 						for(int i = 0 ; i <errors.size() ; i++)
 						{
 							switch(errors.get(i))
 							{
 								case "pseudo" : pseudoTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 												pseudoTextField.setText("");
+												lblErrorPseudo.setVisible(true);
 								break;
-								case "fisrtName" : firstTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+								case "firstName" : firstTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 												   firstTextField.setText("");
+												   lblErrorFirst.setVisible(true);
 								break;
 								case "lastName" : lastTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 												  lastTextField.setText("");
+												  lblErrorLast.setVisible(true);
 								break;
 								case "password" : passwordField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 												  passwordField.setText("");
+												  lblErrorPass.setVisible(true);
 								break;
 								case "confirm" : confirmField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 												 confirmField.setText("");
 								break;
 								case "email" : emailTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 											   emailTextField.setText("");
+											   lblErrorEmail.setVisible(true);
 								break;
 								case "phone" : telTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 											   telTextField.setText("");
+											   lblErrorTel.setVisible(true);
 								break;
 								case "street" : streetTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 												streetTextField.setText("");
+												lblErrorStreet.setVisible(true);
 								break;
 								case "town" : cityTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 											  cityTextField.setText("");
+											  lblErrorCity.setVisible(true);
 								break;
 								case "zipCode" : zipTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 												 zipTextField.setText("");
+												 lblErrorZip.setVisible(true);
 								break;
 								case "country" : countryTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 												 countryTextField.setText("");
+												 lblErrorCountry.setVisible(true);
 								break;
 			
 							}
@@ -217,6 +269,7 @@ public class RegisterWindow extends JDialog {
 		});
 		
 		JButton btnCancel = new JButton("Cancel");
+		btnCancel.setFont(new Font("Calibri", Font.PLAIN, 11));
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				closeWindow();
@@ -228,9 +281,9 @@ public class RegisterWindow extends JDialog {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+					.addGap(53)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(88)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 								.addComponent(lblCountry)
 								.addComponent(lblZipcode)
@@ -255,14 +308,12 @@ public class RegisterWindow extends JDialog {
 								.addComponent(zipTextField)
 								.addComponent(countryTextField)
 								.addComponent(confirmField)
-								.addComponent(passwordField))
-							.addPreferredGap(ComponentPlacement.RELATED))
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(passwordField)))
+						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(btnCancel)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnRegister)
-							.addPreferredGap(ComponentPlacement.RELATED)))
+							.addComponent(btnRegister)))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblErrorCountry)
 						.addComponent(lblErrorZip)
@@ -274,7 +325,7 @@ public class RegisterWindow extends JDialog {
 						.addComponent(lblErrorLast)
 						.addComponent(lblErrorFirst)
 						.addComponent(lblErrorPseudo))
-					.addGap(166))
+					.addContainerGap(201, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -337,7 +388,7 @@ public class RegisterWindow extends JDialog {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnCancel)
 						.addComponent(btnRegister))
-					.addContainerGap(30, Short.MAX_VALUE))
+					.addContainerGap(118, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

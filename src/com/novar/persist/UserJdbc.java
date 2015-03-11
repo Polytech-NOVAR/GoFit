@@ -116,8 +116,14 @@ public class UserJdbc extends User{
 				mapAddress.put("town", resAddress.getString("town"));
 				mapAddress.put("zipCode", resAddress.getString("zipCode"));
 				mapAddress.put("country", resAddress.getString("country"));
-				AddressJdbc ad1 = fabric.makeAddress(mapAddress);
-				adds.add(ad1);
+				AddressJdbc ad1;
+				try {
+					ad1 = fabric.makeAddress(mapAddress);
+					adds.add(ad1);
+				} catch (FalseFieldsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}			
 			}
 			this.setAddress(adds);
 		}
