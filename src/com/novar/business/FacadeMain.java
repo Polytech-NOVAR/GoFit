@@ -27,8 +27,9 @@ public class FacadeMain
 	{
 		if (theUser == null)
 		{
-			theUser = kit.makeUser(dataUser);
-			theUser.load();
+			User userInLogin = kit.makeUser(dataUser);
+			userInLogin.load();
+			theUser = userInLogin;
 		}
 	}
 

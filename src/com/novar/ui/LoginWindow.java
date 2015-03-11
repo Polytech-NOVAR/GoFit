@@ -140,12 +140,16 @@ public class LoginWindow
 					catch (FalseFieldsException e1) 
 					{
 						lblError.setForeground(Color.RED);
-						lblError.setText(e1.getMessage()+ e1.getFalseFields());
+						lblError.setText("Wrong pseudo and/or password");
+						pseudoTextField.setText("");
+						passwordField.setText("");
 					}
 					catch (LoginFailedException e2) 
 					{
 						lblError.setForeground(Color.RED);
 						lblError.setText(e2.getMessage());
+						pseudoTextField.setText("");
+						passwordField.setText("");
 					}
 				}
 			});
