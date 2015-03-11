@@ -17,14 +17,8 @@ public class FacadeMain
 		this.kit = kit;
 	}
 	
-	public void register(HashMap<String,Object> dataUser, HashMap<String,Object> dataAddress) throws Exception
+	public void register(HashMap<String,Object> dataUser) throws Exception
 	{
-		Address registrationAdress = kit.makeAddress(dataAddress);
-		ArrayList<Address> listAdress = new ArrayList<Address>(); 
-		listAdress.add(registrationAdress); //Une seule adresse pour l'inscription
-		
-		dataUser.put("address", listAdress);
-		
 		User userInRegistration = kit.makeUser(dataUser);
 		userInRegistration.save();
 	}

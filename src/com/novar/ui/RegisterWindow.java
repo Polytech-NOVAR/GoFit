@@ -101,6 +101,9 @@ public class RegisterWindow extends JDialog {
 		JLabel lblErrorPass = new JLabel("The password must contains 6 to 50 letters or numbers.");
 		lblErrorPass.setFont(new Font("Calibri", Font.PLAIN, 11));
 		lblErrorPass.setVisible(false);
+		JLabel lblErrorConfirm = new JLabel("The two passwords must be equals.");
+		lblErrorConfirm.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorConfirm.setVisible(false);
 		JLabel lblErrorTel = new JLabel("Invalid phone number.");
 		lblErrorTel.setFont(new Font("Calibri", Font.PLAIN, 11));
 		lblErrorTel.setVisible(false);
@@ -172,6 +175,7 @@ public class RegisterWindow extends JDialog {
 					lblErrorFirst.setVisible(false);
 					lblErrorLast.setVisible(false);
 					lblErrorPass.setVisible(false);
+					lblErrorConfirm.setVisible(false);
 					lblErrorEmail.setVisible(false);
 					lblErrorTel.setVisible(false);
 					lblErrorStreet.setVisible(false);
@@ -186,16 +190,15 @@ public class RegisterWindow extends JDialog {
 					mapUser.put("firstName", firstTextField.getText());
 					mapUser.put("phone", telTextField.getText());
 					mapUser.put("email", emailTextField.getText());
-					
-					HashMap<String,Object> mapAddress = new HashMap<String,Object>();
-					mapAddress.put("street", streetTextField.getText());
-					mapAddress.put("town", cityTextField.getText());
-					mapAddress.put("zipCode", zipTextField.getText());
-					mapAddress.put("country", countryTextField.getText());
+					mapUser.put("street", streetTextField.getText());
+					mapUser.put("town", cityTextField.getText());
+					mapUser.put("zipCode", zipTextField.getText());
+					mapUser.put("country", countryTextField.getText());
 					
 					try 
 					{
-						facade.register(mapUser, mapAddress);
+						facade.register(mapUser);
+						closeWindow();
 					} 
 					catch (FalseFieldsException e2) 
 					{
@@ -261,9 +264,11 @@ public class RegisterWindow extends JDialog {
 					//	closeWindow();
 				}
 				else{
-					lblErrorPass.setText("The 2 passwords are not equals.");
-					passwordField.setBackground(Color.RED);
-					confirmField.setBackground(Color.RED);
+					passwordField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+					passwordField.setText("");
+					confirmField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+					confirmField.setText("");
+					lblErrorConfirm.setVisible(true);
 				}
 			}
 		});
@@ -275,8 +280,7 @@ public class RegisterWindow extends JDialog {
 				closeWindow();
 			}
 		});
-		
-		
+				
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -324,8 +328,9 @@ public class RegisterWindow extends JDialog {
 						.addComponent(lblErrorEmail)
 						.addComponent(lblErrorLast)
 						.addComponent(lblErrorFirst)
-						.addComponent(lblErrorPseudo))
-					.addContainerGap(201, Short.MAX_VALUE))
+						.addComponent(lblErrorPseudo)
+						.addComponent(lblErrorConfirm))
+					.addContainerGap(76, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -358,7 +363,8 @@ public class RegisterWindow extends JDialog {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblConfirmpassword)
-						.addComponent(confirmField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(confirmField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblErrorConfirm))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTel)
@@ -396,5 +402,4 @@ public class RegisterWindow extends JDialog {
 	private void closeWindow(){
 		this.dispose();
 	}
-
 }

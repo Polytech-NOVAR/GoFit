@@ -23,7 +23,10 @@ public abstract class User
 	private String firstName;
 	private String phone;
 	private String email;
-	private ArrayList<Address> address;
+	private String street;
+	private String town;
+	private String zipCode;
+	private String country;
 	private List<Role> roles = Arrays.asList(new Role[4]);
 	
 	public User()
@@ -64,8 +67,6 @@ public abstract class User
 			throw new FalseFieldsException(errors);
 	}
 	
-	public User(String pseudo, String password){}
-	
 	public String getPseudo()
 	{
 		return pseudo;
@@ -98,14 +99,6 @@ public abstract class User
 		}
 		else
 			throw new SyntaxException("password");
-	}
-	
-	public void setPassword(String password, String confirmPassword)
-	{
-		if (password == confirmPassword)
-		{
-			//setPassword(password);
-		}
 	}
 	
 	public String getLastName()
@@ -178,15 +171,73 @@ public abstract class User
 		else
 			throw new SyntaxException("email");
 	}
-	
-	public ArrayList<Address> getAddress()
+
+	public String getStreet()
 	{
-		return address;
+		return street;
 	}
 	
-	public void setAddress(ArrayList<Address> adds)
+	public void setStreet(String street) throws SyntaxException
 	{
-		this.address = adds;
+		Pattern pAddress = Pattern.compile("^[0-9]{1,3} [a-zA-Z- ]{2,48}$");
+		Matcher mAddress = pAddress.matcher(street);
+		if(mAddress.matches())
+		{
+			this.street = street;
+		}
+		else
+			throw new SyntaxException("street");
+	}
+	
+	public String getTown()
+	{
+		return town;
+	}
+	
+	public void setTown(String town) throws SyntaxException
+	{
+		Pattern pTown = Pattern.compile("^[a-zA-Z-]{2,51}$");
+		Matcher mTown = pTown.matcher(town);
+		if(mTown.matches())
+		{
+			this.town = town;
+		}
+		else
+			throw new SyntaxException("town");
+	}
+	
+	public String getZipCode()
+	{
+		return zipCode;
+	}
+	
+	public void setZipCode(String zipCode) throws SyntaxException
+	{
+		Pattern pZip = Pattern.compile("^[0-9]{5}$");
+		Matcher mZip = pZip.matcher(zipCode);
+		if(mZip.matches())
+		{
+			this.zipCode = zipCode;
+		}
+		else
+			throw new SyntaxException("zipCode");
+	}
+	
+	public String getCountry()
+	{
+		return country;
+	}
+	
+	public void setCountry(String country) throws SyntaxException
+	{
+		Pattern pCountry = Pattern.compile("^[a-zA-Z-]{2,51}$");
+		Matcher mCountry = pCountry.matcher(country);
+		if(mCountry.matches())
+		{
+			this.country = country;
+		}
+		else
+			throw new SyntaxException("country");
 	}
 	
 	public List<Role> getRoles()
@@ -224,7 +275,10 @@ public abstract class User
 				+ "FirstName : " + this.getFirstName() + "\n"
 				+ "Phone : " + this.getPhone() + "\n"
 				+ "Email : " + this.getEmail() + "\n"
-				+ "Adrress : " + this.getAddress() + "\n"
+				+ "Street : " + this.getStreet() + "\n"
+				+ "City : " + this.getTown() + "\n"
+				+ "ZipCode : " + this.getZipCode() + "\n"
+				+ "Country : " + this.getCountry() + "\n"
 				+ "Roles : " + this.getRoles() + "\n";
 		
 		return result;	
@@ -235,79 +289,4 @@ public abstract class User
 	public abstract void save() throws Exception;
 	/*public abstract void update();
 	public abstract void delete();*/
-	
-	public static void main(String[] args)
-	{
-		
-		ConnectionUtil.start();
-		
-		PersistKit fabric = new JdbcKit();
-		
-		/*
-		 * Test Register
-		 */
-		// TODO Auto-generated method stub
-		/*HashMap<String,Object> map = new HashMap<String,Object>();
-		map.put("pseudo", "pip");
-		map.put("password", "popo");
-		map.put("lastName", "JORG");
-		map.put("firstName", "Antoine");
-		map.put("phone", "0629294062");
-		map.put("email", "pip@ppo.fr");
-		
-		ArrayList<Address> adds = new ArrayList<Address>();
-		
-		HashMap<String,Object> mapAddress = new HashMap<String,Object>();
-		mapAddress.put("street", "Rue 1");
-		mapAddress.put("town", "Ville 1");
-		mapAddress.put("zipCode", "12345");
-		mapAddress.put("country", "Pays 1");
-		
-		HashMap<String,Object> mapAddress2 = new HashMap<String,Object>();
-		mapAddress2.put("street", "Rue 2");
-		mapAddress2.put("town", "Ville 2");
-		mapAddress2.put("zipCode", "1245");
-		mapAddress2.put("country", "Pays 2");
-		
-		Address ad1 = fabric.makeAddress(mapAddress);
-		Address ad2 = fabric.makeAddress(mapAddress2);
-		
-		adds.add(ad1);
-		adds.add(ad2);
-		
-		map.put("address", adds);
-		
-		User u = null;
-		try {
-			u = fabric.makeUser(map);
-			try {
-				u.insert();
-				System.out.println(u);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				System.out.println(e.getMessage());
-			}
-		} catch (RegisterFailedException e1) {
-			// TODO Auto-generated catch block
-			System.out.println(e1.getMessage()+ e1.getFalseFields());
-		}
-		
-		*/
-		
-		
-		
-		
-		/*
-		 * Test Login
-		 */
-		/*User u = null;
-		try {
-			u = fabric.makeUser("pipi",StringUtil.sha256("popo"));
-			System.out.println(u);
-		} catch (LoginFailedException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
-		}*/
-		
-	}
 }

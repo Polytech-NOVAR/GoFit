@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.novar.business.Address;
 import com.novar.business.Administrator;
 import com.novar.business.Manager;
 import com.novar.business.Speaker;
@@ -26,27 +25,19 @@ public class UserJdbc extends User{
 	public void save() throws SQLException
 	{
 			//Insertion de l'utilisateur dans la table User
-			PreparedStatement insertUser = ConnectionUtil.connection.prepareStatement("INSERT INTO User (pseudo,password,lastName,firstName,phone,email) "
-																		+ "VALUES (?, ?, ?, ?, ?, ?);");
+			PreparedStatement insertUser = ConnectionUtil.connection.prepareStatement("INSERT INTO User (pseudo, password, lastName, firstName, phone, email, street, town, zipCode, country) "
+																		+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			insertUser.setObject(1, getPseudo(),Types.VARCHAR);
 			insertUser.setObject(2, getPassword(),Types.VARCHAR);
 			insertUser.setObject(3, getLastName(),Types.VARCHAR);
 			insertUser.setObject(4, getFirstName(),Types.VARCHAR);
 			insertUser.setObject(5, getPhone(),Types.VARCHAR);
 			insertUser.setObject(6, getEmail(),Types.VARCHAR);
-			insertUser.executeUpdate();
-			
-			//Insertion des addresses dans la table Address et des couples (Pseudo,AdressID) dans la table UserAddress
-			PreparedStatement insertUserAdress = ConnectionUtil.connection.prepareStatement("INSERT INTO UserAddress (addressID,pseudo) "
-					+ "VALUES (?, ?);");
-			for(int i = 0; i<getAddress().size(); i++)
-			{
-				getAddress().get(i).save();
-				insertUserAdress.setObject(1, getAddress().get(i).getAddressID() ,Types.INTEGER);
-				insertUserAdress.setObject(2, getPseudo(),Types.VARCHAR);
-				insertUserAdress.executeUpdate();
-			}
-			
+			insertUser.setObject(7, getStreet(),Types.VARCHAR);
+			insertUser.setObject(8, getTown(),Types.VARCHAR);
+			insertUser.setObject(9, getZipCode(), Types.VARCHAR);
+			insertUser.setObject(10, getCountry(),Types.VARCHAR);
+			insertUser.executeUpdate();			
 	}
 	
 	public void load() throws LoginFailedException
@@ -69,16 +60,16 @@ public class UserJdbc extends User{
 			{
 				try 
 				{
-					setPseudo(res.getString("pseudo"));
-					setPassword(res.getString("password"));
 					setEmail(res.getString("email"));
 					setFirstName(res.getString("firstName"));
 					setLastName(res.getString("lastName"));
 					setPhone(res.getString("phone"));
+					setStreet(res.getString("street"));
+					setTown(res.getString("town"));
+					setZipCode(res.getString("zipCode"));
+					setCountry(res.getString("country"));
 					
-					loadAdress();
-					loadRoles();
-					
+					loadRoles();	
 				} 
 				catch (SyntaxException e) 
 				{
@@ -86,46 +77,6 @@ public class UserJdbc extends User{
 					e.printStackTrace();
 				}
 			}
-		}
-		catch (SQLException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	public void loadAdress()
-	{
-		try {
-			PreparedStatement selectAddress;
-			selectAddress = ConnectionUtil.connection.prepareStatement("SELECT * "
-					+ "FROM UserAddress u, Address a "
-					+ "WHERE u.addressID = a.addressID "
-					+ "AND u.pseudo = ?;");
-			
-			selectAddress.setObject(1, getPseudo(), Types.VARCHAR);
-			ResultSet resAddress = selectAddress.executeQuery();
-			JdbcKit fabric = new JdbcKit();
-			ArrayList<Address> adds = new ArrayList<Address>();
-			
-			while(resAddress.next())
-			{
-				HashMap<String,Object> mapAddress = new HashMap<String,Object>();
-				mapAddress.put("addressID", resAddress.getInt("addressID"));
-				mapAddress.put("street", resAddress.getString("street"));
-				mapAddress.put("town", resAddress.getString("town"));
-				mapAddress.put("zipCode", resAddress.getString("zipCode"));
-				mapAddress.put("country", resAddress.getString("country"));
-				AddressJdbc ad1;
-				try {
-					ad1 = fabric.makeAddress(mapAddress);
-					adds.add(ad1);
-				} catch (FalseFieldsException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}			
-			}
-			this.setAddress(adds);
 		}
 		catch (SQLException e) 
 		{

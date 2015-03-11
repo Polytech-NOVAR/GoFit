@@ -3,7 +3,6 @@ package com.novar.persist;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.novar.business.Address;
 import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
@@ -20,19 +19,6 @@ import com.novar.persist.UserJdbc;
 public class JdbcKit implements PersistKit
 {
 	// ===== DEFINITION METHODS =====
-	
-	/**
-	 * This is the definition of the method to make an address
-	 * @param data of an address
-	 * @return the address with persistance methods
-	 * @see AddressJdbc
-	 * @see HashMap
-	 */
-	public AddressJdbc makeAddress(HashMap<String,Object> data) throws FalseFieldsException
-	{
-		return new AddressJdbc(data);
-	}
-	
 	/**
 	 * This is the definition of the method to make a user
 	 * @param data of a user
@@ -45,5 +31,7 @@ public class JdbcKit implements PersistKit
 	{
 		return new UserJdbc(data);
 	}
+	
+	
 	
 }

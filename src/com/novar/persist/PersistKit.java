@@ -3,7 +3,6 @@ package com.novar.persist;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.novar.business.Address;
 import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
@@ -23,21 +22,10 @@ public interface PersistKit
 	// ===== DECLARATION METHODS =====
 	
 	/**
-	 * This is the declaration of the method to make an address
-	 * @param data of an address
-	 * @return the address
-	 * @see Address
-	 * @see HashMap
-	 */
-	public Address makeAddress(HashMap<String,Object> data) throws FalseFieldsException;
-	
-	/**
 	 * This is the declaration of the method to make a user
 	 * @param data of a user
 	 * @return the user
 	 * @throws FalseFieldsException
-	 * @see User
-	 * @see HashMap
 	 */
 	public User makeUser(HashMap<String,Object> data) throws FalseFieldsException;
 	
