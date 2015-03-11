@@ -9,6 +9,7 @@ import java.util.regex.*;
 
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
+import com.novar.exception.RegisterFailedException;
 import com.novar.exception.SyntaxException;
 import com.novar.persist.JdbcKit;
 import com.novar.persist.PersistKit;
@@ -286,7 +287,7 @@ public abstract class User
 	
 	////////////// HOOKS ////////////////
 	public abstract void load() throws LoginFailedException;
-	public abstract void save() throws Exception;
+	public abstract void save() throws RegisterFailedException;
 	/*public abstract void update();
 	public abstract void delete();*/
 }

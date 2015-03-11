@@ -11,6 +11,7 @@ import com.novar.business.Member;
 import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
+import com.novar.exception.RegisterFailedException;
 import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
 
@@ -22,8 +23,10 @@ public class UserJdbc extends User{
 		super(data);
 	}
 	
-	public void save() throws SQLException
+	public void save() throws RegisterFailedException
 	{
+		try 
+		{
 			//Insertion de l'utilisateur dans la table User
 			PreparedStatement insertUser = ConnectionUtil.connection.prepareStatement("INSERT INTO User (pseudo, password, lastName, firstName, phone, email, street, town, zipCode, country) "
 																		+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
@@ -37,7 +40,20 @@ public class UserJdbc extends User{
 			insertUser.setObject(8, getTown(),Types.VARCHAR);
 			insertUser.setObject(9, getZipCode(), Types.VARCHAR);
 			insertUser.setObject(10, getCountry(),Types.VARCHAR);
-			insertUser.executeUpdate();			
+			insertUser.executeUpdate();		
+		}
+		catch (SQLException e) 
+		{
+			String message = e.getMessage();
+			if(message.endsWith("'unEmail'"))
+			{
+				throw new RegisterFailedException("email2");
+			}
+			else if (message.endsWith("'PRIMARY'"))
+			{
+				throw new RegisterFailedException("pseudo2");
+			}
+		}
 	}
 	
 	public void load() throws LoginFailedException

@@ -26,6 +26,8 @@ import javax.swing.border.EmptyBorder;
 
 import com.novar.business.FacadeMain;
 import com.novar.exception.FalseFieldsException;
+import com.novar.exception.RegisterFailedException;
+
 import java.awt.Font;
 
 
@@ -89,6 +91,9 @@ public class RegisterWindow extends JDialog {
 		JLabel lblErrorPseudo = new JLabel("The pseudo field must contains 6 to 32 letters or numbers.");
 		lblErrorPseudo.setFont(new Font("Calibri", Font.PLAIN, 11));
 		lblErrorPseudo.setVisible(false);
+		JLabel lblErrorPseudo2 = new JLabel("This pseudo is already taken.");
+		lblErrorPseudo2.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorPseudo2.setVisible(false);
 		JLabel lblErrorFirst = new JLabel("The pseudo field must contains 1 to 50 letters.");
 		lblErrorFirst.setFont(new Font("Calibri", Font.PLAIN, 11));
 		lblErrorFirst.setVisible(false);
@@ -98,6 +103,9 @@ public class RegisterWindow extends JDialog {
 		JLabel lblErrorEmail = new JLabel("Invalid email.");
 		lblErrorEmail.setFont(new Font("Calibri", Font.PLAIN, 11));
 		lblErrorEmail.setVisible(false);
+		JLabel lblErrorEmail2 = new JLabel("This email is already taken..");
+		lblErrorEmail2.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorEmail2.setVisible(false);
 		JLabel lblErrorPass = new JLabel("The password must contains 6 to 50 letters or numbers.");
 		lblErrorPass.setFont(new Font("Calibri", Font.PLAIN, 11));
 		lblErrorPass.setVisible(false);
@@ -172,11 +180,13 @@ public class RegisterWindow extends JDialog {
 					zipTextField.setBorder(defaultBorder);
 					countryTextField.setBorder(defaultBorder);
 					lblErrorPseudo.setVisible(false);
+					lblErrorPseudo2.setVisible(false);
 					lblErrorFirst.setVisible(false);
 					lblErrorLast.setVisible(false);
 					lblErrorPass.setVisible(false);
 					lblErrorConfirm.setVisible(false);
 					lblErrorEmail.setVisible(false);
+					lblErrorEmail2.setVisible(false);
 					lblErrorTel.setVisible(false);
 					lblErrorStreet.setVisible(false);
 					lblErrorCity.setVisible(false);
@@ -254,9 +264,19 @@ public class RegisterWindow extends JDialog {
 							}
 						}
 					}
-					catch (Exception e1) 
+					catch (RegisterFailedException e1) 
 					{
-						System.out.println(e1.getMessage());
+						switch(e1.getMessage())
+						{
+							case "pseudo2" : pseudoTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+											pseudoTextField.setText("");
+											lblErrorPseudo2.setVisible(true);
+							break;
+							case "email2" : emailTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+											emailTextField.setText("");
+											lblErrorEmail2.setVisible(true);
+							break;
+						}
 					}
 					
 					
@@ -326,9 +346,11 @@ public class RegisterWindow extends JDialog {
 						.addComponent(lblErrorTel)
 						.addComponent(lblErrorPass)
 						.addComponent(lblErrorEmail)
+						.addComponent(lblErrorEmail2)
 						.addComponent(lblErrorLast)
 						.addComponent(lblErrorFirst)
 						.addComponent(lblErrorPseudo)
+						.addComponent(lblErrorPseudo2)
 						.addComponent(lblErrorConfirm))
 					.addContainerGap(76, Short.MAX_VALUE))
 		);
@@ -339,7 +361,8 @@ public class RegisterWindow extends JDialog {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPseudo)
 						.addComponent(pseudoTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblErrorPseudo))
+						.addComponent(lblErrorPseudo)
+						.addComponent(lblErrorPseudo2))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblFisrtname)
@@ -354,7 +377,8 @@ public class RegisterWindow extends JDialog {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblEmail)
 						.addComponent(emailTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblErrorEmail))
+						.addComponent(lblErrorEmail)
+						.addComponent(lblErrorEmail2))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblPassword)

@@ -17,7 +17,7 @@ public class FacadeMain
 		this.kit = kit;
 	}
 	
-	public void register(HashMap<String,Object> dataUser) throws Exception
+	public void register(HashMap<String,Object> dataUser) throws RegisterFailedException, FalseFieldsException
 	{
 		User userInRegistration = kit.makeUser(dataUser);
 		userInRegistration.save();
