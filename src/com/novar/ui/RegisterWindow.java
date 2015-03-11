@@ -113,10 +113,10 @@ public class RegisterWindow extends JDialog {
 		JLabel lblErrorCity = new JLabel("The city field must contains 1 to 50 letters.");
 		lblErrorCity.setFont(new Font("Calibri", Font.PLAIN, 11));
 		lblErrorCity.setVisible(false);
-		JLabel lblErrorZip = new JLabel("The zipCode field must contains 6 to  numbers.");
+		JLabel lblErrorZip = new JLabel("The zipCode field must contains 5 numbers.");
 		lblErrorZip.setFont(new Font("Calibri", Font.PLAIN, 11));
 		lblErrorZip.setVisible(false);
-		JLabel lblErrorCountry = new JLabel("The country field must contains 6 to  letters.");
+		JLabel lblErrorCountry = new JLabel("The country field must contains 2 to 50 letters.");
 		lblErrorCountry.setFont(new Font("Calibri", Font.PLAIN, 11));
 		lblErrorCountry.setVisible(false);
 		
