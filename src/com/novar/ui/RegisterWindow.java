@@ -194,14 +194,14 @@ public class RegisterWindow extends JDialog {
 			}
 		});
 		
-		KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher(){
+		/*KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher(){
 			@Override
 			public boolean dispatchKeyEvent(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER)
 					register();
 				return false;
 			}
-		});
+		});*/
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
