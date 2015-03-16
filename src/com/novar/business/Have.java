@@ -9,34 +9,43 @@ import com.novar.exception.LoginFailedException;
 import com.novar.exception.RegisterFailedException;
 import com.novar.util.StringUtil;
 
-public abstract class Accessory {
+public abstract class Have {
+
+	private Room room;
+	private Accessory acc;
+	private int quantity;
 	
-	private int accID;
-	private String name;
-	
-	public Accessory()
+	public Have()
 	{
 	}
-	
-	public int getAccID() {
-		return accID;
+
+	public Room getRoom() {
+		return room;
 	}
-	
-	public void setAccID(Integer accID) {
-		this.accID = accID;
+
+	public void setRoom(Room room) {
+		this.room = room;
 	}
-	
-	public String getName() {
-		return name;
+
+	public Accessory getAcc() {
+		return acc;
 	}
-	
-	public void setName(String name) {
-		this.name = name;
+
+	public void setAcc(Accessory acc) {
+		this.acc = acc;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 	@Override
 	public String toString() {
-		return "Accessory [accID=" + accID + ", name=" + name + "]";
+		return "Have [room=" + room + ", acc=" + acc + ", quantity=" + quantity + "]";
 	}
 	
 	//////////////HOOKS ////////////////

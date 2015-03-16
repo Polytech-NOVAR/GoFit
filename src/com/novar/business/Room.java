@@ -7,10 +7,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.novar.exception.FalseFieldsException;
+import com.novar.exception.LoginFailedException;
+import com.novar.exception.RegisterFailedException;
 import com.novar.exception.SyntaxException;
 import com.novar.util.StringUtil;
 
-public class Room {
+public abstract class Room {
 	
 	private int roomID;
 	private String num;
@@ -21,42 +23,17 @@ public class Room {
 	private String zipCode;
 	private String country;
 	
-	public Room(HashMap<String,Object> data) throws FalseFieldsException
+	private ArrayList<Have> accessories = new ArrayList<Have>();
+
+	public Room()
 	{
-		Class[] typeArg = new Class[1];
-		Object[] arg = new Object[1];
-		ArrayList<String> errors = new ArrayList<String>();
-		
-		for (String mapKey : data.keySet())
-		{
-			String setterName = "set" + StringUtil.toCapitalizeCase(mapKey);
-			typeArg[0] = data.get(mapKey).getClass();
-			arg[0] = data.get(mapKey);
-			Method setter;
-			try {
-				setter = this.getClass().getMethod(setterName, typeArg);
-				try
-				{
-					setter.invoke(this, arg);
-				}
-				catch (Exception e)
-				{
-					errors.add(e.getCause().getMessage());
-				}
-			} catch (NoSuchMethodException | SecurityException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-		if(!errors.isEmpty())
-			throw new FalseFieldsException(errors);
 	}
 	
 	public int getRoomID() {
 		return roomID;
 	}
 	
-	public void setRoomID(int roomID) {
+	public void setRoomID(Integer roomID) {
 		this.roomID = roomID;
 	}
 	
@@ -72,7 +49,7 @@ public class Room {
 		return area;
 	}
 	
-	public void setArea(int area) {
+	public void setArea(Integer area) {
 		this.area = area;
 	}
 	
@@ -144,5 +121,26 @@ public class Room {
 			throw new SyntaxException("country");
 	}
 	
+	public ArrayList<Have> getAccessories() {
+		return accessories;
+	}
+	
+	public void setAccessories(ArrayList<Have> accessories) {
+		this.accessories = accessories;
+	}
+
+	@Override
+	public String toString() {
+		return "Room [roomID=" + roomID + ", num=" + num + ", area=" + area
+				+ ", street=" + street + ", town=" + town + ", zipCode="
+				+ zipCode + ", country=" + country +  "]";
+	}
+	
+	//////////////HOOKS ////////////////
+	public abstract void load();
+	public abstract void save();
+	/*public abstract void update();
+	public abstract void delete();*/
+	public abstract void loadAccessories();
 	
 }

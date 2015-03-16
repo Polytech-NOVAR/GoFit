@@ -22,16 +22,34 @@ public class JdbcKit implements PersistKit
 	/**
 	 * This is the definition of the method to make a user
 	 * @param data of a user
-	 * @return the user with persistance methods
+	 * @return the user with persistence methods
 	 * @throws FalseFieldsException
-	 * @see UserJdbc
-	 * @see HashMap
 	 */
 	public UserJdbc makeUser(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		return new UserJdbc(data);
 	}
 	
+	/**
+	 * This is the definition of the method to make a room
+	 * @param data of a room
+	 * @return the room with persistence methods
+	 * @throws FalseFieldsException
+	 */
+	public RoomJdbc makeRoom(HashMap<String,Object> data) throws FalseFieldsException
+	{
+		return new RoomJdbc();
+	}
 	
+	/**
+	 * This is the definition of the method to make a accessory
+	 * @param data of a accessory
+	 * @return the accessory with persistence methods
+	 * @throws FalseFieldsException
+	 */
+	public AccessoryJdbc makeAccessory(HashMap<String,Object> data) throws FalseFieldsException
+	{
+		return new AccessoryJdbc();
+	}
 	
 }

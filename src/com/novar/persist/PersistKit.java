@@ -3,7 +3,7 @@ package com.novar.persist;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.novar.business.User;
+import com.novar.business.*;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
 
@@ -28,5 +28,21 @@ public interface PersistKit
 	 * @throws FalseFieldsException
 	 */
 	public User makeUser(HashMap<String,Object> data) throws FalseFieldsException;
+	
+	/**
+	 * This is the declaration of the method to make a room
+	 * @param data of a room
+	 * @return the room
+	 * @throws FalseFieldsException
+	 */
+	public Room makeRoom(HashMap<String,Object> data) throws FalseFieldsException;
+	
+	/**
+	 * This is the declaration of the method to make a accessory
+	 * @param data of a accessory
+	 * @return the accessory
+	 * @throws FalseFieldsException
+	 */
+	public Accessory makeAccessory(HashMap<String,Object> data) throws FalseFieldsException;
 	
 }

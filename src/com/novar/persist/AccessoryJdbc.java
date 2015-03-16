@@ -15,35 +15,27 @@ import com.novar.util.ConnectionUtil;
 
 public class AccessoryJdbc extends Accessory{
 
-	public AccessoryJdbc(HashMap<String,Object> data) throws FalseFieldsException
+	public AccessoryJdbc()
 	{
-		super(data);
+		super();
 	}
 	
-	public void save() throws RegisterFailedException
+	public void save()
 	{
 		try 
 		{
-			PreparedStatement insertUser = ConnectionUtil.connection.prepareStatement("INSERT INTO User (accID, accName) "
-																		+ "VALUES ('', ?);");
-			insertUser.setObject(1, getName(),Types.VARCHAR);
-			insertUser.executeUpdate();		
+			PreparedStatement insertAccessory = ConnectionUtil.connection.prepareStatement("INSERT INTO Accessory (name) "
+																		+ "VALUES (?);");
+			insertAccessory.setObject(1, getName(), Types.VARCHAR);
+			insertAccessory.executeUpdate();		
 		}
 		catch (SQLException e) 
 		{
-			String message = e.getMessage();
-			if(message.endsWith("'unEmail'"))
-			{
-				throw new RegisterFailedException("email2");
-			}
-			else if (message.endsWith("'PRIMARY'"))
-			{
-				throw new RegisterFailedException("pseudo2");
-			}
+			e.printStackTrace();
 		}
 	}
 	
-	public void load() throws LoginFailedException
+	public void load()
 	{
 		PreparedStatement selectRoom;
 		try 
@@ -57,7 +49,7 @@ public class AccessoryJdbc extends Accessory{
 			res.last();
 			if(res.getRow() == 1)
 			{
-				setName(res.getString("accName"));
+				setName(res.getString("name"));
 			}
 		}
 		catch (SQLException e) 
@@ -65,5 +57,35 @@ public class AccessoryJdbc extends Accessory{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void loadAll()
+	{
+		PreparedStatement selectRoom;
+		try 
+		{
+			selectRoom = ConnectionUtil.connection.prepareStatement("SELECT * FROM Accessory ");
+
+			selectRoom.setObject(1, getAccID(), Types.INTEGER);
+			ResultSet res = selectRoom.executeQuery();
+			res.last();
+			if(res.getRow() == 1)
+			{
+				setName(res.getString("name"));
+			}
+		}
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void update(){
+		
+	}
+	
+	public void delete(){
+		
 	}
 }
