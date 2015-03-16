@@ -13,6 +13,6 @@ public class Member implements Role
 	
 	public String toString()
 	{
-		return ("Member. Date d'inscritpion : " + getRegistrationDate() + "\n");
+		return ("Member. Date d'inscritpion : " + getRegistrationDate());
 	}
 }

@@ -3,6 +3,10 @@ package com.novar.persist;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.novar.business.MainCategory;
+import com.novar.business.Product;
+import com.novar.business.ProductManager;
+import com.novar.business.SubCategory;
 import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
@@ -29,4 +33,31 @@ public interface PersistKit
 	 */
 	public User makeUser(HashMap<String,Object> data) throws FalseFieldsException;
 	
+	/**
+	 * This is the declaration of the method to make a MainCategory
+	 * @param data of a Maincategory
+	 * @return the Maincategory
+	 * @throws FalseFieldsException
+	 */
+	public MainCategory makeMainCategory(HashMap<String,Object> data) throws FalseFieldsException;
+	
+	/**
+	 * This is the declaration of the method to make a SubCategory
+	 * @param data of a SubCategory
+	 * @return the SubCategory
+	 * @throws FalseFieldsException
+	 */
+	public SubCategory makeSubCategory(HashMap<String,Object> data) throws FalseFieldsException;
+	
+	/**
+	 * This is the declaration of the method to make a Product
+	 * @param data of a Product
+	 * @return the product
+	 * @throws FalseFieldsException
+	 */
+	public Product makeProduct(HashMap<String,Object> data) throws FalseFieldsException;
+	
+
+	
+	public ProductManager makeProductManager();
 }

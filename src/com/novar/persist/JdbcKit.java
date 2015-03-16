@@ -3,6 +3,7 @@ package com.novar.persist;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.novar.business.Product;
 import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
@@ -24,14 +25,49 @@ public class JdbcKit implements PersistKit
 	 * @param data of a user
 	 * @return the user with persistance methods
 	 * @throws FalseFieldsException
-	 * @see UserJdbc
-	 * @see HashMap
 	 */
 	public UserJdbc makeUser(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		return new UserJdbc(data);
 	}
 	
+	/**
+	 * This is the definition of the method to make a MainCategory
+	 * @param data of a MainCategory
+	 * @return the MainCategory with persistance methods
+	 * @throws FalseFieldsException
+	 */
+	public MainCategoryJdbc makeMainCategory(HashMap<String,Object> data) throws FalseFieldsException
+	{
+		return new MainCategoryJdbc(data);
+	}
 	
+	/**
+	 * This is the definition of the method to make a SubCategory
+	 * @param data of a SubCategory
+	 * @return the SubCategory with persistance methods
+	 * @throws FalseFieldsException
+	 */
+	public SubCategoryJdbc makeSubCategory(HashMap<String,Object> data) throws FalseFieldsException
+	{
+		return new SubCategoryJdbc(data);
+	}
+	
+	/**
+	 * This is the definition of the method to make a Product
+	 * @param data of a Product
+	 * @return the Product with persistance methods
+	 * @throws FalseFieldsException
+	 */
+	public ProductJdbc makeProduct(HashMap<String,Object> data) throws FalseFieldsException
+	{
+		return new ProductJdbc(data);
+	}
+	
+	
+	public ProductManagerJdbc makeProductManager()
+	{
+		return new ProductManagerJdbc();
+	}
 	
 }

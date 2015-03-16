@@ -11,10 +11,12 @@ public class FacadeMain
 {
 	private User theUser = null;
 	private PersistKit kit = null;
+	private FacadeProduct product = null;
 	
 	public FacadeMain(PersistKit kit)
 	{
 		this.kit = kit;
+		product = new FacadeProduct(kit);
 	}
 	
 	public void register(HashMap<String,Object> dataUser) throws RegisterFailedException, FalseFieldsException
@@ -36,5 +38,10 @@ public class FacadeMain
 	public User getUser()
 	{
 		return this.theUser;
+	}
+	
+	public ArrayList<Product> getUserProducts()
+	{
+		return product.getUserProducts(theUser);
 	}
 }
