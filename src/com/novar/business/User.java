@@ -24,11 +24,16 @@ public abstract class User
 	private String firstName;
 	private String phone;
 	private String email;
+	
 	private String street;
 	private String town;
 	private String zipCode;
 	private String country;
-	private List<Role> roles = Arrays.asList(new Role[4]);
+
+	private Administrator administrator = null;
+	private Manager manager = null;
+	private Speaker speaker = null;
+	private Member member = null;
 	
 	public User()
 	{
@@ -241,29 +246,88 @@ public abstract class User
 			throw new SyntaxException("country");
 	}
 	
-	public List<Role> getRoles()
+	public Administrator getAdministrator()
 	{
-		return this.roles;
+		return this.administrator;
 	}
 	
-	public void setRoles(Role role)
+	public void setAdministrator(Administrator administrator)
 	{
-		if (role instanceof Administrator)
+		if (this.administrator == null)
 		{
-			roles.set(0, role);
+			this.administrator = administrator;
 		}
-		else if (role instanceof Manager)
+	}
+	
+	public boolean isAdministrator()
+	{
+		if(this.getAdministrator() == null)
+			return false;
+		else
+			return true;	
+	}
+	
+	public Manager getManager()
+	{
+		return this.manager;
+	}
+	
+	public void setManager(Manager manager)
+	{
+		if (this.manager == null)
 		{
-			roles.set(1, role);
+			this.manager = manager;
 		}
-		else if (role instanceof Speaker)
+	}
+	
+	public boolean isManager()
+	{
+		if(this.getManager() == null)
+			return false;
+		else
+			return true;	
+	}
+	
+	public Speaker getSpeaker()
+	{
+		return this.speaker;
+	}
+	
+	public void setSpeaker(Speaker speaker)
+	{
+		if (this.speaker == null)
 		{
-			roles.set(2, role);
+			this.speaker = speaker;
 		}
-		else if (role instanceof Member)
+	}
+	
+	public boolean isSpeaker()
+	{
+		if(this.getSpeaker() == null)
+			return false;
+		else
+			return true;	
+	}
+	
+	public Member getMember()
+	{
+		return this.member;
+	}
+	
+	public void setMember(Member member)
+	{
+		if (this.member == null)
 		{
-			roles.set(3, role);
+			this.member = member;
 		}
+	}
+	
+	public boolean isMember()
+	{
+		if(this.getMember() == null)
+			return false;
+		else
+			return true;	
 	}
 	
 	public String toString()
@@ -279,8 +343,7 @@ public abstract class User
 				+ "Street : " + this.getStreet() + "\n"
 				+ "City : " + this.getTown() + "\n"
 				+ "ZipCode : " + this.getZipCode() + "\n"
-				+ "Country : " + this.getCountry() + "\n"
-				+ "Roles : " + this.getRoles() + "\n";
+				+ "Country : " + this.getCountry() + "\n";
 		
 		return result;	
 	}

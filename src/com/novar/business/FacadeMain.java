@@ -32,5 +32,9 @@ public class FacadeMain
 			theUser = userInLogin;
 		}
 	}
-
+	
+	public User getUser()
+	{
+		return this.theUser;
+	}
 }

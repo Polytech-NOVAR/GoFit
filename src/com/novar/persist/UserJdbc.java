@@ -118,13 +118,13 @@ public class UserJdbc extends User{
 			
 			resRoles.next();
 			if( resRoles.getString("pseudoAdministrator") != null )
-				setRoles(new Administrator());
+				setAdministrator(new Administrator());
 			if( resRoles.getString("pseudoManager") != null )
-				setRoles(new Manager());
+				setManager(new Manager());
 			if( resRoles.getString("pseudoSpeaker") != null )
-				setRoles(new Speaker());
+				setSpeaker(new Speaker());
 			if( resRoles.getString("pseudoMember") != null )
-				setRoles(new Member());
+				setMember(new Member());
 		}
 		catch (SQLException e) 
 		{

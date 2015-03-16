@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Image;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
 import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.Canvas;
 import java.util.HashMap;
 
@@ -43,6 +46,7 @@ public class LoginWindow
 	private JPasswordField passwordField;
 	private FacadeMain facade;
 	private JLabel logo;
+	private JLabel lblError;
 	
 	/**
 	 * Launch the application.
@@ -102,7 +106,7 @@ public class LoginWindow
 		gbc_logo.gridy = 1;
 		frame.getContentPane().add(logo, gbc_logo);
 		
-		JLabel lblError = new JLabel("Error");
+		lblError = new JLabel("Error");
 		lblError.setForeground(Color.WHITE);
 		GridBagConstraints gbc_lblError = new GridBagConstraints();
 		gbc_lblError.gridwidth = 2;
@@ -125,32 +129,16 @@ public class LoginWindow
 			btnLogin.setFont(new Font("Calibri", Font.PLAIN, 12));
 			btnLogin.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
-					HashMap<String,Object> mapUser = new HashMap<String,Object>();
-					mapUser.put("pseudo", pseudoTextField.getText());
-					mapUser.put("password", new String(passwordField.getPassword()));
-					
-					try 
-					{
-						facade.login(mapUser);
-						ConnectedWindow connectWindow = new ConnectedWindow();
-						connectWindow.setVisible(true);
-						closeWindow();
-					} 
-					catch (FalseFieldsException e1) 
-					{
-						lblError.setForeground(Color.RED);
-						lblError.setText("Wrong pseudo and/or password");
-						pseudoTextField.setText("");
-						passwordField.setText("");
-					}
-					catch (LoginFailedException e2) 
-					{
-						lblError.setForeground(Color.RED);
-						lblError.setText(e2.getMessage());
-						pseudoTextField.setText("");
-						passwordField.setText("");
-					}
+					login();
+				}
+			});
+			
+			KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher(){
+				@Override
+				public boolean dispatchKeyEvent(KeyEvent e) {
+					if(e.getKeyCode() == KeyEvent.VK_ENTER)
+						login();
+					return false;
 				}
 			});
 			
@@ -207,5 +195,33 @@ public class LoginWindow
 
 	private void closeWindow(){
 		frame.dispose();
+	}
+	
+	private void login(){
+		HashMap<String,Object> mapUser = new HashMap<String,Object>();
+		mapUser.put("pseudo", pseudoTextField.getText());
+		mapUser.put("password", new String(passwordField.getPassword()));
+		
+		try 
+		{
+			facade.login(mapUser);
+			ConnectedWindow connectWindow = new ConnectedWindow(facade);
+			connectWindow.setVisible(true);
+			closeWindow();
+		} 
+		catch (FalseFieldsException e1) 
+		{
+			lblError.setForeground(Color.RED);
+			lblError.setText("Wrong pseudo and/or password");
+			pseudoTextField.setText("");
+			passwordField.setText("");
+		}
+		catch (LoginFailedException e2) 
+		{
+			lblError.setForeground(Color.RED);
+			lblError.setText(e2.getMessage());
+			pseudoTextField.setText("");
+			passwordField.setText("");
+		}
 	}
 }
