@@ -35,15 +35,8 @@ public abstract class User
 	private Speaker speaker = null;
 	private Member member = null;
 	
-	public User()
-	{
-		
-	}
-	
-	
 	public User(HashMap<String,Object> data) throws FalseFieldsException
 	{
-		//TODO Faire le cas de la verif mdp. Login 1arg, register 2args.
 		Class[] typeArg = new Class[1];
 		Object[] arg = new Object[1];
 		ArrayList<String> errors = new ArrayList<String>();
