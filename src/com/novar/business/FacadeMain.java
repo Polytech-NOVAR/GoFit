@@ -1,5 +1,6 @@
 package com.novar.business;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -36,5 +37,11 @@ public class FacadeMain
 	public User getUser()
 	{
 		return this.theUser;
+	}
+	
+	public void updateProfile(HashMap<String,Object> dataUser) throws FalseFieldsException, SQLException
+	{
+		theUser.setAll(dataUser);
+		theUser.update();
 	}
 }

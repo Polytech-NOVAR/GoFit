@@ -56,6 +56,33 @@ public class UserJdbc extends User{
 		}
 	}
 	
+	public void update() throws SQLException
+	{
+		PreparedStatement updateUser;
+		updateUser = ConnectionUtil.connection.prepareStatement("UPDATE User "
+				+ "SET "
+				+ "lastName = ?,"
+				+ "firstName = ?,"
+				+ "phone = ?,"
+				+ "email = ?,"
+				+ "street = ?,"
+				+ "town = ?,"
+				+ "zipCode = ?,"
+				+ "country = ?"
+				+ "WHERE pseudo = ?;");
+		
+		updateUser.setObject(1, getLastName(),Types.VARCHAR);
+		updateUser.setObject(2, getFirstName(),Types.VARCHAR);
+		updateUser.setObject(3, getPhone(),Types.VARCHAR);
+		updateUser.setObject(4, getEmail(),Types.VARCHAR);
+		updateUser.setObject(5, getStreet(),Types.VARCHAR);
+		updateUser.setObject(6, getTown(),Types.VARCHAR);
+		updateUser.setObject(7, getZipCode(), Types.VARCHAR);
+		updateUser.setObject(8, getCountry(),Types.VARCHAR);
+		updateUser.setObject(9, getPseudo(), Types.VARCHAR);
+		updateUser.executeUpdate();
+	}
+	
 	public void load() throws LoginFailedException
 	{
 		PreparedStatement selectUser;

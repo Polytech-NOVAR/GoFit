@@ -51,6 +51,8 @@ public class ConnectedWindow extends JFrame {
 	private FacadeMain facade;
 	
 	private JPanel contentPane;
+	
+	private ConnectedWindow frame;
 	/**
 	 * @wbp.nonvisual location=-29,199
 	 */
@@ -61,6 +63,7 @@ public class ConnectedWindow extends JFrame {
 	{
 		super("GoFit");
 		this.facade = facade;
+		this.frame = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 980, 800);
 		
@@ -76,6 +79,11 @@ public class ConnectedWindow extends JFrame {
 		
 		JMenuItem mnProfile = new JMenuItem("Profile");
 		mnProfile.setMaximumSize(new Dimension(1, 32767));
+		mnProfile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changePanel(new ProfilePanel(frame));
+			}
+		});
 		menuBar.add(mnProfile);
 		
 		JMenuItem mnShop = new JMenuItem("Shop");
@@ -146,12 +154,19 @@ public class ConnectedWindow extends JFrame {
 		JMenuItem mnLogoff = new JMenuItem("Logoff");
 		mnLogoff.setMaximumSize(new Dimension(1, 32767));
 		menuBar.add(mnLogoff);
+		
+		changePanel(new ProfilePanel(frame));
 	}
 	
-	private void changePanel (JPanel panel)
+	public void changePanel (JPanel panel)
 	{
 		contentPane = panel;
 		setContentPane(contentPane);
 		validate();
+	}
+	
+	public FacadeMain getFacade()
+	{
+		return this.facade;
 	}
 }
