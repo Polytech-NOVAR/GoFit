@@ -330,6 +330,14 @@ public abstract class User
 			return true;	
 	}
 	
+	public void addProduct(Product p)
+	{
+		if (isMember())
+		{
+			this.member.addProduct(p);
+		}
+	}
+	
 	public String toString()
 	{
 		String result = new String();
@@ -351,6 +359,7 @@ public abstract class User
 	////////////// HOOKS ////////////////
 	public abstract void load() throws LoginFailedException;
 	public abstract void save() throws RegisterFailedException;
+	public abstract void loadProducts();
 	/*public abstract void update();
 	public abstract void delete();*/
 }

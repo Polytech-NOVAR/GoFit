@@ -7,8 +7,12 @@ import java.sql.Types;
 import java.util.HashMap;
 
 import com.novar.business.Category;
+import com.novar.business.MainCategory;
+import com.novar.business.Product;
 import com.novar.business.SubCategory;
+import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
+import com.novar.exception.LoginFailedException;
 import com.novar.exception.RegisterFailedException;
 import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
@@ -25,10 +29,6 @@ public class SubCategoryJdbc extends SubCategory
 		super.setParent(parent);
 	}
 	
-	public void setParent(SubCategoryJdbc parent) 
-	{
-		super.setParent(parent);
-	}
 	
 	public void save()
 	{
@@ -60,22 +60,35 @@ public class SubCategoryJdbc extends SubCategory
 		PreparedStatement selectCat;
 		try 
 		{
-			selectCat = ConnectionUtil.connection.prepareStatement("SELECT * "
-					+ "FROM SubCategory mc, Category c "
-					+ "WHERE c.catID = mc.catID "
-					+ "AND mc.catID = ? ;");
+			selectCat = ConnectionUtil.connection.prepareStatement("SELECT mc.catID, mc.parentID, c.description AS descSub, c2.description AS descMain "
+					+ "FROM SubCategory mc, Category c, Category c2 "
+					+ "WHERE mc.catID = c.catID "
+					+ "AND mc.parentID = c2.catID "
+					+ "AND mc.catID = ?;");
+					
 
 			selectCat.setObject(1, getCatID(), Types.INTEGER);
 			ResultSet res = selectCat.executeQuery();
-			res.last();
+			res.next();
+			
+			HashMap<String, Object> mapParent = new HashMap<String, Object>();
+			mapParent.put("catID", res.getInt("parentID"));
+			mapParent.put("description", res.getString("descMain"));
 			
 			try {
-				setDescription(res.getString("description"));
+				MainCategory parent = new MainCategoryJdbc(mapParent);
+				setParent(parent);
+			} catch (FalseFieldsException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			try {
+				setDescription(res.getString("descSub"));
 			} catch (SyntaxException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			loadParent();
 	
 		}
 		catch (SQLException e) 
@@ -85,76 +98,44 @@ public class SubCategoryJdbc extends SubCategory
 		}
 	}
 	
-	public void loadParent()
+	public void loadProducts()
 	{
+		PreparedStatement selectProducts;
 		try 
 		{
-			PreparedStatement selectParentSubCat;
-			PreparedStatement selectParentMainCat;
-	
-			selectParentSubCat = ConnectionUtil.connection
-					.prepareStatement("SELECT c2.catID "
-							+ "FROM SubCategory c1, SubCategory c2 "
-							+ "WHERE c1.parentID = c2.catID "
-							+ "AND c1.catID = ? ;");
-	
-			selectParentSubCat.setObject(1, getCatID(), Types.INTEGER);
-	
-			ResultSet resParentSub = selectParentSubCat.executeQuery();
-			resParentSub.last();
-	
-			if (resParentSub.getRow() > 0) // Le parent est une SubCategory
+			selectProducts = ConnectionUtil.connection.prepareStatement("SELECT * "
+					+ "FROM SubCategory mc, Product p "
+					+ "WHERE mc.catID = p.catID "
+					+ "AND mc.catID = ? ;");
+
+			selectProducts.setObject(1, getCatID(), Types.VARCHAR);
+			ResultSet resProducts = selectProducts.executeQuery();
+			
+			while(resProducts.next())
 			{
-				HashMap<String, Object> mapCat = new HashMap<String, Object>();
-				mapCat.put("catID", resParentSub.getInt("catID"));
-				SubCategoryJdbc parent = null;
-				try 
-				{
-					parent = new SubCategoryJdbc(mapCat);
-				} 
-				catch (FalseFieldsException e) 
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				parent.load();
-				setParent(parent);
-			} 
-			else // Le parent est une MainCategory
-			{
-				selectParentMainCat = ConnectionUtil.connection
-						.prepareStatement("SELECT c2.catID "
-								+ "FROM SubCategory c1, MainCategory c2 "
-								+ "WHERE c1.parentID = c2.catID "
-								+ "AND c1.catID = ? ;");
-	
-				selectParentMainCat.setObject(1, getCatID(), Types.INTEGER);
 				
 				
-				ResultSet resParentMain = selectParentMainCat.executeQuery();
-				resParentMain.last();
+				HashMap<String,Object> mapProduct = new HashMap<String,Object>();
 				
-				HashMap<String, Object> mapCat = new HashMap<String, Object>();
-				mapCat.put("catID", resParentMain.getInt("catID"));
-				MainCategoryJdbc parent = null;
-				try 
-				{
-					parent = new MainCategoryJdbc(mapCat);
-				} 
-				catch (FalseFieldsException e) 
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				parent.load();
-				setParent(parent);
+				mapProduct.put("ProductID", resProducts.getInt("ProductID"));
+				mapProduct.put("description", resProducts.getString("description"));
+				mapProduct.put("price", resProducts.getDouble("price"));
+				mapProduct.put("quantity", resProducts.getInt("quantity"));
+				mapProduct.put("discountPrice", resProducts.getDouble("discountPrice"));
+				
+				Product prod = new ProductJdbc(mapProduct);
+				
+				this.addProduct(prod);
 			}
 		}
-		catch (SQLException e) 
+		catch (SQLException | FalseFieldsException e) 
 		{
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
+	
 	
 	
 	

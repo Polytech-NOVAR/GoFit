@@ -38,11 +38,6 @@ public abstract class Product
 	  */
 	private Double discountPrice;
 	
-	/**
-	  * The user is a member (i.e. he must have the Member role).
-	  */
-	private User seller;
-	private Category category;
 	
 	/**
 	 * Constructs a Product whit data of the hashmap. The number of data of the hashmap is not fixed. 
@@ -155,43 +150,17 @@ public abstract class Product
 			throw new SyntaxException("discountPrice");
 	}
 
-	public User getSeller() 
-	{
-		return seller;
-	}
 
-	public void setSeller(User seller) throws SyntaxException
-	{
-		if(seller.isMember())
-		{
-			this.seller = seller;
-		}
-		else
-			throw new SyntaxException("seller");
-	}
-
-	public Category getCategory() 
-	{
-		return category;
-	}
-
-	public void setCategory(Category category) 
-	{
-		this.category = category;
-	}
-	
-	
 	@Override
 	public String toString() 
 	{
 		return "Product [productID=" + productID + ", description="
 				+ description + ", price=" + price + ", quantity="
-				+ quantity + ", discountPrice=" + discountPrice
-				+ ", seller=" + seller.getPseudo() + ", category=" + category + "]\n";
+				+ quantity + ", discountPrice=" + discountPrice+"]\n";
 	}
 	
 	////////////// HOOKS ////////////////
-	/*public abstract void load() throws LoginFailedException;*/
+	public abstract void load();
 	public abstract void save();
 	/*public abstract void update();
 	public abstract void delete();*/
@@ -206,7 +175,8 @@ public abstract class Product
 		HashMap<String,Object> mapUser = new HashMap<String,Object>();
 		mapUser.put("pseudo", "Antoine");
 		mapUser.put("password", "123456");
-		User user = null; 
+		User user = null;
+		
 		try {
 			user = kit.makeUser(mapUser);
 			user.load();
@@ -216,10 +186,9 @@ public abstract class Product
 			e1.printStackTrace();
 		}
 		
-		System.out.println(user);
 		
 		
-		// ===== CREATE CATEGORIES =====
+		/*// ===== CREATE CATEGORIES =====
 		HashMap<String,Object> mapCat = new HashMap<String,Object>();
 		mapCat.put("description", "Gant");
 		HashMap<String,Object> mapCat2 = new HashMap<String,Object>();
@@ -243,6 +212,20 @@ public abstract class Product
 		System.out.println(cat1);
 		System.out.println(cat2);
 		
+		HashMap<String,Object> mapCat = new HashMap<String,Object>();
+		mapCat.put("catID", 49);
+		SubCategory cat1 = null;
+		try {
+			cat1 = kit.makeSubCategory(mapCat);
+			cat1.load();
+			
+		} catch (FalseFieldsException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getFalseFields());
+		}
+		
+		System.out.println(cat1);
+		
 		// ===== CREATE PRODUCTS =====
 		HashMap<String,Object> mapProduct = new HashMap<String,Object>();
 		mapProduct.put("description", "Moufle 1");
@@ -250,7 +233,7 @@ public abstract class Product
 		mapProduct.put("quantity", 10);
 		mapProduct.put("discountPrice", 14.0);
 		mapProduct.put("seller", user);
-		mapProduct.put("category", cat2);
+		mapProduct.put("category", cat1);
 		Product prod = null;
 		try {
 			prod = kit.makeProduct(mapProduct);
@@ -260,10 +243,13 @@ public abstract class Product
 			System.out.println(e.getFalseFields());
 		}
 		
-		
-		// ===== PERSISTENCE ====
+	// ===== PERSISTENCE ====
 		prod.save();
-		System.out.println(prod);
+		System.out.println(prod);*/
+		
+		
+		user.loadProducts();
+		System.out.println(user.getMember().getProducts());
 		
 	}
 

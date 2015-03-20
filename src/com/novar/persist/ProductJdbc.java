@@ -6,7 +6,10 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.HashMap;
 
+import com.novar.business.Category;
+import com.novar.business.MainCategory;
 import com.novar.business.Product;
+import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
@@ -18,41 +21,56 @@ public class ProductJdbc extends Product
 		super(data);
 	}
 	
-	public void setCategory(MainCategoryJdbc category) 
-	{
-		super.setCategory(category);
-	}
-	
-	public void setCategory(SubCategoryJdbc category) 
-	{
-		super.setCategory(category);
-	}
-	
-	public void setSeller(UserJdbc seller) throws SyntaxException
-	{
-		super.setSeller(seller);
-	}
-	
 	public void save()
 	{
 		try 
 		{
-			PreparedStatement insertCat = ConnectionUtil.connection.prepareStatement("INSERT INTO Product (description, price, quantity, discountPrice, pseudo, catID) "
+			PreparedStatement insertProd = ConnectionUtil.connection.prepareStatement("INSERT INTO Product (description, price, quantity, discountPrice, pseudo, catID) "
 																		+ "VALUES (?,?,?,?,?,?);", PreparedStatement.RETURN_GENERATED_KEYS);
-			insertCat.setObject(1, getDescription(),Types.VARCHAR);
-			insertCat.setObject(2, getPrice(),Types.FLOAT);
-			insertCat.setObject(3, getQuantity(),Types.INTEGER);
-			insertCat.setObject(4, getDiscountPrice(),Types.FLOAT);
-			insertCat.setObject(5, getSeller().getPseudo(),Types.VARCHAR);
-			insertCat.setObject(6, getCategory().getCatID(),Types.INTEGER);
+			insertProd.setObject(1, getDescription(),Types.VARCHAR);
+			insertProd.setObject(2, getPrice(),Types.FLOAT);
+			insertProd.setObject(3, getQuantity(),Types.INTEGER);
+			insertProd.setObject(4, getDiscountPrice(),Types.FLOAT);
+			/*insertProd.setObject(5, getSeller().getPseudo(),Types.VARCHAR);
+			insertProd.setObject(6, getCategory().getCatID(),Types.INTEGER);*/
 			
-			insertCat.executeUpdate();		
-			ResultSet key = insertCat.getGeneratedKeys();
+			insertProd.executeUpdate();		
+			ResultSet key = insertProd.getGeneratedKeys();
             if (key.next())
             	setProductID(key.getInt(1));
 		}
 		catch (SQLException e) 
 		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void load()
+	{
+		PreparedStatement selectProd;
+		try 
+		{
+			selectProd = ConnectionUtil.connection.prepareStatement("SELECT * "
+					+ "FROM Product p "
+					+ "WHERE p.productID = ? ;");
+
+			selectProd.setObject(1, getProductID(), Types.VARCHAR);
+			ResultSet res = selectProd.executeQuery();
+			res.last();
+			try 
+			{
+				setDescription(res.getString("description"));
+				
+			} 
+			catch (SyntaxException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

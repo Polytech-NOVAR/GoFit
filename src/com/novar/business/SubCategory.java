@@ -8,9 +8,10 @@ import com.novar.exception.FalseFieldsException;
  * @author Antoine JOERG
  */
 
-public abstract class SubCategory extends Category {
+public abstract class SubCategory extends Category 
+{
 	
-	private Category parent;
+	private MainCategory parent;
 	
 	public SubCategory(HashMap<String,Object> data) throws FalseFieldsException
 	{
@@ -22,7 +23,7 @@ public abstract class SubCategory extends Category {
 		return parent;
 	}
 
-	public void setParent(Category parent) 
+	public void setParent(MainCategory parent) 
 	{
 		this.parent = parent;
 	}

@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.novar.business.Administrator;
 import com.novar.business.Manager;
+import com.novar.business.Product;
 import com.novar.business.Speaker;
 import com.novar.business.Member;
 import com.novar.business.User;
@@ -130,5 +131,46 @@ public class UserJdbc extends User{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void loadProducts() 
+	{
+		if(isMember())
+		{
+			PreparedStatement selectProducts;
+			try 
+			{
+				selectProducts = ConnectionUtil.connection.prepareStatement("SELECT * "
+						+ "FROM User u, Product p "
+						+ "WHERE u.pseudo = p.pseudo "
+						+ "AND p.pseudo = ? ;");
+	
+				selectProducts.setObject(1, getPseudo(), Types.VARCHAR);
+				ResultSet resProducts = selectProducts.executeQuery();
+				
+				while(resProducts.next())
+				{
+					
+					HashMap<String,Object> mapProduct = new HashMap<String,Object>();
+					
+					mapProduct.put("ProductID", resProducts.getInt("ProductID"));
+					mapProduct.put("description", resProducts.getString("description"));
+					mapProduct.put("price", resProducts.getDouble("price"));
+					mapProduct.put("quantity", resProducts.getInt("quantity"));
+					mapProduct.put("discountPrice", resProducts.getDouble("discountPrice"));
+					
+					Product prod = new ProductJdbc(mapProduct);
+					
+					addProduct(prod);
+				}
+			}
+			catch (SQLException | FalseFieldsException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }

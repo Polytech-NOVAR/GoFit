@@ -35,6 +35,7 @@ public abstract class Category
 	  */
 	private String description;	
 	
+	private ArrayList<Product> listProducts = new ArrayList<Product>();
 	
 	/**
 	 * Constructs a Category whit data of the hashmap. The number of data of the hashmap is not fixed. 
@@ -102,16 +103,30 @@ public abstract class Category
 
 	}
 	
+	public ArrayList<Product> getListPorducts() {
+		return listProducts;
+	}
+
+	public void setListPorducts(ArrayList<Product> listPorducts) {
+		this.listProducts = listPorducts;
+	}
+	
+	public void addProduct(Product product)
+	{
+		listProducts.add(product);
+	}
+
 	@Override
 	public String toString() {
 		return "Category [catID=" + catID + ", description=" + description
-				+ "]\n";
+				+  ", listProducts=" + listProducts + "]\n";
 	}
 	
 	
 	////////////// HOOKS ////////////////
 	public abstract void load();
 	public abstract void save();
+	public abstract void loadProducts();
 	/*public abstract void update();
 	public abstract void delete();*/
 	

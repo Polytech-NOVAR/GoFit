@@ -6,7 +6,10 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.HashMap;
 
+import com.novar.business.Category;
 import com.novar.business.MainCategory;
+import com.novar.business.Product;
+import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
 import com.novar.exception.SyntaxException;
@@ -72,6 +75,12 @@ public class MainCategoryJdbc extends MainCategory{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void loadProducts() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

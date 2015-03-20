@@ -65,9 +65,8 @@ public class JdbcKit implements PersistKit
 	}
 	
 	
-	public ProductManagerJdbc makeProductManager()
+	public SubCategoryManagerJdbc makeSubCategoryManager()
 	{
-		return new ProductManagerJdbc();
+		return new SubCategoryManagerJdbc();
 	}
-	
 }
