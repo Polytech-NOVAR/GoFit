@@ -1,16 +1,10 @@
 package com.novar.business;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.novar.exception.FalseFieldsException;
-import com.novar.exception.LoginFailedException;
-import com.novar.exception.RegisterFailedException;
 import com.novar.exception.SyntaxException;
-import com.novar.util.StringUtil;
 
 public abstract class Room {
 	
@@ -142,5 +136,6 @@ public abstract class Room {
 	public abstract void update();
 	public abstract void delete();
 	public abstract void loadAccessories();
+	public abstract void addAccessory(Accessory acc, int quantity);
 	
 }

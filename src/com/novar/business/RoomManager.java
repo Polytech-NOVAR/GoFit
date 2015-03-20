@@ -1,5 +1,8 @@
 package com.novar.business;
 
-public class RoomManager {
+import java.util.ArrayList;
 
+public abstract class RoomManager {
+
+	public abstract ArrayList<Room> getAllRooms();
 }

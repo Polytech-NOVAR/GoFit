@@ -5,14 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.novar.business.Accessory;
 import com.novar.business.Have;
 import com.novar.business.Room;
-import com.novar.exception.FalseFieldsException;
-import com.novar.exception.LoginFailedException;
-import com.novar.exception.RegisterFailedException;
 import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
 
@@ -82,42 +78,6 @@ public class RoomJdbc extends Room{
 		}	
 	}
 	
-	/*public void loadAll() throws LoginFailedException
-	{
-		PreparedStatement selectRooms;
-		try 
-		{
-			selectRooms = ConnectionUtil.connection.prepareStatement("SELECT * FROM Room ");
-
-			ResultSet res = selectRooms.executeQuery();
-			res.last();
-			if(res.getRow() == 0)
-				throw new LoginFailedException();
-			else
-			{
-				try 
-				{
-					setNum(res.getString("num"));
-					setArea(res.getInt("area"));
-					setStreet(res.getString("street"));
-					setTown(res.getString("town"));
-					setZipCode(res.getString("zipCode"));
-					setCountry(res.getString("country"));
-				} 
-				catch (SyntaxException e) 
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		catch (SQLException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
-	
 	public void loadAccessories()
 	{
 		PreparedStatement selectAccessories;
@@ -130,7 +90,7 @@ public class RoomJdbc extends Room{
 
 			selectAccessories.setObject(1, getRoomID(), Types.INTEGER);
 			ResultSet res = selectAccessories.executeQuery();
-			res.last();
+			res.first();
 			if(res.getRow() > 0)
 			{
 				do
@@ -192,5 +152,15 @@ public class RoomJdbc extends Room{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void addAccessory(Accessory acc, int quantity)
+	{
+		Have have = new HaveJdbc();
+		have.setRoom(this);
+		have.setAcc(acc);
+		have.setQuantity(quantity);
+		have.save();
+		this.loadAccessories();
 	}
 }

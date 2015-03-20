@@ -5,15 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.novar.business.Accessory;
 import com.novar.business.Have;
 import com.novar.business.Room;
-import com.novar.exception.FalseFieldsException;
-import com.novar.exception.LoginFailedException;
-import com.novar.exception.RegisterFailedException;
-import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
 
 public class AccessoryJdbc extends Accessory{
@@ -66,28 +61,6 @@ public class AccessoryJdbc extends Accessory{
 		}
 	}
 	
-	/*public void loadAll()
-	{
-		PreparedStatement selectAccessory;
-		try 
-		{
-			selectAccessory = ConnectionUtil.connection.prepareStatement("SELECT * FROM Accessory ");
-
-			selectAccessory.setObject(1, getAccID(), Types.INTEGER);
-			ResultSet res = selectAccessory.executeQuery();
-			res.last();
-			if(res.getRow() == 1)
-			{
-				setName(res.getString("name"));
-			}
-		}
-		catch (SQLException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
-	
 	public void loadRooms()
 	{
 		PreparedStatement selectRooms;
@@ -100,7 +73,7 @@ public class AccessoryJdbc extends Accessory{
 
 			selectRooms.setObject(1, getAccID(), Types.INTEGER);
 			ResultSet res = selectRooms.executeQuery();
-			res.last();
+			res.first();
 			if(res.getRow() > 0)
 			{
 				do

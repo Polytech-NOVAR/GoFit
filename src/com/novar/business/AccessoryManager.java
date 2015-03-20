@@ -1,5 +1,8 @@
 package com.novar.business;
 
-public class AccessoryManager {
+import java.util.ArrayList;
 
+public abstract class AccessoryManager {
+
+	public abstract ArrayList<Accessory> getAllAccessories();
 }

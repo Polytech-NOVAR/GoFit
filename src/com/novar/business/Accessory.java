@@ -1,13 +1,6 @@
 package com.novar.business;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import com.novar.exception.FalseFieldsException;
-import com.novar.exception.LoginFailedException;
-import com.novar.exception.RegisterFailedException;
-import com.novar.util.StringUtil;
 
 public abstract class Accessory {
 	
@@ -53,5 +46,6 @@ public abstract class Accessory {
 	public abstract void load();
 	public abstract void save();
 	public abstract void update();
-	public abstract void delete();	
+	public abstract void delete();
+	public abstract void loadRooms();
 }
