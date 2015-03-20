@@ -3,7 +3,6 @@ package com.novar.persist;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.novar.business.CategoryManager;
 import com.novar.business.MainCategory;
 import com.novar.business.Product;
 import com.novar.business.SubCategory;
@@ -58,5 +57,4 @@ public interface PersistKit
 	public Product makeProduct(HashMap<String,Object> data) throws FalseFieldsException;
 
 	
-	public CategoryManager makeSubCategoryManager();
 }
