@@ -139,8 +139,8 @@ public abstract class Room {
 	//////////////HOOKS ////////////////
 	public abstract void load();
 	public abstract void save();
-	/*public abstract void update();
-	public abstract void delete();*/
+	public abstract void update();
+	public abstract void delete();
 	public abstract void loadAccessories();
 	
 }

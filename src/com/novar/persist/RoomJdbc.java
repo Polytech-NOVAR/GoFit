@@ -28,14 +28,18 @@ public class RoomJdbc extends Room{
 		try 
 		{
 			PreparedStatement insertRoom = ConnectionUtil.connection.prepareStatement("INSERT INTO Room (num, area, street, town, zipCode, country) "
-																		+ "VALUES (?, ?, ?, ?, ?, ?);");
+																		+ "VALUES (?, ?, ?, ?, ?, ?);", PreparedStatement.RETURN_GENERATED_KEYS);
 			insertRoom.setObject(1, getNum(),Types.VARCHAR);
 			insertRoom.setObject(2, getArea(),Types.INTEGER);
 			insertRoom.setObject(3, getStreet(),Types.VARCHAR);
 			insertRoom.setObject(4, getTown(),Types.VARCHAR);
 			insertRoom.setObject(5, getZipCode(), Types.VARCHAR);
 			insertRoom.setObject(6, getCountry(),Types.VARCHAR);
-			insertRoom.executeUpdate();		
+			insertRoom.executeUpdate();
+			ResultSet key = insertRoom.getGeneratedKeys();
+			if(key.next()){
+				setRoomID(key.getInt(1));
+			}
 		}
 		catch (SQLException e) 
 		{
@@ -46,7 +50,6 @@ public class RoomJdbc extends Room{
 	public void load()
 	{
 		PreparedStatement selectRoom;
-		PreparedStatement selectAccessories;
 		try 
 		{
 			selectRoom = ConnectionUtil.connection.prepareStatement("SELECT * "
@@ -71,31 +74,6 @@ public class RoomJdbc extends Room{
 				{
 					e.printStackTrace();
 				}
-				
-				/*selectAccessories = ConnectionUtil.connection.prepareStatement("SELECT * "
-						+ "FROM Have "
-						+ "WHERE roomID = ? ");
-				selectAccessories.setObject(1, getRoomID(), Types.INTEGER);
-				ResultSet res2 = selectAccessories.executeQuery();
-				res2.first();
-				if(res2.getRow() > 0)
-				{
-					do
-					{
-						Accessory acc = new AccessoryJdbc();
-						acc.setAccID(res2.getInt("accID"));
-						acc.load();
-						
-						Have have = new HaveJdbc();
-						have.setRoom(this);
-						have.setAcc(acc);
-						have.setQuantity(res2.getInt("quantity"));
-						this.accessories.add(have);
-						
-					}while(res2.next());
-					
-					//pour chaque ligne, créer un accessoire, créer un have et le remplir avec la quantité et le mettre dans room
-				}*/
 			}
 		}
 		catch (SQLException e) 
@@ -104,7 +82,7 @@ public class RoomJdbc extends Room{
 		}	
 	}
 	
-	public void loadAll() throws LoginFailedException
+	/*public void loadAll() throws LoginFailedException
 	{
 		PreparedStatement selectRooms;
 		try 
@@ -138,7 +116,7 @@ public class RoomJdbc extends Room{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	public void loadAccessories()
 	{
@@ -178,16 +156,41 @@ public class RoomJdbc extends Room{
 		setAccessories(accessories);
 	}
 	
-	public static void main(String[] args) {
-		ConnectionUtil.start();
-		
-		RoomJdbc room = new RoomJdbc();
-		room.setRoomID(1);
-		System.out.println(room);
-		room.load();
-		System.out.println(room);
-		room.loadAccessories();
-		System.out.println(room.getAccessories());
-		ConnectionUtil.stop();
+	public void update(){
+		PreparedStatement updateRoom;
+		try {
+			updateRoom = ConnectionUtil.connection.prepareStatement("UPDATE Room "
+						+ "SET num = ?, area = ?, street = ?, town = ?, zipCode = ?, country = ? "
+						+ "WHERE roomID = ? ");
+			updateRoom.setObject(1, getNum(), Types.VARCHAR);
+			updateRoom.setObject(2, getArea(), Types.INTEGER);
+			updateRoom.setObject(3, getStreet(), Types.VARCHAR);
+			updateRoom.setObject(4, getTown(), Types.VARCHAR);
+			updateRoom.setObject(5, getZipCode(), Types.VARCHAR);
+			updateRoom.setObject(6, getCountry(), Types.VARCHAR);
+			updateRoom.setObject(7, getRoomID(), Types.INTEGER);
+			updateRoom.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void delete(){
+		PreparedStatement deleteRoom;
+		this.loadAccessories();
+		for(int acci=0; acci<this.getAccessories().size(); acci++)
+		{
+			getAccessories().get(acci).delete();
+		}
+		try {
+			deleteRoom = ConnectionUtil.connection.prepareStatement("DELETE FROM Room "
+						+ "WHERE roomID = ? ");
+			deleteRoom.setObject(1, getRoomID(), Types.INTEGER);
+			deleteRoom.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

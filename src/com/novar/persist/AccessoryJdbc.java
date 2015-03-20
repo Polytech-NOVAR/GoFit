@@ -4,9 +4,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.novar.business.Accessory;
+import com.novar.business.Have;
+import com.novar.business.Room;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
 import com.novar.exception.RegisterFailedException;
@@ -25,9 +28,13 @@ public class AccessoryJdbc extends Accessory{
 		try 
 		{
 			PreparedStatement insertAccessory = ConnectionUtil.connection.prepareStatement("INSERT INTO Accessory (name) "
-																		+ "VALUES (?);");
+																		+ "VALUES (?);", PreparedStatement.RETURN_GENERATED_KEYS);
 			insertAccessory.setObject(1, getName(), Types.VARCHAR);
-			insertAccessory.executeUpdate();		
+			insertAccessory.executeUpdate();
+			ResultSet key = insertAccessory.getGeneratedKeys();
+			if(key.next()){
+				setAccID(key.getInt(1));
+			}
 		}
 		catch (SQLException e) 
 		{
@@ -37,15 +44,15 @@ public class AccessoryJdbc extends Accessory{
 	
 	public void load()
 	{
-		PreparedStatement selectRoom;
+		PreparedStatement selectAccessory;
 		try 
 		{
-			selectRoom = ConnectionUtil.connection.prepareStatement("SELECT * "
+			selectAccessory = ConnectionUtil.connection.prepareStatement("SELECT * "
 					+ "FROM Accessory "
 					+ "WHERE accID = ? ");
 
-			selectRoom.setObject(1, getAccID(), Types.INTEGER);
-			ResultSet res = selectRoom.executeQuery();
+			selectAccessory.setObject(1, getAccID(), Types.INTEGER);
+			ResultSet res = selectAccessory.executeQuery();
 			res.last();
 			if(res.getRow() == 1)
 			{
@@ -59,15 +66,15 @@ public class AccessoryJdbc extends Accessory{
 		}
 	}
 	
-	public void loadAll()
+	/*public void loadAll()
 	{
-		PreparedStatement selectRoom;
+		PreparedStatement selectAccessory;
 		try 
 		{
-			selectRoom = ConnectionUtil.connection.prepareStatement("SELECT * FROM Accessory ");
+			selectAccessory = ConnectionUtil.connection.prepareStatement("SELECT * FROM Accessory ");
 
-			selectRoom.setObject(1, getAccID(), Types.INTEGER);
-			ResultSet res = selectRoom.executeQuery();
+			selectAccessory.setObject(1, getAccID(), Types.INTEGER);
+			ResultSet res = selectAccessory.executeQuery();
 			res.last();
 			if(res.getRow() == 1)
 			{
@@ -79,13 +86,76 @@ public class AccessoryJdbc extends Accessory{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}*/
+	
+	public void loadRooms()
+	{
+		PreparedStatement selectRooms;
+		ArrayList<Have> rooms = new ArrayList<Have>();
+		try 
+		{
+			selectRooms = ConnectionUtil.connection.prepareStatement("SELECT * "
+					+ "FROM Have "
+					+ "WHERE accID = ? ");
+
+			selectRooms.setObject(1, getAccID(), Types.INTEGER);
+			ResultSet res = selectRooms.executeQuery();
+			res.last();
+			if(res.getRow() > 0)
+			{
+				do
+				{
+					Room room = new RoomJdbc();
+					room.setRoomID(res.getInt("roomID"));
+					room.load();
+					
+					Have have = new HaveJdbc();
+					have.setAcc(this);
+					have.setRoom(room);
+					have.setQuantity(res.getInt("quantity"));
+					rooms.add(have);
+					
+				}while(res.next());
+			}
+		}
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		setRooms(rooms);
 	}
 	
 	public void update(){
-		
+		PreparedStatement updateAccessory;
+		try {
+			updateAccessory = ConnectionUtil.connection.prepareStatement("UPDATE Accessory "
+						+ "SET name = ? "
+						+ "WHERE accID = ? ");
+			updateAccessory.setObject(1, getName(), Types.VARCHAR);
+			updateAccessory.setObject(2, getAccID(), Types.INTEGER);
+			updateAccessory.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void delete(){
-		
+		PreparedStatement deleteAccessory;
+		this.loadRooms();
+		for(int roomi=0; roomi<this.getRooms().size(); roomi++)
+		{
+			getRooms().get(roomi).delete();
+		}
+		try {
+			deleteAccessory = ConnectionUtil.connection.prepareStatement("DELETE FROM Accessory "
+						+ "WHERE accID = ? ");
+			deleteAccessory.setObject(1, getAccID(), Types.INTEGER);
+			deleteAccessory.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
