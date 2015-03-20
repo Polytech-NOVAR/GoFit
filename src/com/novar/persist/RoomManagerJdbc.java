@@ -11,6 +11,11 @@ import com.novar.util.ConnectionUtil;
 
 public class RoomManagerJdbc extends RoomManager{
 
+	public RoomManagerJdbc()
+	{
+		
+	}
+	
 	public ArrayList<Room> getAllRooms() {
 		PreparedStatement selectRooms;
 		ArrayList<Room> rooms = new ArrayList<Room>();

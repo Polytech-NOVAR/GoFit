@@ -4,8 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.HashMap;
 
 import com.novar.business.Have;
+import com.novar.exception.FalseFieldsException;
 import com.novar.util.ConnectionUtil;
 
 public class HaveJdbc extends Have{
@@ -14,6 +16,12 @@ public class HaveJdbc extends Have{
 	{
 		super();
 	}
+	
+	public HaveJdbc(HashMap<String,Object> data) throws FalseFieldsException
+	{
+		super(data);
+	}
+	
 	
 	public void save()
 	{

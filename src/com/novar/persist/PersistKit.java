@@ -45,4 +45,25 @@ public interface PersistKit
 	 */
 	public Accessory makeAccessory(HashMap<String,Object> data) throws FalseFieldsException;
 	
+	/**
+	 * This is the declaration of the method to make a have (RoomAccessory)
+	 * @param data of a have
+	 * @return the have
+	 * @throws FalseFieldsException
+	 */
+	public Have makeHave(HashMap<String,Object> data) throws FalseFieldsException;
+	
+	/**
+	 * This is the declaration of the method to make a RoomManager
+	 * @param data of a RoomManager
+	 * @return the RoomManager
+	 */
+	public RoomManager makeRoomManager();
+	
+	/**
+	 * This is the declaration of the method to make a AccessoryManager
+	 * @param data of a AccessoryManager
+	 * @return the AccessoryManager
+	 */
+	public AccessoryManager makeAccessoryManager();
 }

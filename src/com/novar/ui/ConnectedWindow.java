@@ -62,7 +62,7 @@ public class ConnectedWindow extends JFrame {
 		super("GoFit");
 		this.facade = facade;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 980, 800);
+		setBounds(100, 100, 980, 720);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -91,10 +91,15 @@ public class ConnectedWindow extends JFrame {
 		{
 			JMenu mnAdministrator = new JMenu("Admin");
 			menuBar.add(mnAdministrator);
-			
-			
+				
 			JMenuItem mntmCategories = new JMenuItem("Categories");
 			mnAdministrator.add(mntmCategories);
+			
+			JMenuItem mntmRooms = new JMenuItem("Rooms");
+			mnAdministrator.add(mntmRooms);
+			
+			JMenuItem mntmAccessories = new JMenuItem("Accessories");
+			mnAdministrator.add(mntmAccessories);
 			
 			mntmCategories.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
@@ -102,6 +107,20 @@ public class ConnectedWindow extends JFrame {
 					//changePanel(new JPanelCategory());
 				}
 			});
+			
+			mntmRooms.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) 
+				{
+					changePanel(new panelRooms(facade));
+				}
+			});
+			
+			mntmAccessories.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) 
+				{
+					changePanel(new panelAccessories());
+				}
+			});		
 		}
 		
 		if(facade.getUser().isManager())

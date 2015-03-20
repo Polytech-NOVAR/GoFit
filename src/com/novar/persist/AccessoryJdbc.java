@@ -5,10 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.novar.business.Accessory;
 import com.novar.business.Have;
 import com.novar.business.Room;
+import com.novar.exception.FalseFieldsException;
 import com.novar.util.ConnectionUtil;
 
 public class AccessoryJdbc extends Accessory{
@@ -16,6 +18,11 @@ public class AccessoryJdbc extends Accessory{
 	public AccessoryJdbc()
 	{
 		super();
+	}
+	
+	public AccessoryJdbc(HashMap<String,Object> data) throws FalseFieldsException
+	{
+		super(data);
 	}
 	
 	public void save()

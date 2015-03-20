@@ -3,6 +3,8 @@ package com.novar.persist;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.novar.business.AccessoryManager;
+import com.novar.business.RoomManager;
 import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
@@ -38,7 +40,7 @@ public class JdbcKit implements PersistKit
 	 */
 	public RoomJdbc makeRoom(HashMap<String,Object> data) throws FalseFieldsException
 	{
-		return new RoomJdbc();
+		return new RoomJdbc(data);
 	}
 	
 	/**
@@ -49,7 +51,37 @@ public class JdbcKit implements PersistKit
 	 */
 	public AccessoryJdbc makeAccessory(HashMap<String,Object> data) throws FalseFieldsException
 	{
-		return new AccessoryJdbc();
+		return new AccessoryJdbc(data);
 	}
 	
+	/**
+	 * This is the definition of the method to make a have (a RoomAccessory)
+	 * @param data of a have
+	 * @return the have with persistence methods
+	 * @throws FalseFieldsException
+	 */
+	public HaveJdbc makeHave(HashMap<String,Object> data) throws FalseFieldsException
+	{
+		return new HaveJdbc(data);
+	}
+	
+	/**
+	 * This is the definition of the method to make a RoomManager
+	 * @param data of a RoomManager
+	 * @return the RoomManager with persistence methods
+	 */
+	public RoomManager makeRoomManager()
+	{
+		return new RoomManagerJdbc();
+	}
+	
+	/**
+	 * This is the definition of the method to make a AccessoryManager
+	 * @param data of a AccessoryManager
+	 * @return the AccessoryManager with persistence methods
+	 */
+	public AccessoryManager makeAccessoryManager()
+	{
+		return new AccessoryManagerJdbc();
+	}
 }

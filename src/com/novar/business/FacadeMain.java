@@ -37,4 +37,14 @@ public class FacadeMain
 	{
 		return this.theUser;
 	}
+	
+	public ArrayList<Room> getAllRooms(){
+		RoomManager rm = kit.makeRoomManager();
+		return rm.getAllRooms();
+	}
+	
+	public ArrayList<Accessory> getAllAccessories(){
+		AccessoryManager rm = kit.makeAccessoryManager();
+		return rm.getAllAccessories();
+	}
 }

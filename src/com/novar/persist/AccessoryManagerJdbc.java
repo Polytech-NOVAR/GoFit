@@ -11,6 +11,11 @@ import com.novar.util.ConnectionUtil;
 
 public class AccessoryManagerJdbc extends AccessoryManager{
 
+	public AccessoryManagerJdbc()
+	{
+		
+	}
+	
 	public ArrayList<Accessory> getAllAccessories() {
 		PreparedStatement selectAccessories;
 		ArrayList<Accessory> accessories = new ArrayList<Accessory>();
