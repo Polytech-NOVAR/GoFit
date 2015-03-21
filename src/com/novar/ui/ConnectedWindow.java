@@ -34,15 +34,23 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 
 import com.novar.business.FacadeMain;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JLabel;
+
 import java.awt.GridBagConstraints;
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
+
 import java.awt.Insets;
+
 import javax.swing.Box;
 import javax.swing.JMenuItem;
+
 import java.awt.Dimension;
 
 public class ConnectedWindow extends JFrame {
@@ -51,6 +59,8 @@ public class ConnectedWindow extends JFrame {
 	private FacadeMain facade;
 	
 	private JPanel contentPane;
+	
+	private ConnectedWindow frame;
 	/**
 	 * @wbp.nonvisual location=-29,199
 	 */
@@ -60,9 +70,16 @@ public class ConnectedWindow extends JFrame {
 	public ConnectedWindow(FacadeMain facade) 
 	{
 		super("GoFit");
+		frame = this;
 		this.facade = facade;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 980, 720);
+		Toolkit tk = Toolkit.getDefaultToolkit(); 
+		Dimension d = tk.getScreenSize();
+		int screenHeight = d.height;
+		int screenWidth = d.width; 
+		int height = 720;
+		int width = 980;
+		setBounds(screenWidth/6, screenHeight/10, width, height);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -111,7 +128,7 @@ public class ConnectedWindow extends JFrame {
 			mntmRooms.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					changePanel(new panelRooms(facade));
+					changePanel(new panelRooms(frame, facade));
 				}
 			});
 			

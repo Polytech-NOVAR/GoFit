@@ -11,10 +11,12 @@ public class FacadeMain
 {
 	private User theUser = null;
 	private PersistKit kit = null;
+	private RoomAccessoryFacade roomFacade;
 	
 	public FacadeMain(PersistKit kit)
 	{
 		this.kit = kit;
+		this.roomFacade = new RoomAccessoryFacade(kit);
 	}
 	
 	public void register(HashMap<String,Object> dataUser) throws RegisterFailedException, FalseFieldsException
@@ -38,13 +40,8 @@ public class FacadeMain
 		return this.theUser;
 	}
 	
-	public ArrayList<Room> getAllRooms(){
-		RoomManager rm = kit.makeRoomManager();
-		return rm.getAllRooms();
-	}
-	
-	public ArrayList<Accessory> getAllAccessories(){
-		AccessoryManager rm = kit.makeAccessoryManager();
-		return rm.getAllAccessories();
+	public RoomAccessoryFacade getRoomFacade()
+	{
+		return this.roomFacade;
 	}
 }
