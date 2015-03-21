@@ -6,7 +6,9 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.HashMap;
 
+import com.novar.business.Accessory;
 import com.novar.business.Have;
+import com.novar.business.Room;
 import com.novar.exception.FalseFieldsException;
 import com.novar.util.ConnectionUtil;
 
@@ -17,9 +19,9 @@ public class HaveJdbc extends Have{
 		super();
 	}
 	
-	public HaveJdbc(HashMap<String,Object> data) throws FalseFieldsException
+	public HaveJdbc(Room room, Accessory acc, int quantity)
 	{
-		super(data);
+		super(room, acc, quantity);
 	}
 	
 	

@@ -128,14 +128,14 @@ public class ConnectedWindow extends JFrame {
 			mntmRooms.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					changePanel(new panelRooms(frame, facade));
+					changePanel(new PanelRooms(frame, facade));
 				}
 			});
 			
 			mntmAccessories.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					changePanel(new panelAccessories());
+					changePanel(new PanelAccessories(frame, facade));
 				}
 			});		
 		}
@@ -184,7 +184,7 @@ public class ConnectedWindow extends JFrame {
 		menuBar.add(mnLogoff);
 	}
 	
-	private void changePanel (JPanel panel)
+	public void changePanel (JPanel panel)
 	{
 		contentPane = panel;
 		setContentPane(contentPane);

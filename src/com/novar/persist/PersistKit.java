@@ -51,8 +51,7 @@ public interface PersistKit
 	 * @return the have
 	 * @throws FalseFieldsException
 	 */
-	public Have makeHave(HashMap<String,Object> data) throws FalseFieldsException;
-	
+	public Have makeHave(Room room, Accessory acc, int quantity);
 	/**
 	 * This is the declaration of the method to make a RoomManager
 	 * @param data of a RoomManager

@@ -16,7 +16,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class panelRooms extends JPanel {
+public class PanelRooms extends JPanel {
 
 	private FacadeMain facade;
 	
@@ -24,7 +24,7 @@ public class panelRooms extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public panelRooms(ConnectedWindow frame, FacadeMain facade) {
+	public PanelRooms(ConnectedWindow frame, FacadeMain facade) {
 		this.facade = facade;
 		this.mainFrame = frame;
 		SpringLayout springLayout = new SpringLayout();
@@ -67,15 +67,21 @@ public class panelRooms extends JPanel {
 		add(lblCountry);
 		
 		JButton btnAddOne = new JButton("Add one");
-		springLayout.putConstraint(SpringLayout.SOUTH, btnAddOne, -25, SpringLayout.SOUTH, this);
-		springLayout.putConstraint(SpringLayout.EAST, btnAddOne, -25, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.NORTH, btnAddOne, 30, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.EAST, btnAddOne, -80, SpringLayout.EAST, this);
 		btnAddOne.setFont(new Font("Calibri", Font.PLAIN, 14));
+		btnAddOne.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addOne();
+			}
+		});
 		add(btnAddOne);
 		
 		JLabel lblRooms = new JLabel("Rooms");
 		springLayout.putConstraint(SpringLayout.NORTH, lblRooms, 30, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, lblRooms, mainFrame.getWidth()/2, SpringLayout.WEST, this);
 		lblRooms.setFont(new Font("Calibri", Font.BOLD, 24));
+		
 		add(lblRooms);
 		
 		ArrayList<Room> rooms = facade.getRoomFacade().getAllRooms();
@@ -142,15 +148,19 @@ public class panelRooms extends JPanel {
 			});
 			add(btnDelete);
 		}
-		
-		JLabel test = new JLabel("test");
 	}
 	
 	private void seeMore(Room room){
-		
+		this.mainFrame.changePanel(new PanelRoomDetails(this.mainFrame, this.facade, room));
 	}
 	
-	private void delete(Room room){
-		
+	private void addOne(){
+		this.mainFrame.changePanel(new PanelRoomDetails(this.mainFrame, this.facade, null));
+	}
+	
+	private void delete(Room room)
+	{
+		DeleteRoomDialog delete = new DeleteRoomDialog(this.mainFrame, this.facade, room);
+		delete.setVisible(true);
 	}
 }

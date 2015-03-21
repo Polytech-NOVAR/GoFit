@@ -3,7 +3,9 @@ package com.novar.persist;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.novar.business.Accessory;
 import com.novar.business.AccessoryManager;
+import com.novar.business.Room;
 import com.novar.business.RoomManager;
 import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
@@ -60,9 +62,9 @@ public class JdbcKit implements PersistKit
 	 * @return the have with persistence methods
 	 * @throws FalseFieldsException
 	 */
-	public HaveJdbc makeHave(HashMap<String,Object> data) throws FalseFieldsException
+	public HaveJdbc makeHave(Room room, Accessory acc, int quantity)
 	{
-		return new HaveJdbc(data);
+		return new HaveJdbc(room, acc ,quantity);
 	}
 	
 	/**
