@@ -126,7 +126,7 @@ public class panelRooms extends JPanel {
 			btnSeeMore.setFont(new Font("Calibri", Font.PLAIN, 12));
 			btnSeeMore.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					seeMore(roomi.getRoomID());
+					seeMore(roomi);
 				}
 			});
 			add(btnSeeMore);
@@ -137,7 +137,7 @@ public class panelRooms extends JPanel {
 			btnDelete.setFont(new Font("Calibri", Font.PLAIN, 12));
 			btnDelete.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					delete(roomi.getRoomID());
+					delete(roomi);
 				}
 			});
 			add(btnDelete);
@@ -146,11 +146,11 @@ public class panelRooms extends JPanel {
 		JLabel test = new JLabel("test");
 	}
 	
-	private void seeMore(int roomID){
+	private void seeMore(Room room){
 		
 	}
 	
-	private void delete(int roomID){
+	private void delete(Room room){
 		
 	}
 }
