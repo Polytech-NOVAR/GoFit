@@ -100,6 +100,22 @@ public class UserJdbc extends User{
 			e.printStackTrace();
 		}
 	}
+	
+	public void updatePassword() throws SQLException
+	{
+		PreparedStatement updatePassword;
+		try {
+			updatePassword = ConnectionUtil.connection.prepareStatement("UPDATE User "
+						+ "SET password = ? "
+						+ "WHERE email = ?");
+			updatePassword.setObject(1, getPassword(),Types.VARCHAR);
+			updatePassword.setObject(2, getEmail(), Types.VARCHAR);
+			updatePassword.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public void loadRoles()
 	{		

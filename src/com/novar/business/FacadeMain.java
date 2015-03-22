@@ -2,6 +2,7 @@ package com.novar.business;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.sql.SQLException;
 
 import com.novar.exception.*;
 import com.novar.persist.PersistKit;
@@ -24,6 +25,13 @@ public class FacadeMain
 		User userInRegistration = kit.makeUser(dataUser);
 		userInRegistration.save();
 	}
+	
+	public void forgottenPassword(HashMap<String,Object> dataUser) throws RegisterFailedException, FalseFieldsException, SQLException
+	{
+		User userInForgottenPassword = kit.makeUser(dataUser);
+		userInForgottenPassword.updatePassword();
+	}
+	
 	
 	public void login(HashMap<String,Object> dataUser) throws LoginFailedException, FalseFieldsException
 	{

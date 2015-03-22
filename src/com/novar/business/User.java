@@ -1,6 +1,7 @@
 package com.novar.business;
 
 import java.lang.reflect.Method;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -360,6 +361,6 @@ public abstract class User
 	public abstract void load() throws LoginFailedException;
 	public abstract void save() throws RegisterFailedException;
 	public abstract void loadProducts();
-	/*public abstract void update();
-	public abstract void delete();*/
+	public abstract void updatePassword() throws RegisterFailedException, SQLException; 
+	/*public abstract void delete();*/
 }

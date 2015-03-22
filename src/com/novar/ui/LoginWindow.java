@@ -110,7 +110,7 @@ public class LoginWindow extends JFrame
 		GridBagConstraints gbc_lblError = new GridBagConstraints();
 		gbc_lblError.gridwidth = 2;
 		gbc_lblError.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblError.insets = new Insets(0, 0, 5, 5);
+		gbc_lblError.insets = new Insets(0, 0, 5, 0);
 		gbc_lblError.gridx = 2;
 		gbc_lblError.gridy = 3;
 		getContentPane().add(lblError, gbc_lblError);
@@ -170,12 +170,25 @@ public class LoginWindow extends JFrame
 			gbc_passwordField.gridx = 2;
 			gbc_passwordField.gridy = 5;
 			getContentPane().add(passwordField, gbc_passwordField);
+			
+			JButton btnForgottenPassword = new JButton("Forgotten password?");
+			btnForgottenPassword.setFont(new Font("Tahoma", Font.PLAIN, 8));
+			GridBagConstraints gbc_btnForgottenPassword = new GridBagConstraints();
+			gbc_btnForgottenPassword.insets = new Insets(0, 0, 0, 5);
+			gbc_btnForgottenPassword.gridx = 1;
+			gbc_btnForgottenPassword.gridy = 6;
+			getContentPane().add(btnForgottenPassword, gbc_btnForgottenPassword);
 			GridBagConstraints gbc_btnLogin = new GridBagConstraints();
 			gbc_btnLogin.anchor = GridBagConstraints.NORTHWEST;
 			gbc_btnLogin.insets = new Insets(0, 0, 0, 5);
 			gbc_btnLogin.gridx = 2;
 			gbc_btnLogin.gridy = 6;
 			getContentPane().add(btnLogin, gbc_btnLogin);
+			btnForgottenPassword.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					forgottenPassword();
+				}
+			});
 		
 		JButton btnRegister = new JButton("Register");
 		btnRegister.setFont(new Font("Calibri", Font.PLAIN, 12));
@@ -227,5 +240,11 @@ public class LoginWindow extends JFrame
 	{
 		RegisterWindow register = new RegisterWindow(this, facade);
 		register.setVisible(true);
+	}
+	
+	private void forgottenPassword()
+	{ 
+		ForgottenPassword forgotPassword = new ForgottenPassword(this, facade);
+		forgotPassword.setVisible(true);
 	}
 }
