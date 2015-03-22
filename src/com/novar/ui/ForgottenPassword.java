@@ -1,5 +1,6 @@
 package com.novar.ui;
 
+
 import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -29,6 +32,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import com.novar.business.FacadeMain;
+import com.novar.util.SendMail;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.RegisterFailedException;
 
@@ -169,7 +173,7 @@ public class ForgottenPassword extends JDialog {
 		this.dispose();
 	}
 	
-	private void forgottenPassword() throws SQLException{
+	private void forgottenPassword() throws SQLException, AddressException, MessagingException{
 		if(Arrays.equals(passwordField.getPassword(), confirmField.getPassword()))
 		{
 			passwordField.setBorder(defaultBorder);
@@ -186,6 +190,7 @@ public class ForgottenPassword extends JDialog {
 			try 
 			{
 				facade.forgottenPassword(mapUser);
+				generateAndSendEmail(emailTextField.getText());
 				closeWindow();
 			} 
 			catch (FalseFieldsException e2) 
@@ -209,6 +214,7 @@ public class ForgottenPassword extends JDialog {
 	
 					}
 				}
+				
 			}
 			catch (RegisterFailedException e1) 
 			{
