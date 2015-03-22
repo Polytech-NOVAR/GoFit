@@ -1,7 +1,6 @@
 package com.novar.persist;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.novar.business.Administrator;
@@ -27,7 +26,6 @@ public class UserJdbc extends User{
 	{
 		try 
 		{
-			//Insertion de l'utilisateur dans la table User
 			PreparedStatement insertUser = ConnectionUtil.connection.prepareStatement("INSERT INTO User (pseudo, password, lastName, firstName, phone, email, street, town, zipCode, country) "
 																		+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 			insertUser.setObject(1, getPseudo(),Types.VARCHAR);

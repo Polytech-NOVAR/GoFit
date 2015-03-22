@@ -85,9 +85,9 @@ public class LoginWindow extends JFrame
 		setResizable(false);
 		Toolkit tk = Toolkit.getDefaultToolkit(); 
 		Dimension d = tk.getScreenSize();
-		int hauteurEcran = d.height;
-		int largeurEcran = d.width; 
-		setBounds(largeurEcran/3, hauteurEcran/5, 380, 520);
+		int screenHeight = d.height;
+		int screenWidth = d.width; 
+		setBounds(screenWidth/3, screenHeight/5, 380, 520);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{37, 103, 57, 128, 0};

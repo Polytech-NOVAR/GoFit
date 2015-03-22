@@ -73,9 +73,9 @@ public class RegisterWindow extends JDialog {
 		setResizable(false);
 		Toolkit tk = Toolkit.getDefaultToolkit(); 
 		Dimension d = tk.getScreenSize();
-		int hauteurEcran = d.height;
-		int largeurEcran = d.width; 
-		setBounds(largeurEcran/4, hauteurEcran/4,600, 504);
+		int screenHeight = d.height;
+		int screenWidth = d.width; 
+		setBounds(screenWidth/4, screenHeight/4,600, 504);
 		setAlwaysOnTop(true);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
