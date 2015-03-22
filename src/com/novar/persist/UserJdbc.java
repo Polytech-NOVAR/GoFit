@@ -16,6 +16,10 @@ import com.novar.util.ConnectionUtil;
 
 public class UserJdbc extends User{
 	
+	public UserJdbc()
+	{
+		super();
+	}
 	
 	public UserJdbc(HashMap<String,Object> data) throws FalseFieldsException
 	{

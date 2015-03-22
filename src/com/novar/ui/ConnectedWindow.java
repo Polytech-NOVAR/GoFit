@@ -52,6 +52,8 @@ import javax.swing.Box;
 import javax.swing.JMenuItem;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ConnectedWindow extends JFrame {
 
@@ -173,6 +175,12 @@ public class ConnectedWindow extends JFrame {
 		
 		JMenuItem mnNotification = new JMenuItem("Notification");
 		mnNotification.setMaximumSize(new Dimension(1, 32767));
+		mnNotification.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				changePanel(new PanelNotifications(frame, facade));
+			}
+		});
 		menuBar.add(mnNotification);
 		
 		JMenuItem mnBasket = new JMenuItem("Basket");
