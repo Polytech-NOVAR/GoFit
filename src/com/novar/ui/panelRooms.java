@@ -10,7 +10,6 @@ import com.novar.business.FacadeMain;
 import com.novar.business.Room;
 
 import javax.swing.JButton;
-import javax.swing.JTextField;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
