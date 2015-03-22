@@ -18,7 +18,7 @@ public abstract class Accessory {
 	{
 	}
 	
-	public Accessory(HashMap<String,Object> data) throws FalseFieldsException
+	public Accessory(HashMap<String,Object> data)
 	{
 		Class[] typeArg = new Class[1];
 		Object[] arg = new Object[1];
@@ -45,8 +45,6 @@ public abstract class Accessory {
 				e1.printStackTrace();
 			}
 		}
-		if(!errors.isEmpty())
-			throw new FalseFieldsException(errors);
 	}
 	
 	public int getAccID() {

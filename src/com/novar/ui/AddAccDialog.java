@@ -40,6 +40,8 @@ public class AddAccDialog extends JDialog {
 	private Room room;
 	private JTextField textFieldQuantity;
 	private JComboBox comboBoxAccs;
+	private JLabel lblErrorQuantity;
+	
 	/**
 	 * Create the dialog.
 	 */
@@ -76,6 +78,13 @@ public class AddAccDialog extends JDialog {
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxAccs, 0, SpringLayout.NORTH, lblQuantity);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxAccs, 6, SpringLayout.EAST, textFieldQuantity);
 		getContentPane().add(comboBoxAccs);
+		
+		lblErrorQuantity = new JLabel("The quantity field must contains only numbers.");
+		springLayout.putConstraint(SpringLayout.NORTH, lblErrorQuantity, 100, SpringLayout.NORTH, lblQuantity);
+		springLayout.putConstraint(SpringLayout.WEST, lblErrorQuantity, 0, SpringLayout.WEST, lblQuantity);
+		lblErrorQuantity.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorQuantity.setVisible(false);
+		add(lblErrorQuantity);
 		
 		ArrayList<Accessory> accs = facade.getRoomFacade().getAllAccessories();
 		for(int i=0; i<accs.size(); i++)
@@ -115,11 +124,18 @@ public class AddAccDialog extends JDialog {
 	
 	private void add()
 	{
-		Accessory acc = ((Accessory)comboBoxAccs.getSelectedItem());
-		int quantity = Integer.parseInt(textFieldQuantity.getText());
-		this.facade.getRoomFacade().addAccessory(this.room, acc, quantity);
-		this.mainFrame.changePanel(new PanelRoomDetails(this.mainFrame, this.facade, this.room));
-		this.dispose();
+		try
+		{
+			Accessory acc = ((Accessory)comboBoxAccs.getSelectedItem());
+			int quantity = Integer.parseInt(textFieldQuantity.getText());
+			this.facade.getRoomFacade().addAccessory(this.room, acc, quantity);
+			this.mainFrame.changePanel(new PanelRoomDetails(this.mainFrame, this.facade, this.room));
+			this.dispose();
+		}
+		catch (NumberFormatException e)
+		{
+			lblErrorQuantity.setVisible(true);
+		}
 	}
 }
 

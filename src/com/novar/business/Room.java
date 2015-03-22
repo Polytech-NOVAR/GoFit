@@ -78,7 +78,7 @@ public abstract class Room {
 		return area;
 	}
 	
-	public void setArea(Integer area) {
+	public void setArea(Integer area){
 		this.area = area;
 	}
 	

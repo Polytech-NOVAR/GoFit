@@ -36,14 +36,13 @@ public interface PersistKit
 	 * @throws FalseFieldsException
 	 */
 	public Room makeRoom(HashMap<String,Object> data) throws FalseFieldsException;
-	
 	/**
 	 * This is the declaration of the method to make a accessory
 	 * @param data of a accessory
 	 * @return the accessory
 	 * @throws FalseFieldsException
 	 */
-	public Accessory makeAccessory(HashMap<String,Object> data) throws FalseFieldsException;
+	public Accessory makeAccessory(HashMap<String,Object> data);
 	
 	/**
 	 * This is the declaration of the method to make a have (RoomAccessory)

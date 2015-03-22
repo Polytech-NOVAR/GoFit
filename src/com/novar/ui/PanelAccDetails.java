@@ -26,7 +26,7 @@ public class PanelAccDetails extends JPanel {
 	private Accessory acc = null;
 	
 	private JTextField textFieldName;
-	private JLabel lblError;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -54,11 +54,6 @@ public class PanelAccDetails extends JPanel {
 		springLayout.putConstraint(SpringLayout.WEST, textFieldName, 6, SpringLayout.EAST, lblName);
 		add(textFieldName);
 		textFieldName.setColumns(10);
-		
-		lblError = new JLabel("");
-		springLayout.putConstraint(SpringLayout.NORTH, lblError, 0, SpringLayout.NORTH, lblName);
-		springLayout.putConstraint(SpringLayout.EAST, lblError, -115, SpringLayout.EAST, this);
-		add(lblError);
 		
 		if(acc != null)
 		{
@@ -103,16 +98,8 @@ public class PanelAccDetails extends JPanel {
 	private void create(){
 		HashMap<String,Object> mapAcc = new HashMap<String,Object>();
 		mapAcc.put("name", textFieldName.getText());
-		try 
-		{
-			facade.getRoomFacade().createAccessory(mapAcc);
-			this.mainFrame.changePanel(new PanelAccessories(this.mainFrame, this.facade));
-		} 
-		catch (FalseFieldsException e1) 
-		{
-			lblError.setForeground(Color.RED);
-			lblError.setText(e1.getMessage());
-		}
+		facade.getRoomFacade().createAccessory(mapAcc);
+		this.mainFrame.changePanel(new PanelAccessories(this.mainFrame, this.facade));
 	}
 	
 	private void update()
@@ -120,16 +107,8 @@ public class PanelAccDetails extends JPanel {
 		HashMap<String,Object> mapAcc = new HashMap<String,Object>();
 		mapAcc.put("accID", acc.getAccID());
 		mapAcc.put("name", textFieldName.getText());
-		try 
-		{
-			facade.getRoomFacade().updateAccessory(mapAcc);
-			this.mainFrame.changePanel(new PanelAccessories(this.mainFrame, this.facade));
-		} 
-		catch (FalseFieldsException e1) 
-		{
-			lblError.setForeground(Color.RED);
-			lblError.setText(e1.getMessage());
-		}
+		facade.getRoomFacade().updateAccessory(mapAcc);
+		this.mainFrame.changePanel(new PanelAccessories(this.mainFrame, this.facade));
 	}
 	
 	private void cancel()

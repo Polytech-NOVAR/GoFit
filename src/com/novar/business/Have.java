@@ -44,7 +44,7 @@ public abstract class Have {
 		return quantity;
 	}
 
-	public void setQuantity(Integer quantity) {
+	public void setQuantity(Integer quantity){
 		this.quantity = quantity;
 	}
 

@@ -20,7 +20,7 @@ public class AccessoryJdbc extends Accessory{
 		super();
 	}
 	
-	public AccessoryJdbc(HashMap<String,Object> data) throws FalseFieldsException
+	public AccessoryJdbc(HashMap<String,Object> data)
 	{
 		super(data);
 	}

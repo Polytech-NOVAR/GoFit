@@ -1,5 +1,6 @@
 package com.novar.ui;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
@@ -33,7 +34,12 @@ public class PanelRoomDetails extends JPanel {
 	private JTextField textFieldCountry;
 	private JTextField textFieldZip;
 	private JTextField textFieldCity;
-	private JLabel lblError;
+	private JLabel lblErrorStreet;
+	private JLabel lblErrorCity;
+	private JLabel lblErrorZip;
+	private JLabel lblErrorCountry;
+	private JLabel lblErrorArea;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -116,11 +122,41 @@ public class PanelRoomDetails extends JPanel {
 		add(textFieldCity);
 		textFieldCity.setColumns(10);
 		
-		lblError = new JLabel("");
-		springLayout.putConstraint(SpringLayout.NORTH, lblError, 0, SpringLayout.NORTH, lblStreet);
-		springLayout.putConstraint(SpringLayout.EAST, lblError, -115, SpringLayout.EAST, this);
-		add(lblError);
+		lblErrorStreet = new JLabel("The street field must contains 1 to 50 letters or numbers.");
+		springLayout.putConstraint(SpringLayout.NORTH, lblErrorStreet, 0, SpringLayout.NORTH, lblStreet);
+		springLayout.putConstraint(SpringLayout.EAST, lblErrorStreet, -115, SpringLayout.EAST, this);
+		lblErrorStreet.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorStreet.setVisible(false);
+		add(lblErrorStreet);
 		
+		lblErrorCity = new JLabel("The city field must contains 1 to 50 letters.");
+		springLayout.putConstraint(SpringLayout.NORTH, lblErrorCity, 0, SpringLayout.NORTH, lblCity);
+		springLayout.putConstraint(SpringLayout.EAST, lblErrorCity, -115, SpringLayout.EAST, this);
+		lblErrorCity.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorCity.setVisible(false);
+		add(lblErrorCity);
+		
+		lblErrorZip = new JLabel("The zipCode field must contains 5 numbers.");
+		springLayout.putConstraint(SpringLayout.NORTH, lblErrorZip, 0, SpringLayout.NORTH, lblZipcode);
+		springLayout.putConstraint(SpringLayout.EAST, lblErrorZip, -115, SpringLayout.EAST, this);
+		lblErrorZip.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorZip.setVisible(false);
+		add(lblErrorZip);
+		
+		lblErrorCountry = new JLabel("The country field must contains 2 to 50 letters.");
+		springLayout.putConstraint(SpringLayout.NORTH, lblErrorCountry, 0, SpringLayout.NORTH, lblCountry);
+		springLayout.putConstraint(SpringLayout.EAST, lblErrorCountry, -115, SpringLayout.EAST, this);
+		lblErrorCountry.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorCountry.setVisible(false);
+		add(lblErrorCountry);
+		
+		lblErrorArea = new JLabel("The area field must contains only numbers.");
+		springLayout.putConstraint(SpringLayout.NORTH, lblErrorArea, 0, SpringLayout.NORTH, lblArea);
+		springLayout.putConstraint(SpringLayout.EAST, lblErrorArea, -115, SpringLayout.EAST, this);
+		lblErrorArea.setFont(new Font("Calibri", Font.PLAIN, 11));
+		lblErrorArea.setVisible(false);
+		add(lblErrorArea);
+				
 		if(room != null)
 		{
 			JLabel lblRoomDetails = new JLabel("Room details");
@@ -252,47 +288,62 @@ public class PanelRoomDetails extends JPanel {
 	}
 	
 	private void create(){
-		HashMap<String,Object> mapRoom = new HashMap<String,Object>();
-		mapRoom.put("num", textFieldNum.getText());
-		mapRoom.put("area", Integer.parseInt((textFieldArea.getText())));
-		mapRoom.put("street", textFieldStreet.getText());
-		mapRoom.put("town", textFieldCity.getText());
-		mapRoom.put("zipCode", textFieldZip.getText());
-		mapRoom.put("country", textFieldCountry.getText());
-		
-		try 
+		hideErrors();
+		try
 		{
-			facade.getRoomFacade().createRoom(mapRoom);
-			this.mainFrame.changePanel(new PanelRooms(this.mainFrame, this.facade));
-		} 
-		catch (FalseFieldsException e1) 
+			HashMap<String,Object> mapRoom = new HashMap<String,Object>();
+			mapRoom.put("num", textFieldNum.getText());
+			mapRoom.put("area", Integer.parseInt((textFieldArea.getText())));
+			mapRoom.put("street", textFieldStreet.getText());
+			mapRoom.put("town", textFieldCity.getText());
+			mapRoom.put("zipCode", textFieldZip.getText());
+			mapRoom.put("country", textFieldCountry.getText());
+			
+			try 
+			{
+				facade.getRoomFacade().createRoom(mapRoom);
+				this.mainFrame.changePanel(new PanelRooms(this.mainFrame, this.facade));
+			} 
+			catch (FalseFieldsException e1) 
+			{
+				showErrors(e1);
+			}
+			
+		}
+		catch (NumberFormatException e2)
 		{
-			lblError.setForeground(Color.RED);
-			lblError.setText(e1.getMessage());
+			lblErrorArea.setVisible(true);
 		}
 	}
 	
 	private void update()
 	{
-		HashMap<String,Object> mapRoom = new HashMap<String,Object>();
-		mapRoom.put("roomID", room.getRoomID());
-		mapRoom.put("num", textFieldNum.getText());
-		mapRoom.put("area", Integer.parseInt((textFieldArea.getText())));
-		mapRoom.put("street", textFieldStreet.getText());
-		mapRoom.put("town", textFieldCity.getText());
-		mapRoom.put("zipCode", textFieldZip.getText());
-		mapRoom.put("country", textFieldCountry.getText());
-		try 
+		hideErrors();	
+		try
 		{
-			facade.getRoomFacade().updateRoom(mapRoom);
-			this.mainFrame.changePanel(new PanelRooms(this.mainFrame, this.facade));
-		} 
-		catch (FalseFieldsException e1) 
-		{
-			lblError.setForeground(Color.RED);
-			lblError.setText(e1.getMessage());
+			HashMap<String,Object> mapRoom = new HashMap<String,Object>();
+			mapRoom.put("num", textFieldNum.getText());
+			mapRoom.put("area", Integer.parseInt((textFieldArea.getText())));
+			mapRoom.put("street", textFieldStreet.getText());
+			mapRoom.put("town", textFieldCity.getText());
+			mapRoom.put("zipCode", textFieldZip.getText());
+			mapRoom.put("country", textFieldCountry.getText());
+			
+			try 
+			{
+				facade.getRoomFacade().createRoom(mapRoom);
+				this.mainFrame.changePanel(new PanelRooms(this.mainFrame, this.facade));
+			} 
+			catch (FalseFieldsException e1) 
+			{
+				showErrors(e1);
+			}
+			
 		}
-	}
+		catch (NumberFormatException e2)
+		{
+			lblErrorArea.setVisible(true);
+		}	}
 	
 	private void cancel()
 	{
@@ -315,5 +366,42 @@ public class PanelRoomDetails extends JPanel {
 	{
 		AddAccDialog addAcc = new AddAccDialog(this.mainFrame, this.facade, this.room);
 		addAcc.setVisible(true);
+	}
+	
+	private void showErrors(FalseFieldsException e)
+	{
+		ArrayList<String> errors = e.getFalseFields();
+		for(int i = 0 ; i <errors.size() ; i++)
+		{
+			switch(errors.get(i))
+			{
+				case "street" : textFieldStreet.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+								textFieldStreet.setText("");
+								lblErrorStreet.setVisible(true);
+				break;
+				case "town" : textFieldCity.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+							  textFieldCity.setText("");
+							  lblErrorCity.setVisible(true);
+				break;
+				case "zipCode" : textFieldZip.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+								 textFieldZip.setText("");
+								 lblErrorZip.setVisible(true);
+				break;
+				case "country" : textFieldCountry.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+								textFieldCountry.setText("");
+								 lblErrorCountry.setVisible(true);
+				break;
+
+			}
+		}
+	}
+	
+	private void hideErrors()
+	{
+		lblErrorStreet.setVisible(false);
+		lblErrorCity.setVisible(false);
+		lblErrorZip.setVisible(false);
+		lblErrorCountry.setVisible(false);
+		lblErrorArea.setVisible(false);
 	}
 }

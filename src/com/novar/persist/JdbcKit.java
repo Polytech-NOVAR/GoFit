@@ -51,7 +51,7 @@ public class JdbcKit implements PersistKit
 	 * @return the accessory with persistence methods
 	 * @throws FalseFieldsException
 	 */
-	public AccessoryJdbc makeAccessory(HashMap<String,Object> data) throws FalseFieldsException
+	public AccessoryJdbc makeAccessory(HashMap<String,Object> data)
 	{
 		return new AccessoryJdbc(data);
 	}

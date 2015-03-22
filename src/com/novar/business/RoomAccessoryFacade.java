@@ -63,13 +63,13 @@ public class RoomAccessoryFacade {
 		return acc;	
 	}
 	
-	public Accessory createAccessory(HashMap<String,Object> mapAcc) throws FalseFieldsException{
+	public Accessory createAccessory(HashMap<String,Object> mapAcc){
 		Accessory acc = kit.makeAccessory(mapAcc);
 		acc.save();
 		return acc;	
 	}
 	
-	public Accessory updateAccessory(HashMap<String,Object> mapAcc) throws FalseFieldsException{
+	public Accessory updateAccessory(HashMap<String,Object> mapAcc){
 		Accessory acc = kit.makeAccessory(mapAcc);
 		acc.update();
 		return acc;	
