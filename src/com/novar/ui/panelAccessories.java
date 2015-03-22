@@ -102,5 +102,3 @@ public class PanelAccessories extends JPanel {
 		delete.setVisible(true);
 	}
 }
-
-

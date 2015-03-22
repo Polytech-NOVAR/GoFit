@@ -51,6 +51,7 @@ public interface PersistKit
 	 * @throws FalseFieldsException
 	 */
 	public Have makeHave(Room room, Accessory acc, int quantity);
+	
 	/**
 	 * This is the declaration of the method to make a RoomManager
 	 * @param data of a RoomManager
@@ -64,4 +65,25 @@ public interface PersistKit
 	 * @return the AccessoryManager
 	 */
 	public AccessoryManager makeAccessoryManager();
+	
+	/**
+	 * This is the declaration of the method to make a NotificationManager
+	 * @param data of a NotificationManager
+	 * @return the NotificationManager
+	 */
+	public NotificationManager makeNotificationManager();
+	
+	/**
+	 * This is the declaration of the method to make a Notification
+	 * @param data of a Notification
+	 * @return the Notification
+	 */
+	public Notification makeNotification(User sender, String message);
+	
+	/**
+	 * This is the declaration of the method to make a NotifyTo
+	 * @param data of a NotifyTo
+	 * @return the NotifyTo
+	 */
+	public NotifyTo makeNotifyTo(Notification notif, String receiver);
 }

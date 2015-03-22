@@ -23,6 +23,8 @@ public abstract class Room {
 	
 	private ArrayList<Have> accessories = new ArrayList<Have>();
 
+	private TypeRoom type;
+
 	public Room()
 	{
 	}
@@ -158,11 +160,20 @@ public abstract class Room {
 		this.accessories = accessories;
 	}
 
+	public TypeRoom getType() {
+		return type;
+	}
+
+	public void setType(TypeRoom type) {
+		this.type = type;
+	}
+
 	@Override
 	public String toString() {
 		return "Room [roomID=" + roomID + ", num=" + num + ", area=" + area
 				+ ", street=" + street + ", town=" + town + ", zipCode="
-				+ zipCode + ", country=" + country +  "]";
+				+ zipCode + ", country=" + country + ", accessories="
+				+ accessories + ", type=" + type + "]";
 	}
 	
 	//////////////HOOKS ////////////////

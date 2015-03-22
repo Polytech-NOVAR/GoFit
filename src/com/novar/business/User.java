@@ -35,6 +35,11 @@ public abstract class User
 	private Speaker speaker = null;
 	private Member member = null;
 	
+	public User()
+	{
+		
+	}
+	
 	public User(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		Class[] typeArg = new Class[1];

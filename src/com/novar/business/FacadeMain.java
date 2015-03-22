@@ -12,11 +12,13 @@ public class FacadeMain
 	private User theUser = null;
 	private PersistKit kit = null;
 	private RoomAccessoryFacade roomFacade;
+	private NotificationFacade notificationFacade;
 	
 	public FacadeMain(PersistKit kit)
 	{
 		this.kit = kit;
 		this.roomFacade = new RoomAccessoryFacade(kit);
+		this.notificationFacade = new NotificationFacade(kit);
 	}
 	
 	public void register(HashMap<String,Object> dataUser) throws RegisterFailedException, FalseFieldsException
@@ -43,5 +45,10 @@ public class FacadeMain
 	public RoomAccessoryFacade getRoomFacade()
 	{
 		return this.roomFacade;
+	}
+	
+	public NotificationFacade getNotificationFacade()
+	{
+		return this.notificationFacade;
 	}
 }

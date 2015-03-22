@@ -5,6 +5,9 @@ import java.util.HashMap;
 
 import com.novar.business.Accessory;
 import com.novar.business.AccessoryManager;
+import com.novar.business.Notification;
+import com.novar.business.NotificationManager;
+import com.novar.business.NotifyTo;
 import com.novar.business.Room;
 import com.novar.business.RoomManager;
 import com.novar.business.User;
@@ -85,5 +88,34 @@ public class JdbcKit implements PersistKit
 	public AccessoryManager makeAccessoryManager()
 	{
 		return new AccessoryManagerJdbc();
+	}
+	
+	/**
+	 * This is the definition of the method to make a NotificationManager
+	 * @param data of a NotificationManager
+	 * @return the NotificationManager
+	 */
+	public NotificationManager makeNotificationManager()
+	{
+		return new NotificationManagerJdbc();
+	}
+	/**
+	 * This is the definition of the method to make a Notification
+	 * @param data of a Notification
+	 * @return the Notification
+	 */
+	public Notification makeNotification(User sender, String message)
+	{
+		return new NotificationJdbc(sender, message);
+	}
+	
+	/**
+	 * This is the definition of the method to make a NotifyTo
+	 * @param data of a NotifyTo
+	 * @return the NotifyTo
+	 */
+	public NotifyTo makeNotifyTo(Notification notif, String receiver)
+	{
+		return new NotifyToJdbc(notif, receiver);
 	}
 }

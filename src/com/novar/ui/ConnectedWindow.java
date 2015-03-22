@@ -52,6 +52,8 @@ import javax.swing.Box;
 import javax.swing.JMenuItem;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ConnectedWindow extends JFrame {
 
@@ -61,6 +63,7 @@ public class ConnectedWindow extends JFrame {
 	private JPanel contentPane;
 	
 	private ConnectedWindow frame;
+	private JMenuItem mnNotification;
 	/**
 	 * @wbp.nonvisual location=-29,199
 	 */
@@ -171,8 +174,14 @@ public class ConnectedWindow extends JFrame {
 		Component verticalStrut = Box.createVerticalStrut(20);
 		menuBar.add(verticalStrut);
 		
-		JMenuItem mnNotification = new JMenuItem("Notification");
+		mnNotification = new JMenuItem("Notification");
 		mnNotification.setMaximumSize(new Dimension(1, 32767));
+		mnNotification.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				changePanel(new PanelNotifications(frame, facade));
+			}
+		});
 		menuBar.add(mnNotification);
 		
 		JMenuItem mnBasket = new JMenuItem("Basket");
@@ -182,12 +191,22 @@ public class ConnectedWindow extends JFrame {
 		JMenuItem mnLogoff = new JMenuItem("Logoff");
 		mnLogoff.setMaximumSize(new Dimension(1, 32767));
 		menuBar.add(mnLogoff);
+		
+		loadNotifs();
 	}
 	
 	public void changePanel (JPanel panel)
 	{
 		contentPane = panel;
 		setContentPane(contentPane);
+		loadNotifs();
 		validate();
+	}
+	
+	public void loadNotifs()
+	{
+		int nbNotif = this.facade.getNotificationFacade().countNewNotifs(this.facade.getUser());
+		String text = "Notification ("+Integer.toString(nbNotif)+")";
+		mnNotification.setText(text);
 	}
 }
