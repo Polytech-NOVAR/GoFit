@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.SQLException;
 
 public class ProfilePanel extends JPanel
 {	
@@ -59,7 +60,7 @@ public class ProfilePanel extends JPanel
 		add(lblEmail);
 		
 		JLabel lblStreet = new JLabel("Street :");
-		springLayout.putConstraint(SpringLayout.NORTH, lblStreet, 100, SpringLayout.SOUTH, lblEmail);
+		springLayout.putConstraint(SpringLayout.NORTH, lblStreet, 50, SpringLayout.SOUTH, lblEmail);
 		springLayout.putConstraint(SpringLayout.EAST, lblStreet, 0, SpringLayout.EAST, lblPseudo);
 		add(lblStreet);
 		
@@ -132,6 +133,29 @@ public class ProfilePanel extends JPanel
 		springLayout.putConstraint(SpringLayout.WEST, lblCountryDynamic, 0, SpringLayout.WEST, lblPseudoDynamic);
 		add(lblCountryDynamic);
 		
+		if (frame.getFacade().getUser().isSpeaker())
+		{
+			JLabel lblShortDescription = new JLabel("Short description :");
+			springLayout.putConstraint(SpringLayout.NORTH, lblShortDescription, 50, SpringLayout.SOUTH, lblCountry);
+			springLayout.putConstraint(SpringLayout.EAST, lblShortDescription, 0, SpringLayout.EAST, lblPseudo);
+			add(lblShortDescription);
+
+			JLabel lblDetailedDescription = new JLabel("Detailed description :");
+			springLayout.putConstraint(SpringLayout.NORTH, lblDetailedDescription, 20, SpringLayout.SOUTH, lblShortDescription);
+			springLayout.putConstraint(SpringLayout.EAST, lblDetailedDescription, 0, SpringLayout.EAST, lblPseudo);
+			add(lblDetailedDescription);
+
+			JLabel lblShortDescriptionDynamic = new JLabel("");
+			springLayout.putConstraint(SpringLayout.NORTH, lblShortDescriptionDynamic, 0, SpringLayout.NORTH, lblShortDescription);
+			springLayout.putConstraint(SpringLayout.WEST, lblShortDescriptionDynamic, 0, SpringLayout.WEST, lblPseudoDynamic);
+			add(lblShortDescriptionDynamic);
+
+			JLabel lblDetailedDescriptionDynamic = new JLabel("");
+			springLayout.putConstraint(SpringLayout.NORTH, lblDetailedDescriptionDynamic, 0, SpringLayout.NORTH, lblDetailedDescription);
+			springLayout.putConstraint(SpringLayout.WEST, lblDetailedDescriptionDynamic, 0, SpringLayout.WEST, lblPseudoDynamic);
+			add(lblDetailedDescriptionDynamic);
+		}
+		
 		JButton btnUpdate = new JButton("Update");
 		btnUpdate.addActionListener(new ActionListener()
 		{
@@ -145,6 +169,22 @@ public class ProfilePanel extends JPanel
 		add(btnUpdate);
 		
 		JButton btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				try
+				{
+					frame.getFacade().deleteTheUser();
+				}
+				
+				catch (SQLException e1)
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		springLayout.putConstraint(SpringLayout.NORTH, btnDelete, 0, SpringLayout.NORTH, btnUpdate);
 		springLayout.putConstraint(SpringLayout.WEST, btnDelete, 0, SpringLayout.WEST, lblPseudoDynamic);
 		add(btnDelete);

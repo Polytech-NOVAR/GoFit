@@ -21,6 +21,8 @@ import com.novar.exception.FalseFieldsException;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.HashMap;
+import javax.swing.JTextArea;
+import java.awt.Dimension;
 
 public class UpdateProfilePanel extends JPanel
 {
@@ -32,6 +34,7 @@ public class UpdateProfilePanel extends JPanel
 	private JTextField txtTown;
 	private JTextField txtZipCode;
 	private JTextField txtCountry;
+	private JTextField txtShortDescription;
 	
 	/**
 	 * Create the panel.
@@ -70,7 +73,7 @@ public class UpdateProfilePanel extends JPanel
 		add(lblEmail);
 		
 		JLabel lblStreet = new JLabel("Street :");
-		springLayout.putConstraint(SpringLayout.NORTH, lblStreet, 100, SpringLayout.SOUTH, lblEmail);
+		springLayout.putConstraint(SpringLayout.NORTH, lblStreet, 50, SpringLayout.SOUTH, lblEmail);
 		springLayout.putConstraint(SpringLayout.EAST, lblStreet, 0, SpringLayout.EAST, lblFirstName);
 		add(lblStreet);
 		
@@ -145,6 +148,32 @@ public class UpdateProfilePanel extends JPanel
 		add(txtCountry);
 		txtCountry.setColumns(10);
 		
+		if (frame.getFacade().getUser().isSpeaker())
+		{
+			JLabel lblShortDescription = new JLabel("Short description :");
+			springLayout.putConstraint(SpringLayout.NORTH, lblShortDescription, 50, SpringLayout.SOUTH, lblCountry);
+			springLayout.putConstraint(SpringLayout.EAST, lblShortDescription, 0, SpringLayout.EAST, lblFirstName);
+			add(lblShortDescription);
+
+			JLabel lblDetailedDescription = new JLabel("Detailed description :");
+			springLayout.putConstraint(SpringLayout.NORTH, lblDetailedDescription, 20, SpringLayout.SOUTH, lblShortDescription);
+			springLayout.putConstraint(SpringLayout.EAST, lblDetailedDescription, 0, SpringLayout.EAST, lblFirstName);
+			add(lblDetailedDescription);
+
+			txtShortDescription = new JTextField();
+			springLayout.putConstraint(SpringLayout.NORTH, txtShortDescription, 0, SpringLayout.NORTH, lblShortDescription);
+			springLayout.putConstraint(SpringLayout.WEST, txtShortDescription, 0, SpringLayout.WEST, txtFirstName);
+			add(txtShortDescription);
+			txtShortDescription.setColumns(10);
+
+			JTextArea txtDetailedDescription = new JTextArea();
+			springLayout.putConstraint(SpringLayout.NORTH, txtDetailedDescription, 0, SpringLayout.NORTH, lblDetailedDescription);
+			springLayout.putConstraint(SpringLayout.WEST, txtDetailedDescription, 0, SpringLayout.WEST, txtFirstName);
+			springLayout.putConstraint(SpringLayout.SOUTH, txtDetailedDescription, 100, SpringLayout.NORTH, lblDetailedDescription);
+			springLayout.putConstraint(SpringLayout.EAST, txtDetailedDescription, 240, SpringLayout.WEST, txtFirstName);
+			add(txtDetailedDescription);
+		}
+
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener()
 		{
@@ -185,7 +214,7 @@ public class UpdateProfilePanel extends JPanel
 		
 		try
 		{
-			frame.getFacade().updateProfile(dataUser);
+			frame.getFacade().updateTheUserProfile(dataUser);
 			frame.changePanel(new ProfilePanel(frame));
 			
 		}

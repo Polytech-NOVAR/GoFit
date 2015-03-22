@@ -350,6 +350,7 @@ public abstract class User
 	////////////// HOOKS ////////////////
 	public abstract void load() throws LoginFailedException;
 	public abstract void save() throws RegisterFailedException;
-	public abstract void update() throws SQLException;
-	//public abstract void delete();
+	public abstract void updateProfile() throws SQLException;
+	public abstract void updatePassword() throws SQLException;
+	public abstract void delete() throws SQLException;
 }

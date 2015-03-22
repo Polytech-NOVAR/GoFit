@@ -56,10 +56,10 @@ public class UserJdbc extends User{
 		}
 	}
 	
-	public void update() throws SQLException
+	public void updateProfile() throws SQLException
 	{
-		PreparedStatement updateUser;
-		updateUser = ConnectionUtil.connection.prepareStatement("UPDATE User "
+		PreparedStatement updateProfile;
+		updateProfile = ConnectionUtil.connection.prepareStatement("UPDATE User "
 				+ "SET "
 				+ "lastName = ?,"
 				+ "firstName = ?,"
@@ -71,16 +71,37 @@ public class UserJdbc extends User{
 				+ "country = ?"
 				+ "WHERE pseudo = ?;");
 		
-		updateUser.setObject(1, getLastName(),Types.VARCHAR);
-		updateUser.setObject(2, getFirstName(),Types.VARCHAR);
-		updateUser.setObject(3, getPhone(),Types.VARCHAR);
-		updateUser.setObject(4, getEmail(),Types.VARCHAR);
-		updateUser.setObject(5, getStreet(),Types.VARCHAR);
-		updateUser.setObject(6, getTown(),Types.VARCHAR);
-		updateUser.setObject(7, getZipCode(), Types.VARCHAR);
-		updateUser.setObject(8, getCountry(),Types.VARCHAR);
-		updateUser.setObject(9, getPseudo(), Types.VARCHAR);
-		updateUser.executeUpdate();
+		updateProfile.setObject(1, getLastName(),Types.VARCHAR);
+		updateProfile.setObject(2, getFirstName(),Types.VARCHAR);
+		updateProfile.setObject(3, getPhone(),Types.VARCHAR);
+		updateProfile.setObject(4, getEmail(),Types.VARCHAR);
+		updateProfile.setObject(5, getStreet(),Types.VARCHAR);
+		updateProfile.setObject(6, getTown(),Types.VARCHAR);
+		updateProfile.setObject(7, getZipCode(), Types.VARCHAR);
+		updateProfile.setObject(8, getCountry(),Types.VARCHAR);
+		updateProfile.setObject(9, getPseudo(), Types.VARCHAR);
+		updateProfile.executeUpdate();
+	}
+	
+	public void updatePassword() throws SQLException
+	{
+		PreparedStatement updatePassword;
+		updatePassword = ConnectionUtil.connection.prepareStatement("UPDATE User "
+				+ "SET "
+				+ "password = ?"
+				+ "WHERE pseudo = ?;");
+		
+		updatePassword.setObject(1, getPassword(),Types.VARCHAR);
+		updatePassword.setObject(2, getPseudo(), Types.VARCHAR);
+		updatePassword.executeUpdate();
+	}
+	
+	public void delete() throws SQLException
+	{
+		PreparedStatement delete;
+		delete = ConnectionUtil.connection.prepareStatement("DELETE FROM User"
+				+ "WHERE pseudo = ?;");
+		delete.setObject(1, getPseudo(), Types.VARCHAR);
 	}
 	
 	public void load() throws LoginFailedException

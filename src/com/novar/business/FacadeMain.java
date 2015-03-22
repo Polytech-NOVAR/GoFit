@@ -39,9 +39,15 @@ public class FacadeMain
 		return this.theUser;
 	}
 	
-	public void updateProfile(HashMap<String,Object> dataUser) throws FalseFieldsException, SQLException
+	public void updateTheUserProfile(HashMap<String,Object> dataUser) throws FalseFieldsException, SQLException
 	{
 		theUser.setAll(dataUser);
-		theUser.update();
+		theUser.updateProfile();
+	}
+	
+	public void deleteTheUser() throws SQLException
+	{
+		theUser.delete();
+		//logoff
 	}
 }
