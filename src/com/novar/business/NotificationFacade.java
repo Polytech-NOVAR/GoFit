@@ -15,7 +15,12 @@ public class NotificationFacade {
 		this.kit = kit;
 	}
 	
-	// NotificationManager Method
+	// NotificationManager Methods
+	public int countNewNotifs(User receiver) {
+		NotificationManager nm = kit.makeNotificationManager();
+		return nm.countNewNotifs(receiver);
+	}
+	
 	public ArrayList<Notification> getAllNotifications(User receiver){
 		NotificationManager nm = kit.makeNotificationManager();
 		return nm.getAllNotifications(receiver);
@@ -60,8 +65,9 @@ public class NotificationFacade {
 		notify.delete();
 	}
 	
-	public NotifyTo viewNotify(NotifyTo notify)
+	public NotifyTo viewNotify(Notification notif, String receiver)
 	{
+		NotifyTo notify = kit.makeNotifyTo(notif, receiver);
 		notify.setView(true);
 		notify.update();
 		return notify;

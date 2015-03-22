@@ -52,7 +52,8 @@ public class PanelNotifications extends JPanel {
 		{
 			double multiplier = 1.5 + 0.5*i;
 			Notification notifi = notifications.get(i);
-			
+			facade.getNotificationFacade().viewNotify(notifi, this.facade.getUser().getPseudo());
+					
 			JLabel lblSenderi = new JLabel(notifi.getSender().getPseudo());
 			springLayout.putConstraint(SpringLayout.NORTH, lblSenderi, (int)(90*multiplier), SpringLayout.NORTH, this);
 			springLayout.putConstraint(SpringLayout.WEST, lblSenderi, mainFrame.getWidth()/3, SpringLayout.WEST, this);

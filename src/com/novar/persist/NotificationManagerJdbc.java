@@ -53,4 +53,39 @@ public class NotificationManagerJdbc extends NotificationManager{
 		}
 		return notifs;
 	}
+	
+	@Override
+	public int countNewNotifs(User receiver) {
+		PreparedStatement selectNotifications;
+		ArrayList<Notification> notifs = new ArrayList<Notification>();
+		try 
+		{
+			selectNotifications = ConnectionUtil.connection.prepareStatement("Select * "
+					+ "FROM Notification n, NotifyTo nt "
+					+ "WHERE n.notifID = nt.notifID "
+					+ "AND receiver = ? "
+					+ "AND view = 0" );
+			
+			selectNotifications.setObject(1, receiver.getPseudo(), Types.VARCHAR);
+			ResultSet res = selectNotifications.executeQuery();
+			res.first();
+			if(res.getRow() > 0)
+			{
+				do
+				{
+					Notification notif = new NotificationJdbc();
+					notif.setNotifID(res.getInt("notifID"));
+					notif.load();
+					
+					notifs.add(notif);
+					
+				}while(res.next());
+			}
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return notifs.size();
+	}
 }

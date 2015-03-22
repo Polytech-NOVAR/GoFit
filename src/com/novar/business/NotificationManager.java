@@ -10,4 +10,5 @@ public abstract class NotificationManager {
 	}
 	
 	public abstract ArrayList<Notification> getAllNotifications(User receiver);
+	public abstract int countNewNotifs(User receiver);
 }
