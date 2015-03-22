@@ -11,6 +11,7 @@ public abstract class Notification {
 	private int notifID;
 	private User sender;
 	private String message;
+	private String date;
 	
 	public Notification()
 	{
@@ -46,10 +47,18 @@ public abstract class Notification {
 		this.message = message;
 	}
 
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
 	@Override
 	public String toString() {
 		return "Notification [notifID=" + notifID + ", sender=" + sender
-				+ ", message=" + message + "]";
+				+ ", message=" + message + ", date=" + date + "]";
 	}
 	
 	//////////////HOOKS ////////////////

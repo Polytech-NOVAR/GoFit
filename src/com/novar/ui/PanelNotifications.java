@@ -31,15 +31,21 @@ public class PanelNotifications extends JPanel {
 		
 		JLabel lblSender = new JLabel("Sender");
 		springLayout.putConstraint(SpringLayout.NORTH, lblSender, 90, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, lblSender, mainFrame.getWidth()/3, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.WEST, lblSender, mainFrame.getWidth()/4, SpringLayout.WEST, this);
 		lblSender.setFont(new Font("Calibri", Font.BOLD, 14));
 		add(lblSender);
 		
 		JLabel lblMessage = new JLabel("Message");
 		springLayout.putConstraint(SpringLayout.NORTH, lblMessage, 90, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, lblMessage, mainFrame.getWidth()/3, SpringLayout.WEST, lblSender);
+		springLayout.putConstraint(SpringLayout.WEST, lblMessage, mainFrame.getWidth()/4, SpringLayout.WEST, lblSender);
 		lblMessage.setFont(new Font("Calibri", Font.BOLD, 14));
 		add(lblMessage);
+		
+		JLabel lblDate = new JLabel("Date");
+		springLayout.putConstraint(SpringLayout.NORTH, lblDate, 90, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.EAST, lblDate, -mainFrame.getWidth()/4, SpringLayout.EAST, this);
+		lblDate.setFont(new Font("Calibri", Font.BOLD, 14));
+		add(lblDate);
 		
 		JLabel lblNotifications = new JLabel("Notifications");
 		springLayout.putConstraint(SpringLayout.NORTH, lblNotifications, 30, SpringLayout.NORTH, this);
@@ -56,15 +62,21 @@ public class PanelNotifications extends JPanel {
 					
 			JLabel lblSenderi = new JLabel(notifi.getSender().getPseudo());
 			springLayout.putConstraint(SpringLayout.NORTH, lblSenderi, (int)(90*multiplier), SpringLayout.NORTH, this);
-			springLayout.putConstraint(SpringLayout.WEST, lblSenderi, mainFrame.getWidth()/3, SpringLayout.WEST, this);
+			springLayout.putConstraint(SpringLayout.WEST, lblSenderi, mainFrame.getWidth()/4, SpringLayout.WEST, this);
 			lblSenderi.setFont(new Font("Calibri", Font.PLAIN, 12));
 			add(lblSenderi);
 	
 			JLabel lblMessagei= new JLabel(notifi.getMessage());
 			springLayout.putConstraint(SpringLayout.NORTH, lblMessagei, (int)(90*multiplier), SpringLayout.NORTH, this);
-			springLayout.putConstraint(SpringLayout.WEST, lblMessagei, mainFrame.getWidth()/3, SpringLayout.WEST, lblSenderi);
+			springLayout.putConstraint(SpringLayout.WEST, lblMessagei, mainFrame.getWidth()/4, SpringLayout.WEST, lblSenderi);
 			lblMessagei.setFont(new Font("Calibri", Font.PLAIN, 12));
 			add(lblMessagei);
+			
+			JLabel lblDatei = new JLabel(notifi.getDate());
+			springLayout.putConstraint(SpringLayout.NORTH, lblDatei, (int)(90*multiplier), SpringLayout.NORTH, this);
+			springLayout.putConstraint(SpringLayout.EAST, lblDatei, -mainFrame.getWidth()/4, SpringLayout.EAST, this);
+			lblDatei.setFont(new Font("Calibri", Font.PLAIN, 12));
+			add(lblDatei);
 		}
 	}
 }

@@ -4,7 +4,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import com.novar.business.Accessory;
@@ -51,7 +54,7 @@ public class NotificationJdbc extends Notification{
 				}
 				setSender(sender);
 				setMessage(res.getString("message"));
-			}
+				setDate(res.getString("notifDate"));			}
 		}
 		catch (SQLException e) 
 		{
@@ -64,10 +67,13 @@ public class NotificationJdbc extends Notification{
 	{
 		try 
 		{
-			PreparedStatement insertNotif = ConnectionUtil.connection.prepareStatement("INSERT INTO Notification (sender, message) "
-																		+ "VALUES (?, ?);", PreparedStatement.RETURN_GENERATED_KEYS);
+			PreparedStatement insertNotif = ConnectionUtil.connection.prepareStatement("INSERT INTO Notification (sender, message, notifDate) "
+																		+ "VALUES (?, ?, ?);", PreparedStatement.RETURN_GENERATED_KEYS);
 			insertNotif.setObject(1, getSender().getPseudo(),Types.VARCHAR);
 			insertNotif.setObject(2, getMessage(),Types.VARCHAR);
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			insertNotif.setObject(3, date,Types.DATE);
 			insertNotif.executeUpdate();
 			ResultSet key = insertNotif.getGeneratedKeys();
 			if(key.next()){

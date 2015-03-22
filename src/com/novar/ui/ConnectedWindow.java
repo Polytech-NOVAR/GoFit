@@ -193,6 +193,10 @@ public class ConnectedWindow extends JFrame {
 		menuBar.add(mnLogoff);
 		
 		loadNotifs();
+		
+		ArrayList<String> receivers = new ArrayList<String>();
+		receivers.add("Antoine1");
+		this.facade.getNotificationFacade().notify(this.facade.getUser(), "tergsguh", receivers);
 	}
 	
 	public void changePanel (JPanel panel)

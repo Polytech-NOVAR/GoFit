@@ -29,7 +29,8 @@ public class NotificationManagerJdbc extends NotificationManager{
 			selectNotifications = ConnectionUtil.connection.prepareStatement("SELECT * "
 					+ "FROM Notification n, NotifyTo nt "
 					+ "WHERE n.notifID = nt.notifID "
-					+ "AND receiver = ?");
+					+ "AND receiver = ? "
+					+ "ORDER BY notifDate");
 			
 			selectNotifications.setObject(1, receiver.getPseudo(), Types.VARCHAR);
 			ResultSet res = selectNotifications.executeQuery();
@@ -56,36 +57,24 @@ public class NotificationManagerJdbc extends NotificationManager{
 	
 	@Override
 	public int countNewNotifs(User receiver) {
-		PreparedStatement selectNotifications;
-		ArrayList<Notification> notifs = new ArrayList<Notification>();
+		PreparedStatement countNotifs;
+		int nbNotifs = 0;
 		try 
 		{
-			selectNotifications = ConnectionUtil.connection.prepareStatement("Select * "
-					+ "FROM Notification n, NotifyTo nt "
-					+ "WHERE n.notifID = nt.notifID "
-					+ "AND receiver = ? "
+			countNotifs = ConnectionUtil.connection.prepareStatement("SELECT COUNT(*) "
+					+ "FROM NotifyTo "
+					+ "WHERE receiver = ? "
 					+ "AND view = 0" );
 			
-			selectNotifications.setObject(1, receiver.getPseudo(), Types.VARCHAR);
-			ResultSet res = selectNotifications.executeQuery();
+			countNotifs.setObject(1, receiver.getPseudo(), Types.VARCHAR);
+			ResultSet res = countNotifs.executeQuery();
 			res.first();
-			if(res.getRow() > 0)
-			{
-				do
-				{
-					Notification notif = new NotificationJdbc();
-					notif.setNotifID(res.getInt("notifID"));
-					notif.load();
-					
-					notifs.add(notif);
-					
-				}while(res.next());
-			}
+			nbNotifs = res.getInt("COUNT(*)");
 		}
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
-		return notifs.size();
+		return nbNotifs;
 	}
 }
