@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.novar.business.Accessory;
 import com.novar.business.AccessoryManager;
+import com.novar.business.ActivityManager;
 import com.novar.business.Notification;
 import com.novar.business.NotificationManager;
 import com.novar.business.NotifyTo;
@@ -117,5 +118,10 @@ public class JdbcKit implements PersistKit
 	public NotifyTo makeNotifyTo(Notification notif, String receiver)
 	{
 		return new NotifyToJdbc(notif, receiver);
+	}
+	
+	public ActivityManager makeActivityManager()
+	{
+		return new ActivityManagerJDBC();
 	}
 }

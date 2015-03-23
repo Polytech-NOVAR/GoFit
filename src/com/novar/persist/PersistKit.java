@@ -86,4 +86,19 @@ public interface PersistKit
 	 * @return the NotifyTo
 	 */
 	public NotifyTo makeNotifyTo(Notification notif, String receiver);
+	/**
+	 * This is the declaration of the method to make an activity
+	 * @param data of an activity
+	 * @return the accessory
+	 * @throws FalseFieldsException
+	 */
+	public Activity makeActivity(HashMap<String,Object> data) throws FalseFieldsException;
+	
+	/**
+	 * This is the declaration of the method to make a ActivityManager
+	 * @param data of a ActivityManager
+	 * @return the ActivityManager
+	 */
+	public ActivityManager makeActivityManager();
+	
 }
