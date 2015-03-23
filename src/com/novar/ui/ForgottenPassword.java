@@ -34,6 +34,8 @@ import javax.swing.border.EmptyBorder;
 import com.novar.business.FacadeMain;
 import com.novar.util.SendMail;
 import com.novar.exception.FalseFieldsException;
+import com.novar.exception.InvalidEmailException;
+import com.novar.exception.LoginFailedException;
 import com.novar.exception.RegisterFailedException;
 
 import java.awt.Font;
@@ -43,12 +45,8 @@ public class ForgottenPassword extends JDialog {
 
 	private JPanel contentPane;
 	private JTextField emailTextField;
-	private JPasswordField passwordField;
-	private JPasswordField confirmField;
 	private FacadeMain facade;
 	private Border defaultBorder;
-	private JLabel lblErrorPass;
-	private JLabel lblErrorConfirm;
 	private JLabel lblErrorEmail;
 
 	/**
@@ -70,38 +68,19 @@ public class ForgottenPassword extends JDialog {
 		setContentPane(contentPane);
 		JLabel lblEmail = new JLabel("Email:");
 		lblEmail.setFont(new Font("Calibri", Font.PLAIN, 11));
-		JLabel lblConfirmpassword = new JLabel("Confirm password:");
-		lblConfirmpassword.setFont(new Font("Calibri", Font.PLAIN, 11));
-		JLabel lblPassword = new JLabel("Password:");
-		lblPassword.setFont(new Font("Calibri", Font.PLAIN, 11));
 		lblErrorEmail = new JLabel("Invalid email.");
 		lblErrorEmail.setFont(new Font("Calibri", Font.PLAIN, 11));
 		lblErrorEmail.setVisible(false);
-		lblErrorPass = new JLabel("The password must contains 6 to 50 letters or numbers.");
-		lblErrorPass.setFont(new Font("Calibri", Font.PLAIN, 11));
-		lblErrorPass.setVisible(false);
-		lblErrorConfirm = new JLabel("The two passwords must be equals.");
-		lblErrorConfirm.setFont(new Font("Calibri", Font.PLAIN, 11));
-		lblErrorConfirm.setVisible(false);
 		
 		emailTextField = new JTextField();
 		emailTextField.setColumns(10);
-		
-		passwordField = new JPasswordField();
-		
-		confirmField = new JPasswordField();
 		
 		JButton btnOk = new JButton("OK");
 		btnOk.setFont(new Font("Calibri", Font.PLAIN, 11));
 		
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					forgottenPassword();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				forgottenPassword();
 			}
 		});
 		
@@ -112,59 +91,44 @@ public class ForgottenPassword extends JDialog {
 				closeWindow();
 			}
 		});
+			
+			JLabel lblAnEmailWill = new JLabel("An email will be sent in your box");
 		
 		
 			GroupLayout gl_contentPane = new GroupLayout(contentPane);
 			gl_contentPane.setHorizontalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_contentPane.createSequentialGroup()
+						.addGap(81)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+							.addComponent(lblAnEmailWill)
 							.addGroup(gl_contentPane.createSequentialGroup()
-								.addGap(22)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-									.addComponent(lblConfirmpassword)
-									.addComponent(lblPassword)
-									.addComponent(lblEmail))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(confirmField)
-									.addComponent(passwordField)
-									.addComponent(emailTextField, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-									.addComponent(lblErrorPass)
-									.addComponent(lblErrorEmail)
-									.addComponent(lblErrorConfirm)))
-							.addGroup(gl_contentPane.createSequentialGroup()
-								.addGap(83)
 								.addComponent(btnCancel)
 								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addComponent(btnOk)))
-						.addContainerGap(26, Short.MAX_VALUE))
+								.addComponent(btnOk))
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addComponent(lblEmail)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(emailTextField, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(lblErrorEmail)))
+						.addContainerGap(214, Short.MAX_VALUE))
 			);
 			gl_contentPane.setVerticalGroup(
 				gl_contentPane.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_contentPane.createSequentialGroup()
-						.addGap(20)
+						.addGap(15)
+						.addComponent(lblAnEmailWill)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblEmail)
 							.addComponent(emailTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addComponent(lblErrorEmail))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblPassword)
-							.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lblErrorPass))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblConfirmpassword)
-							.addComponent(confirmField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lblErrorConfirm))
 						.addGap(18)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 							.addComponent(btnCancel)
 							.addComponent(btnOk))
-						.addContainerGap(187, Short.MAX_VALUE))
+						.addContainerGap(58, Short.MAX_VALUE))
 			);
 			contentPane.setLayout(gl_contentPane);
 		}
@@ -173,63 +137,29 @@ public class ForgottenPassword extends JDialog {
 		this.dispose();
 	}
 	
-	private void forgottenPassword() throws SQLException, AddressException, MessagingException{
-		if(Arrays.equals(passwordField.getPassword(), confirmField.getPassword()))
-		{
-			passwordField.setBorder(defaultBorder);
-			confirmField.setBorder(defaultBorder);
+	private void forgottenPassword() {
 			emailTextField.setBorder(defaultBorder);
-			lblErrorPass.setVisible(false);
-			lblErrorConfirm.setVisible(false);
 			lblErrorEmail.setVisible(false);
 			
 			HashMap<String,Object> mapUser = new HashMap<String,Object>();
-			mapUser.put("password", new String(passwordField.getPassword()));
 			mapUser.put("email", emailTextField.getText());
 			
-			try 
-			{
-				facade.forgottenPassword(mapUser);
-				generateAndSendEmail(emailTextField.getText());
-				closeWindow();
-			} 
-			catch (FalseFieldsException e2) 
-			{
-				ArrayList<String> errors = e2.getFalseFields();
-				for(int i = 0 ; i <errors.size() ; i++)
-				{
-					switch(errors.get(i))
-					{
-						case "password" : passwordField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-										  passwordField.setText("");
-										  lblErrorPass.setVisible(true);
-						break;
-						case "confirm" : confirmField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-										 confirmField.setText("");
-										 confirmField.setVisible(true);
-						break;
-						case "email" : emailTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-									   emailTextField.setText("");
-									   lblErrorEmail.setVisible(true);
-	
-					}
+				try {
+					facade.forgottenPassword(mapUser);
+					closeWindow();
+				} catch (AddressException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (FalseFieldsException | InvalidEmailException e) {
+					emailTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+					emailTextField.setText("");
+					lblErrorEmail.setVisible(true);
+				} catch (MessagingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				
-			}
-			catch (RegisterFailedException e1) 
-			{
-				switch(e1.getMessage())
-				{
-				
-				}
-			}			
-		}
-		else{
-			passwordField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-			passwordField.setText("");
-			confirmField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-			confirmField.setText("");
-			lblErrorConfirm.setVisible(true);
+
+		
 		}
 	}
-}
+

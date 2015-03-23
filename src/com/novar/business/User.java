@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.regex.*;
 
 import com.novar.exception.FalseFieldsException;
+import com.novar.exception.InvalidEmailException;
 import com.novar.exception.LoginFailedException;
 import com.novar.exception.RegisterFailedException;
 import com.novar.exception.SyntaxException;
@@ -73,6 +75,8 @@ public abstract class User
 		if(!errors.isEmpty())
 			throw new FalseFieldsException(errors);
 	}
+	
+	
 	
 	public String getPseudo()
 	{
@@ -159,7 +163,6 @@ public abstract class User
 		}
 		else
 			throw new SyntaxException("phone");
-		
 	}
 	
 	public String getEmail()
@@ -361,6 +364,6 @@ public abstract class User
 	public abstract void load() throws LoginFailedException;
 	public abstract void save() throws RegisterFailedException;
 	public abstract void loadProducts();
-	public abstract void updatePassword() throws RegisterFailedException, SQLException; 
+	public abstract void updatePassword() throws InvalidEmailException;
 	/*public abstract void delete();*/
 }

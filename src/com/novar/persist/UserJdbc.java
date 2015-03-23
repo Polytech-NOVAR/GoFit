@@ -10,6 +10,7 @@ import com.novar.business.Speaker;
 import com.novar.business.Member;
 import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
+import com.novar.exception.InvalidEmailException;
 import com.novar.exception.LoginFailedException;
 import com.novar.exception.RegisterFailedException;
 import com.novar.exception.SyntaxException;
@@ -101,21 +102,37 @@ public class UserJdbc extends User{
 		}
 	}
 	
-	public void updatePassword() throws SQLException
+	public void updatePassword() throws InvalidEmailException
 	{
+		
 		PreparedStatement updatePassword;
+		PreparedStatement email;
+		
 		try {
-			updatePassword = ConnectionUtil.connection.prepareStatement("UPDATE User "
+			email = ConnectionUtil.connection.prepareStatement("SELECT * "
+					+ "FROM User "
+					+ "Where email = ?; ");
+			email.setObject(1, getEmail(), Types.VARCHAR);
+			ResultSet res = email.executeQuery();
+			res.last();
+			if(res.getRow() == 0)
+					throw new InvalidEmailException();
+			else
+			{
+				updatePassword = ConnectionUtil.connection.prepareStatement("UPDATE User "
 						+ "SET password = ? "
 						+ "WHERE email = ?");
-			updatePassword.setObject(1, getPassword(),Types.VARCHAR);
-			updatePassword.setObject(2, getEmail(), Types.VARCHAR);
-			updatePassword.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+				updatePassword.setObject(1, getPassword(),Types.VARCHAR);
+				updatePassword.setObject(2, getEmail(), Types.VARCHAR);
+				updatePassword.executeUpdate();
+			}
 		}
-	}
+			catch (SQLException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 	public void loadRoles()
 	{		

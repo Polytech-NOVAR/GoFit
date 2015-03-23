@@ -1,6 +1,8 @@
 package com.novar.util;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.security.SecureRandom;
 
 public class StringUtil
 {
@@ -8,7 +10,12 @@ public class StringUtil
 	{
 		return Character.toUpperCase(string.charAt(0)) + string.substring(1);
 	}
-
+	
+	public static String nextSessionId() {
+		SecureRandom random = new SecureRandom();
+		return new BigInteger(30, random).toString(32); 
+	}
+	
 	public static String sha256(String string)
 	{
 		try

@@ -16,31 +16,27 @@ public class SendMail {
 	static Session getMailSession;
 	static MimeMessage generateMailMessage;
  
-	public static void generateAndSendEmail(String mail) throws AddressException, MessagingException {
+	public static void generateAndSendEmail(String address, String password) throws AddressException, MessagingException {
  
 // Properties of mailServer SMTP
 		
-		System.out.println("\n Intallation of properties Server Mail \n");
 		mailServerProperties = System.getProperties();
 		mailServerProperties.put("mail.smtp.port", "587");
 		mailServerProperties.put("mail.smtp.auth", "true");
 		mailServerProperties.put("mail.smtp.starttls.enable", "true");
-		System.out.println("Mail Server Properties are ok ");
  
 // Generate Mail Message
 		
 		getMailSession = Session.getDefaultInstance(mailServerProperties, null);
 		generateMailMessage = new MimeMessage(getMailSession);
-		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(mail));
+		generateMailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(address));
 	
 		generateMailMessage.setSubject("Password Reset");
-		String emailBody = "Your new password for GoFit is reset " + "<br><br> Sincerely yours, <br><br>GoFit®";
+		String emailBody = "Your new password for GoFit is reset. " + "<br><br> Your new password is : "+ password + "<br><br> Sincerely yours, <br><br>GoFit®";
 		generateMailMessage.setContent(emailBody, "text/html");
-		System.out.println("Mail Session has been created successfully..");
  
 // Send Mail Message	
 		
-		System.out.println("\n\n 3rd ===> Get Session and Send mail");
 		Transport transport = getMailSession.getTransport("smtp");
 		
 		transport.connect("smtp.gmail.com", "servicegofit@gmail.com", "polytech");
