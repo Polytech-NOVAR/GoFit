@@ -99,9 +99,10 @@ public class UserJdbc extends User{
 	public void delete() throws SQLException
 	{
 		PreparedStatement delete;
-		delete = ConnectionUtil.connection.prepareStatement("DELETE FROM User"
+		delete = ConnectionUtil.connection.prepareStatement("DELETE FROM User "
 				+ "WHERE pseudo = ?;");
 		delete.setObject(1, getPseudo(), Types.VARCHAR);
+		delete.executeUpdate();
 	}
 	
 	public void load() throws LoginFailedException

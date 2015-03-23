@@ -1,6 +1,7 @@
 package com.novar.ui;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.JLabel;
@@ -173,15 +174,20 @@ public class ProfilePanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				try
-				{
-					frame.getFacade().deleteTheUser();
-				}
+				int returnValue = JOptionPane.showConfirmDialog(frame, "Are you sure to delete your account ?", "Detete", JOptionPane.YES_NO_OPTION);
 				
-				catch (SQLException e1)
+				if (returnValue == JOptionPane.YES_OPTION)
 				{
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					try
+					{
+						frame.getFacade().deleteTheUser();
+					}
+					
+					catch (SQLException e1)
+					{
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
