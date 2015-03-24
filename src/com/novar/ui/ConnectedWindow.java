@@ -102,7 +102,7 @@ public class ConnectedWindow extends JFrame {
 		mnShop.setMaximumSize(new Dimension(1, 32767));
 		mnShop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//changePanel(new JPanelShop());
+				changePanel(new JPanelShop());
 			}
 		});
 		menuBar.add(mnShop);
@@ -124,7 +124,7 @@ public class ConnectedWindow extends JFrame {
 			mntmCategories.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					//changePanel(new JPanelCategory());
+					changePanel(new JPanelCategory());
 				}
 			});
 			
@@ -166,7 +166,7 @@ public class ConnectedWindow extends JFrame {
 			mntmProducts.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					//changePanel(new JPanelProducts());
+					changePanel(new ProductsPanel(facade));
 				}
 			});
 		}

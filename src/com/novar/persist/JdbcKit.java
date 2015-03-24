@@ -10,6 +10,9 @@ import com.novar.business.NotificationManager;
 import com.novar.business.NotifyTo;
 import com.novar.business.Room;
 import com.novar.business.RoomManager;
+
+import com.novar.business.Product;
+
 import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
@@ -38,6 +41,7 @@ public class JdbcKit implements PersistKit
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * This is the definition of the method to make a room
 	 * @param data of a room
 	 * @return the room with persistence methods
@@ -117,5 +121,37 @@ public class JdbcKit implements PersistKit
 	public NotifyTo makeNotifyTo(Notification notif, String receiver)
 	{
 		return new NotifyToJdbc(notif, receiver);
+	}
+/*
+	 * This is the definition of the method to make a MainCategory
+	 * @param data of a MainCategory
+	 * @return the MainCategory with persistance methods
+	 * @throws FalseFieldsException
+	 */
+	public MainCategoryJdbc makeMainCategory(HashMap<String,Object> data) throws FalseFieldsException
+	{
+		return new MainCategoryJdbc(data);
+	}
+	
+	/**
+	 * This is the definition of the method to make a SubCategory
+	 * @param data of a SubCategory
+	 * @return the SubCategory with persistance methods
+	 * @throws FalseFieldsException
+	 */
+	public SubCategoryJdbc makeSubCategory(HashMap<String,Object> data) throws FalseFieldsException
+	{
+		return new SubCategoryJdbc(data);
+	}
+	
+	/**
+	 * This is the definition of the method to make a Product
+	 * @param data of a Product
+	 * @return the Product with persistance methods
+	 * @throws FalseFieldsException
+	 */
+	public ProductJdbc makeProduct(HashMap<String,Object> data) throws FalseFieldsException
+	{
+		return new ProductJdbc(data);
 	}
 }
