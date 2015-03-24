@@ -34,15 +34,22 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 
 import com.novar.business.FacadeMain;
+
 import java.awt.GridBagLayout;
+
 import javax.swing.JLabel;
+
 import java.awt.GridBagConstraints;
 import java.awt.Font;
+
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
+
 import java.awt.Insets;
+
 import javax.swing.Box;
 import javax.swing.JMenuItem;
+
 import java.awt.Dimension;
 
 public class ConnectedWindow extends JFrame {
@@ -51,6 +58,8 @@ public class ConnectedWindow extends JFrame {
 	private FacadeMain facade;
 	
 	private JPanel contentPane;
+	
+	private ConnectedWindow frame;
 	/**
 	 * @wbp.nonvisual location=-29,199
 	 */
@@ -61,6 +70,7 @@ public class ConnectedWindow extends JFrame {
 	{
 		super("GoFit");
 		this.facade = facade;
+		frame = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 980, 800);
 		
@@ -127,7 +137,7 @@ public class ConnectedWindow extends JFrame {
 			mntmProducts.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					changePanel(new ProductsPanel(facade));
+					changePanel(new ProductsPanel(frame,facade));
 				}
 			});
 		}

@@ -13,6 +13,11 @@ public abstract class SubCategory extends Category
 	
 	private MainCategory parent;
 	
+	public SubCategory()
+	{
+		super();
+	}
+	
 	public SubCategory(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		super(data);

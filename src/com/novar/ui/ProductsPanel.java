@@ -1,7 +1,9 @@
 package com.novar.ui;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 
 import java.awt.Font;
 
@@ -18,58 +20,148 @@ import com.novar.business.FacadeProduct;
 import com.novar.business.Product;
 
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ProductsPanel extends JPanel 
 {
-
+	private ConnectedWindow mainFrame;
 	private FacadeMain facade;
 	/**
 	 * Create the panel.
 	 */
-	public ProductsPanel(FacadeMain f) 
+	public ProductsPanel(ConnectedWindow frame,FacadeMain facade) 
 	{
-		setBounds(new Rectangle(0, 0, 980, 800));
+		
+		this.facade = facade;
+		this.mainFrame = frame;
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		
-		facade = f;
+
 		
-		ArrayList<Product> products = f.getUserProducts();
+		JLabel lblRoomNumber = new JLabel("Id");
+		springLayout.putConstraint(SpringLayout.NORTH, lblRoomNumber, 90, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.WEST, lblRoomNumber, (mainFrame.getWidth()/9)/2, SpringLayout.WEST, this);
+		lblRoomNumber.setFont(new Font("Calibri", Font.BOLD, 14));
+		add(lblRoomNumber);
 		
-		JLabel lblProducts = new JLabel("Products");
-		lblProducts.setFont(new Font("Lucida Grande", Font.BOLD, 30));
-		springLayout.putConstraint(SpringLayout.NORTH, lblProducts, 20, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblProducts, 0, SpringLayout.HORIZONTAL_CENTER, this);
-		add(lblProducts);
+		JLabel lblArea = new JLabel("description");
+		springLayout.putConstraint(SpringLayout.NORTH, lblArea, 90, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.WEST, lblArea, mainFrame.getWidth()/9, SpringLayout.WEST, lblRoomNumber);
+		lblArea.setFont(new Font("Calibri", Font.BOLD, 14));
+		add(lblArea);
 		
-		JLabel lblGoods = new JLabel("Goods");
-		lblGoods.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		springLayout.putConstraint(SpringLayout.NORTH, lblGoods, 78, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblGoods, -300, SpringLayout.HORIZONTAL_CENTER, this);
-		add(lblGoods);
+		JLabel lblStreet = new JLabel("price");
+		springLayout.putConstraint(SpringLayout.NORTH, lblStreet, 90, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.WEST, lblStreet, mainFrame.getWidth()/7, SpringLayout.WEST, lblArea);
+		lblStreet.setFont(new Font("Calibri", Font.BOLD, 14));
+		add(lblStreet);
 		
-		JLabel lblPrice = new JLabel("Price");
-		lblPrice.setFont(new Font("Lucida Grande", Font.BOLD, 16));
-		springLayout.putConstraint(SpringLayout.NORTH, lblPrice, 0, SpringLayout.NORTH, lblGoods);
-		springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblPrice, 300, SpringLayout.HORIZONTAL_CENTER, this);
-		add(lblPrice);
+		JLabel lblCity = new JLabel("discount price");
+		springLayout.putConstraint(SpringLayout.NORTH, lblCity, 90, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.WEST, lblCity, mainFrame.getWidth()/7, SpringLayout.WEST, lblStreet);
+		lblCity.setFont(new Font("Calibri", Font.BOLD, 14));
+		add(lblCity);
 		
+		JLabel lblZipcode = new JLabel("category");
+		springLayout.putConstraint(SpringLayout.NORTH, lblZipcode, 90, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.WEST, lblZipcode, mainFrame.getWidth()/7, SpringLayout.WEST, lblCity);
+		lblZipcode.setFont(new Font("Calibri", Font.BOLD, 14));
+		add(lblZipcode);
 		
-		for(int i = 0; i < products.size(); i++)
+		JButton btnAddOne = new JButton("Add one");
+		springLayout.putConstraint(SpringLayout.NORTH, btnAddOne, 30, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.EAST, btnAddOne, -80, SpringLayout.EAST, this);
+		btnAddOne.setFont(new Font("Calibri", Font.PLAIN, 14));
+		
+		btnAddOne.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addOne();
+			}
+		});
+		add(btnAddOne);
+		
+		JLabel lblRooms = new JLabel("Products");
+		springLayout.putConstraint(SpringLayout.NORTH, lblRooms, 30, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.WEST, lblRooms, mainFrame.getWidth()/2, SpringLayout.WEST, this);
+		lblRooms.setFont(new Font("Calibri", Font.BOLD, 24));
+		
+		add(lblRooms);
+		
+		ArrayList<Product> products = facade.getUserProducts();
+		for(int i=0; i<products.size(); i++)
 		{
-			JLabel lblThegood = new JLabel(products.get(i).getDescription());
-			springLayout.putConstraint(SpringLayout.NORTH, lblThegood, 19*i, SpringLayout.SOUTH, lblGoods);
-			springLayout.putConstraint(SpringLayout.WEST, lblThegood, 0, SpringLayout.WEST, lblGoods);
-			add(lblThegood);
+			double multiplier = 1.5 + 0.5*i;
+			Product producti = products.get(i);
 			
-			JLabel lblTheprice = new JLabel(products.get(i).getPrice().toString() + " €");
-			springLayout.putConstraint(SpringLayout.NORTH, lblTheprice, 0, SpringLayout.NORTH, lblThegood);
-			springLayout.putConstraint(SpringLayout.WEST, lblTheprice, 0, SpringLayout.WEST, lblPrice);
-			add(lblTheprice);
+			JLabel lblproductiID = new JLabel(producti.getProductID().toString());
+			springLayout.putConstraint(SpringLayout.NORTH, lblproductiID, (int)(90*multiplier), SpringLayout.NORTH, this);
+			springLayout.putConstraint(SpringLayout.WEST, lblproductiID, (mainFrame.getWidth()/9)/2, SpringLayout.WEST, this);
+			lblproductiID.setFont(new Font("Calibri", Font.PLAIN, 12));
+			add(lblproductiID);
+	
+			JLabel lblproductiDesc= new JLabel(producti.getDescription());
+			springLayout.putConstraint(SpringLayout.NORTH, lblproductiDesc, (int)(90*multiplier), SpringLayout.NORTH, this);
+			springLayout.putConstraint(SpringLayout.WEST, lblproductiDesc, mainFrame.getWidth()/9, SpringLayout.WEST, lblproductiID);
+			lblproductiDesc.setFont(new Font("Calibri", Font.PLAIN, 12));
+			add(lblproductiDesc);
+			
+			JLabel lblproductiPrice = new JLabel(producti.getPrice().toString() + " €");
+			springLayout.putConstraint(SpringLayout.NORTH, lblproductiPrice, (int)(90*multiplier), SpringLayout.NORTH, this);
+			springLayout.putConstraint(SpringLayout.WEST, lblproductiPrice, mainFrame.getWidth()/7, SpringLayout.WEST, lblproductiDesc);
+			lblproductiPrice.setFont(new Font("Calibri", Font.PLAIN, 12));
+			add(lblproductiPrice);
+			
+			JLabel lblproductiDiscount = new JLabel(producti.getDiscountPrice().toString() + " €");
+			springLayout.putConstraint(SpringLayout.NORTH, lblproductiDiscount, (int)(90*multiplier), SpringLayout.NORTH, this);
+			springLayout.putConstraint(SpringLayout.WEST, lblproductiDiscount, mainFrame.getWidth()/7, SpringLayout.WEST, lblproductiPrice);;
+			lblproductiDiscount.setFont(new Font("Calibri", Font.PLAIN, 12));
+			add(lblproductiDiscount);
+			
+			JLabel lblproductiCateg = new JLabel(producti.getCategory().getDescription());
+			springLayout.putConstraint(SpringLayout.NORTH, lblproductiCateg, (int)(90*multiplier), SpringLayout.NORTH, this);
+			springLayout.putConstraint(SpringLayout.WEST, lblproductiCateg, mainFrame.getWidth()/7, SpringLayout.WEST, lblproductiDiscount);
+			lblproductiCateg.setFont(new Font("Calibri", Font.PLAIN, 12));
+			add(lblproductiCateg);
+			
+			
+			JButton btnSeeMore = new JButton("See more");
+			springLayout.putConstraint(SpringLayout.NORTH, btnSeeMore, (int)(90*multiplier), SpringLayout.NORTH, this);
+			springLayout.putConstraint(SpringLayout.WEST, btnSeeMore, mainFrame.getWidth()/7, SpringLayout.WEST, lblproductiCateg);
+			btnSeeMore.setFont(new Font("Calibri", Font.PLAIN, 12));
+			btnSeeMore.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					seeMore(producti);
+				}
+			});
+			add(btnSeeMore);
+			
+			JButton btnDelete = new JButton("Delete");
+			springLayout.putConstraint(SpringLayout.NORTH, btnDelete,(int)(90*multiplier), SpringLayout.NORTH, this);
+			springLayout.putConstraint(SpringLayout.WEST, btnDelete, mainFrame.getWidth()/9, SpringLayout.WEST, btnSeeMore);
+			btnDelete.setFont(new Font("Calibri", Font.PLAIN, 12));
+			btnDelete.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					delete(producti);
+				}
+			});
+			add(btnDelete);
 		}
-
-
 	}
-
+	
+	private void seeMore(Product room){
+		this.mainFrame.changePanel(new PanelRoomDetails(this.mainFrame, this.facade, room));
+	}
+	
+	private void addOne(){
+		this.mainFrame.changePanel(new PanelRoomDetails(this.mainFrame, this.facade, null));
+	}
+	
+	private void delete(Product room)
+	{
+		DeleteRoomDialog delete = new DeleteRoomDialog(this.mainFrame, this.facade, room);
+		delete.setVisible(true);
+	}
 }

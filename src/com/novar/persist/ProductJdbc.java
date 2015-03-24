@@ -31,8 +31,8 @@ public class ProductJdbc extends Product
 			insertProd.setObject(2, getPrice(),Types.FLOAT);
 			insertProd.setObject(3, getQuantity(),Types.INTEGER);
 			insertProd.setObject(4, getDiscountPrice(),Types.FLOAT);
-			/*insertProd.setObject(5, getSeller().getPseudo(),Types.VARCHAR);
-			insertProd.setObject(6, getCategory().getCatID(),Types.INTEGER);*/
+			/*insertProd.setObject(5, getSeller().getPseudo(),Types.VARCHAR);*/
+			insertProd.setObject(6, getCategory().getCatID(),Types.INTEGER);
 			
 			insertProd.executeUpdate();		
 			ResultSet key = insertProd.getGeneratedKeys();
@@ -50,9 +50,11 @@ public class ProductJdbc extends Product
 		PreparedStatement selectProd;
 		try 
 		{
-			selectProd = ConnectionUtil.connection.prepareStatement("SELECT * "
-					+ "FROM Product p "
-					+ "WHERE p.productID = ? ;");
+			selectProd = ConnectionUtil.connection.prepareStatement("SELECT productID, p.description, p.price, p.discountPrice, p.quantity, p.catId, sc.parentID FROM Product p, Category c "
+					+ "LEFT JOIN SubCategory sc on c.catID = sc.catID "
+					+ "LEFT JOIN MainCategory mc on c.catID = mc.catID "
+					+ "WHERE p.catID = c.catID "
+					+ "AND p.productID = ?; ");
 
 			selectProd.setObject(1, getProductID(), Types.VARCHAR);
 			ResultSet res = selectProd.executeQuery();
@@ -60,6 +62,18 @@ public class ProductJdbc extends Product
 			try 
 			{
 				setDescription(res.getString("description"));
+				setPrice(res.getDouble("price"));
+				setQuantity(res.getInt("quantity"));
+				setDiscountPrice(res.getDouble("discountPrice"));
+				
+				Category category = null;
+				if(res.getInt("parentID") == 0)
+					category = new MainCategoryJdbc();
+				else
+					category = new SubCategoryJdbc();
+				category.setCatID(res.getInt("catID"));
+				category.load();
+				setCategory(category);
 				
 			} 
 			catch (SyntaxException e) 

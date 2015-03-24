@@ -17,6 +17,11 @@ import com.novar.util.ConnectionUtil;
 
 public class MainCategoryJdbc extends MainCategory{
 	
+	public MainCategoryJdbc()
+	{
+		super();
+	}
+	
 	public MainCategoryJdbc(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		super(data);
@@ -75,12 +80,6 @@ public class MainCategoryJdbc extends MainCategory{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public void loadProducts() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

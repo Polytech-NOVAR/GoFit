@@ -153,15 +153,10 @@ public class UserJdbc extends User{
 				{
 					
 					HashMap<String,Object> mapProduct = new HashMap<String,Object>();
-					
 					mapProduct.put("ProductID", resProducts.getInt("ProductID"));
-					mapProduct.put("description", resProducts.getString("description"));
-					mapProduct.put("price", resProducts.getDouble("price"));
-					mapProduct.put("quantity", resProducts.getInt("quantity"));
-					mapProduct.put("discountPrice", resProducts.getDouble("discountPrice"));
-					
 					Product prod = new ProductJdbc(mapProduct);
-					
+					prod.load();
+				
 					addProduct(prod);
 				}
 			}

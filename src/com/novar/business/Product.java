@@ -1,6 +1,8 @@
 package com.novar.business;
 
 import java.lang.reflect.Method;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -37,6 +39,11 @@ public abstract class Product
 	  * Greater than or equal to zero
 	  */
 	private Double discountPrice;
+	
+	/**
+	  * Could be a SubCategory or mainCategory 
+	  */
+	private Category category;
 	
 	
 	/**
@@ -151,14 +158,23 @@ public abstract class Product
 	}
 
 
-	@Override
-	public String toString() 
-	{
-		return "Product [productID=" + productID + ", description="
-				+ description + ", price=" + price + ", quantity="
-				+ quantity + ", discountPrice=" + discountPrice+"]\n";
+	public Category getCategory() {
+		return category;
 	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 	
+	@Override
+	public String toString() {
+		return "Product [productID=" + productID + ", description="
+				+ description + ", price=" + price + ", quantity=" + quantity
+				+ ", discountPrice=" + discountPrice + ", category=" + category
+				+ "]";
+	}
+
 	////////////// HOOKS ////////////////
 	public abstract void load();
 	public abstract void save();
@@ -170,7 +186,19 @@ public abstract class Product
 		
 		ConnectionUtil.start();
 		PersistKit kit = new JdbcKit();
+		for(int i=0;i<1;i++)
+		{
+			try {
+				PreparedStatement insertProd = ConnectionUtil.connection.prepareStatement("INSERT INTO Product (description, price, quantity, discountPrice, pseudo, catID) VALUES ('Bonnet 1', 12.52, 10, 10.0, 'Antoine', 48);");
+				insertProd.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
+		
+		/*
 		// ===== CREATE USER =====
 		HashMap<String,Object> mapUser = new HashMap<String,Object>();
 		mapUser.put("pseudo", "Antoine");
@@ -187,53 +215,9 @@ public abstract class Product
 		}
 		
 		
-		
-		/*// ===== CREATE CATEGORIES =====
-		HashMap<String,Object> mapCat = new HashMap<String,Object>();
-		mapCat.put("description", "Gant");
-		HashMap<String,Object> mapCat2 = new HashMap<String,Object>();
-		mapCat2.put("description", "Moufle");
-		MainCategory cat1 = null;
-		SubCategory cat2 = null;
-		try {
-			cat1 = kit.makeMainCategory(mapCat);
-			
-			mapCat2.put("parent", cat1);
-			cat2 = kit.makeSubCategory(mapCat2);
-			
-		} catch (FalseFieldsException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getFalseFields());
-		}
-
-		cat1.save();
-		cat2.save();
-
-		System.out.println(cat1);
-		System.out.println(cat2);
-		
-		HashMap<String,Object> mapCat = new HashMap<String,Object>();
-		mapCat.put("catID", 49);
-		SubCategory cat1 = null;
-		try {
-			cat1 = kit.makeSubCategory(mapCat);
-			cat1.load();
-			
-		} catch (FalseFieldsException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getFalseFields());
-		}
-		
-		System.out.println(cat1);
-		
 		// ===== CREATE PRODUCTS =====
 		HashMap<String,Object> mapProduct = new HashMap<String,Object>();
-		mapProduct.put("description", "Moufle 1");
-		mapProduct.put("price", 15.28);
-		mapProduct.put("quantity", 10);
-		mapProduct.put("discountPrice", 14.0);
-		mapProduct.put("seller", user);
-		mapProduct.put("category", cat1);
+		mapProduct.put("productID", 13);
 		Product prod = null;
 		try {
 			prod = kit.makeProduct(mapProduct);
@@ -243,13 +227,9 @@ public abstract class Product
 			System.out.println(e.getFalseFields());
 		}
 		
-		===== PERSISTENCE ====
-		prod.save();
+		// ===== PERSISTENCE ====
+		prod.load();
 		System.out.println(prod);*/
-		
-		
-		user.loadProducts();
-		System.out.println(user.getMember().getProducts());
 		
 	}
 

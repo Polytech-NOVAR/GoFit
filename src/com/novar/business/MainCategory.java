@@ -11,6 +11,10 @@ import com.novar.exception.FalseFieldsException;
 
 public abstract class MainCategory extends Category
 {
+	public MainCategory()
+	{
+		super();
+	}
 	
 	public MainCategory(HashMap<String,Object> data) throws FalseFieldsException
 

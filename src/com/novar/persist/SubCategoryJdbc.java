@@ -19,6 +19,12 @@ import com.novar.util.ConnectionUtil;
 
 public class SubCategoryJdbc extends SubCategory
 {
+	
+	public SubCategoryJdbc()
+	{
+		super();
+	}
+	
 	public SubCategoryJdbc(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		super(data);
@@ -71,17 +77,10 @@ public class SubCategoryJdbc extends SubCategory
 			ResultSet res = selectCat.executeQuery();
 			res.next();
 			
-			HashMap<String, Object> mapParent = new HashMap<String, Object>();
-			mapParent.put("catID", res.getInt("parentID"));
-			mapParent.put("description", res.getString("descMain"));
-			
-			try {
-				MainCategory parent = new MainCategoryJdbc(mapParent);
-				setParent(parent);
-			} catch (FalseFieldsException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			MainCategory parent = new MainCategoryJdbc();
+			parent.setCatID(res.getInt("parentID"));
+			parent.load();
+			setParent(parent);
 			
 			try {
 				setDescription(res.getString("descSub"));
@@ -97,7 +96,7 @@ public class SubCategoryJdbc extends SubCategory
 			e.printStackTrace();
 		}
 	}
-	
+/*	
 	public void loadProducts()
 	{
 		PreparedStatement selectProducts;
@@ -134,7 +133,7 @@ public class SubCategoryJdbc extends SubCategory
 			e.printStackTrace();
 		}
 	}
-	
+	*/
 	
 	
 	
