@@ -22,5 +22,8 @@ public abstract class MainCategory extends Category
 		super(data);
 	}
 	
-
+	public String toString()
+	{
+		return ("--- " + getDescription() + " ---");
+	}
 }
