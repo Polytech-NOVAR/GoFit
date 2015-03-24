@@ -158,7 +158,7 @@ public class ConnectedWindow extends JFrame {
 		menuBar.add(mnLogoff);
 	}
 	
-	private void changePanel (JPanel panel)
+	public void changePanel (JPanel panel)
 	{
 		contentPane = panel;
 		setContentPane(contentPane);

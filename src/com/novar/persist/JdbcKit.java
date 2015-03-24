@@ -3,6 +3,7 @@ package com.novar.persist;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.novar.business.CategoryManager;
 import com.novar.business.Product;
 import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
@@ -62,6 +63,15 @@ public class JdbcKit implements PersistKit
 	public ProductJdbc makeProduct(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		return new ProductJdbc(data);
+	}
+	
+	/**
+	 * This is the definition of the method to make a CategoryManager
+	 * @return the manager
+	 */
+	public CategoryManager makeCategoryManager()
+	{
+		return new CategoryManagerJdbc();
 	}
 
 }

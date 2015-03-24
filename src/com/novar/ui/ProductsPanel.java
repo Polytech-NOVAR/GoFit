@@ -14,9 +14,9 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.SpringLayout;
+import javax.swing.border.Border;
 
 import com.novar.business.FacadeMain;
-import com.novar.business.FacadeProduct;
 import com.novar.business.Product;
 
 import java.awt.Rectangle;
@@ -28,18 +28,23 @@ public class ProductsPanel extends JPanel
 {
 	private ConnectedWindow mainFrame;
 	private FacadeMain facade;
+	private ArrayList<Product> products;
+
 	/**
 	 * Create the panel.
 	 */
 	public ProductsPanel(ConnectedWindow frame,FacadeMain facade) 
 	{
-		
 		this.facade = facade;
 		this.mainFrame = frame;
+		products = facade.getUserProducts();
+		reload();
+	}
+	
+	public void reload()
+	{
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
-		
-
 		
 		JLabel lblRoomNumber = new JLabel("Id");
 		springLayout.putConstraint(SpringLayout.NORTH, lblRoomNumber, 90, SpringLayout.NORTH, this);
@@ -85,12 +90,11 @@ public class ProductsPanel extends JPanel
 		
 		JLabel lblRooms = new JLabel("Products");
 		springLayout.putConstraint(SpringLayout.NORTH, lblRooms, 30, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, lblRooms, mainFrame.getWidth()/2, SpringLayout.WEST, this);
+		springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, lblRooms, 0, SpringLayout.HORIZONTAL_CENTER, this);
 		lblRooms.setFont(new Font("Calibri", Font.BOLD, 24));
 		
 		add(lblRooms);
 		
-		ArrayList<Product> products = facade.getUserProducts();
 		for(int i=0; i<products.size(); i++)
 		{
 			double multiplier = 1.5 + 0.5*i;
@@ -101,8 +105,13 @@ public class ProductsPanel extends JPanel
 			springLayout.putConstraint(SpringLayout.WEST, lblproductiID, (mainFrame.getWidth()/9)/2, SpringLayout.WEST, this);
 			lblproductiID.setFont(new Font("Calibri", Font.PLAIN, 12));
 			add(lblproductiID);
-	
-			JLabel lblproductiDesc= new JLabel(producti.getDescription());
+			
+			JLabel lblproductiDesc;
+			if(producti.getDescription().length() > 15)
+				lblproductiDesc= new JLabel(producti.getDescription().substring(0, 15)+"...");
+			else
+				lblproductiDesc= new JLabel(producti.getDescription());
+			
 			springLayout.putConstraint(SpringLayout.NORTH, lblproductiDesc, (int)(90*multiplier), SpringLayout.NORTH, this);
 			springLayout.putConstraint(SpringLayout.WEST, lblproductiDesc, mainFrame.getWidth()/9, SpringLayout.WEST, lblproductiID);
 			lblproductiDesc.setFont(new Font("Calibri", Font.PLAIN, 12));
@@ -152,16 +161,17 @@ public class ProductsPanel extends JPanel
 	}
 	
 	private void seeMore(Product room){
-		this.mainFrame.changePanel(new PanelRoomDetails(this.mainFrame, this.facade, room));
+		this.mainFrame.changePanel(new ProductDetailsPanel(this.mainFrame, this.facade, room));
 	}
+	
 	
 	private void addOne(){
-		this.mainFrame.changePanel(new PanelRoomDetails(this.mainFrame, this.facade, null));
+		this.mainFrame.changePanel(new ProductDetailsPanel(this.mainFrame, this.facade, null));
 	}
 	
-	private void delete(Product room)
+	private void delete(Product product)
 	{
-		DeleteRoomDialog delete = new DeleteRoomDialog(this.mainFrame, this.facade, room);
+		DeleteProductDialog delete = new DeleteProductDialog(this.mainFrame, this.facade, product);
 		delete.setVisible(true);
 	}
 }

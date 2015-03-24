@@ -21,22 +21,25 @@ public abstract class Product
 	private Integer productID;
 	
 	/**
-	  * maximal size : 257 characters
+	  * maximal size : 256 characters
 	  */
 	private String description;	
 	
 	/**
 	  * Greater than or equal to zero
+	  * Lesser than 1 000 000
 	  */
 	private Double price;
 	
 	/**
 	  * Greater than or equal to zero
+	  * Lesser than 1 000 000
 	  */
 	private Integer quantity;
 	
 	/**
 	  * Greater than or equal to zero
+	  * Lesser than 1 000 000
 	  */
 	private Double discountPrice;
 	
@@ -45,16 +48,30 @@ public abstract class Product
 	  */
 	private Category category;
 	
+	/**
+	 * Must be a Member
+	 */
+	private User user;
 	
 	/**
-	 * Constructs a Product whit data of the hashmap. The number of data of the hashmap is not fixed. 
+	 * Create a Product whit data of the hashmap. The number of data of the hashmap is not fixed. 
 	 * For each couple (key, value) the right setter is called.
 	 * @param data Its keys are the names of instance's variables. Its values are the data to affect.
-	 * @throws FalseFieldsException thorw if one condition at least is not respected in the setters.
+	 * @throws FalseFieldsException throw if one condition at least is not respected in the setters.
 	 */
 	public Product(HashMap<String,Object> data) throws FalseFieldsException
 	{
-
+		set(data);
+	}
+	
+	/**
+	 * Set a Product whit data of the hashmap. The number of data of the hashmap is not fixed. 
+	 * For each couple (key, value) the right setter is called.
+	 * @param data Its keys are the names of instance's variables. Its values are the data to affect.
+	 * @throws FalseFieldsException throw if one condition at least is not respected in the setters.
+	 */
+	public void set(HashMap<String,Object> data) throws FalseFieldsException
+	{
 		Class[] typeArg = new Class[1];
 		Object[] arg = new Object[1];
 		ArrayList<String> errors = new ArrayList<String>();
@@ -101,7 +118,7 @@ public abstract class Product
 
 	public void setDescription(String description) throws SyntaxException
 	{
-		Pattern pDesc = Pattern.compile("^[a-zA-Z-0-9- -._]{1,256}$");
+		Pattern pDesc = Pattern.compile("^[a-zA-Z-0-9- -._\n]{1,256}$");
 		Matcher mDesc = pDesc.matcher(description);
 		if(mDesc.matches())
 		{
@@ -119,7 +136,7 @@ public abstract class Product
 
 	public void setPrice(Double price) throws SyntaxException
 	{
-		if(price >= 0)
+		if(price >= 0 && price <= 1000000)
 		{
 			this.price = price;
 		}
@@ -132,11 +149,11 @@ public abstract class Product
 		return quantity;
 	}
 
-	public void setQuantity(Integer remainingQuantity) throws SyntaxException
+	public void setQuantity(Integer quantity) throws SyntaxException
 	{
-		if(remainingQuantity >= 0)
+		if(quantity >= 0 && quantity <= 1000000)
 		{
-			this.quantity = remainingQuantity;
+			this.quantity = quantity;
 		}
 		else
 			throw new SyntaxException("quantity");
@@ -149,7 +166,7 @@ public abstract class Product
 
 	public void setDiscountPrice(Double discountPrice) throws SyntaxException
 	{
-		if(discountPrice >= 0)
+		if(discountPrice >= 0 && discountPrice <= 1000000)
 		{
 			this.discountPrice = discountPrice;
 		}
@@ -167,6 +184,15 @@ public abstract class Product
 	}
 
 	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		if(user.isMember())
+			this.user = user;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [productID=" + productID + ", description="
@@ -178,8 +204,8 @@ public abstract class Product
 	////////////// HOOKS ////////////////
 	public abstract void load();
 	public abstract void save();
-	/*public abstract void update();
-	public abstract void delete();*/
+	public abstract void update();
+	public abstract void delete();
 	
 	public static void main(String[] args) 
 	{

@@ -109,7 +109,7 @@ public abstract class Category
 
 	@Override
 	public String toString() {
-		return "Category [catID=" + catID + ", description=" + description + "]\n";
+		return  description;
 	}
 	
 	

@@ -338,6 +338,14 @@ public abstract class User
 		}
 	}
 	
+	public void removeProduct(Product p)
+	{
+		if (isMember())
+		{
+			this.member.removeProduct(p);
+		}
+	}
+	
 	public String toString()
 	{
 		String result = new String();

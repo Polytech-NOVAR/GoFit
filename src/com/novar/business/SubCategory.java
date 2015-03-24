@@ -32,13 +32,6 @@ public abstract class SubCategory extends Category
 	{
 		this.parent = parent;
 	}
-
-	@Override
-	public String toString() 
-	{
-		return "SubCategory [parent=" + parent + ", CatID=" + getCatID()
-				+ ", description=" + getDescription() + "]\n";
-	}
 	
 	
 

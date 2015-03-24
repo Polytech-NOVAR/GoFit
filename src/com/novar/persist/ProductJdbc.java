@@ -21,6 +21,22 @@ public class ProductJdbc extends Product
 		super(data);
 	}
 	
+	public void setUser(UserJdbc user)
+	{
+		super.setUser(user);
+	}
+	
+	public void setCategory(SubCategoryJdbc category)
+	{
+		super.setCategory(category);
+	}
+	
+	public void setCategory(MainCategoryJdbc category)
+	{
+		super.setCategory(category);
+	}
+	
+	@Override
 	public void save()
 	{
 		try 
@@ -31,7 +47,7 @@ public class ProductJdbc extends Product
 			insertProd.setObject(2, getPrice(),Types.FLOAT);
 			insertProd.setObject(3, getQuantity(),Types.INTEGER);
 			insertProd.setObject(4, getDiscountPrice(),Types.FLOAT);
-			/*insertProd.setObject(5, getSeller().getPseudo(),Types.VARCHAR);*/
+			insertProd.setObject(5, getUser().getPseudo(),Types.VARCHAR);
 			insertProd.setObject(6, getCategory().getCatID(),Types.INTEGER);
 			
 			insertProd.executeUpdate();		
@@ -45,6 +61,7 @@ public class ProductJdbc extends Product
 		}
 	}
 	
+	@Override
 	public void load()
 	{
 		PreparedStatement selectProd;
@@ -84,6 +101,47 @@ public class ProductJdbc extends Product
 		}
 		catch (SQLException e) 
 		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void update()
+	{
+		try 
+		{
+			PreparedStatement insertProd = ConnectionUtil.connection.prepareStatement("UPDATE Product "
+					+ "SET description = ?, "
+					+ "price = ?, "
+					+ "quantity = ?, "
+					+ "discountPrice = ?, "
+					+ "catID = ? "
+					+ "WHERE productID = ?");
+			
+			insertProd.setObject(1, getDescription(),Types.VARCHAR);
+			insertProd.setObject(2, getPrice(),Types.FLOAT);
+			insertProd.setObject(3, getQuantity(),Types.INTEGER);
+			insertProd.setObject(4, getDiscountPrice(),Types.FLOAT);
+			insertProd.setObject(5, getCategory().getCatID(),Types.INTEGER);
+			insertProd.setObject(6, getProductID(),Types.INTEGER);
+			
+			insertProd.executeUpdate();	
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void delete() {
+		PreparedStatement deleteProduct;
+		try {
+			deleteProduct = ConnectionUtil.connection.prepareStatement("DELETE FROM Product "
+						+ "WHERE productID = ? ");
+			deleteProduct.setObject(1, getProductID(), Types.INTEGER);
+			deleteProduct.executeUpdate();
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

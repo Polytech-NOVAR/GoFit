@@ -1,6 +1,7 @@
 package com.novar.persist;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.novar.business.Administrator;
@@ -148,7 +149,7 @@ public class UserJdbc extends User{
 	
 				selectProducts.setObject(1, getPseudo(), Types.VARCHAR);
 				ResultSet resProducts = selectProducts.executeQuery();
-				
+				ArrayList<Product> products = new ArrayList<Product>();
 				while(resProducts.next())
 				{
 					
@@ -157,8 +158,9 @@ public class UserJdbc extends User{
 					Product prod = new ProductJdbc(mapProduct);
 					prod.load();
 				
-					addProduct(prod);
+					products.add(prod);
 				}
+				this.getMember().setProducts(products);
 			}
 			catch (SQLException | FalseFieldsException e) 
 			{
