@@ -63,7 +63,7 @@ public class ProductsPanel extends JPanel
 			springLayout.putConstraint(SpringLayout.WEST, lblThegood, 0, SpringLayout.WEST, lblGoods);
 			add(lblThegood);
 			
-			JLabel lblTheprice = new JLabel(products.get(i).getPrice().toString() + " â‚¬");
+			JLabel lblTheprice = new JLabel(products.get(i).getPrice().toString() + " €");
 			springLayout.putConstraint(SpringLayout.NORTH, lblTheprice, 0, SpringLayout.NORTH, lblThegood);
 			springLayout.putConstraint(SpringLayout.WEST, lblTheprice, 0, SpringLayout.WEST, lblPrice);
 			add(lblTheprice);
