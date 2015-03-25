@@ -12,15 +12,15 @@ import com.novar.persist.PersistKit;
 import com.novar.util.SendMail;
 import com.novar.util.StringUtil;
 
-public class FacadeMain
+public class MainFacade
 {
 	private User theUser = null;
 	private PersistKit kit = null;
 	private RoomAccessoryFacade roomFacade;
 	private NotificationFacade notificationFacade;
-	private FacadeProduct product = null;
+	private ProductFacade product = null;
 	
-	public FacadeMain(PersistKit kit)
+	public MainFacade(PersistKit kit)
 	{
 		this.kit = kit;
 		this.roomFacade = new RoomAccessoryFacade(kit);

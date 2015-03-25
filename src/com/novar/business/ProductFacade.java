@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.novar.persist.PersistKit;
 
-public class FacadeProduct 
+public class ProductFacade 
 {
 	
 	/*private PersistKit kit = null;

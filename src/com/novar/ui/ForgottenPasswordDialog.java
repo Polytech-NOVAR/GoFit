@@ -31,7 +31,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.util.SendMail;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.InvalidEmailException;
@@ -41,18 +41,18 @@ import com.novar.exception.RegisterFailedException;
 import java.awt.Font;
 
 
-public class ForgottenPassword extends JDialog {
+public class ForgottenPasswordDialog extends JDialog {
 
 	private JPanel contentPane;
 	private JTextField emailTextField;
-	private FacadeMain facade;
+	private MainFacade facade;
 	private Border defaultBorder;
 	private JLabel lblErrorEmail;
 
 	/**
 	 * Create the frame.
 	 */
-	public ForgottenPassword(JFrame frame, FacadeMain facade) {
+	public ForgottenPasswordDialog(JFrame frame, MainFacade facade) {
 		super(frame, "ForgottenPassword", Dialog.ModalityType.DOCUMENT_MODAL);
 		setResizable(false);
 		this.facade = facade;

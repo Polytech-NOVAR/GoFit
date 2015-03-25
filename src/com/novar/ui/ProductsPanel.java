@@ -13,8 +13,8 @@ import java.awt.Insets;
 
 import javax.swing.SpringLayout;
 
-import com.novar.business.FacadeMain;
-import com.novar.business.FacadeProduct;
+import com.novar.business.MainFacade;
+import com.novar.business.ProductFacade;
 import com.novar.business.Product;
 
 import java.awt.Rectangle;
@@ -23,11 +23,11 @@ import java.util.ArrayList;
 public class ProductsPanel extends JPanel 
 {
 
-	private FacadeMain facade;
+	private MainFacade facade;
 	/**
 	 * Create the panel.
 	 */
-	public ProductsPanel(FacadeMain f) 
+	public ProductsPanel(MainFacade f) 
 	{
 		setBounds(new Rectangle(0, 0, 980, 800));
 		SpringLayout springLayout = new SpringLayout();

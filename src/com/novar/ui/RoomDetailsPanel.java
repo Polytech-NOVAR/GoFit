@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 import com.novar.business.Accessory;
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.business.Have;
 import com.novar.business.Room;
 import com.novar.exception.FalseFieldsException;
@@ -22,9 +22,9 @@ import java.util.HashMap;
 
 import javax.swing.JTextField;
 
-public class PanelRoomDetails extends JPanel {
+public class RoomDetailsPanel extends JPanel {
 
-	private FacadeMain facade;
+	private MainFacade facade;
 	private ConnectedWindow mainFrame;
 	private Room room = null;
 	
@@ -43,7 +43,7 @@ public class PanelRoomDetails extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRoomDetails(ConnectedWindow frame, FacadeMain facade, Room room) {
+	public RoomDetailsPanel(ConnectedWindow frame, MainFacade facade, Room room) {
 		this.facade = facade;
 		this.mainFrame = frame;
 		this.room = room;
@@ -302,7 +302,7 @@ public class PanelRoomDetails extends JPanel {
 			try 
 			{
 				facade.getRoomFacade().createRoom(mapRoom);
-				this.mainFrame.changePanel(new PanelRooms(this.mainFrame, this.facade));
+				this.mainFrame.changePanel(new RoomsPanel(this.mainFrame, this.facade));
 			} 
 			catch (FalseFieldsException e1) 
 			{
@@ -332,7 +332,7 @@ public class PanelRoomDetails extends JPanel {
 			try 
 			{
 				facade.getRoomFacade().createRoom(mapRoom);
-				this.mainFrame.changePanel(new PanelRooms(this.mainFrame, this.facade));
+				this.mainFrame.changePanel(new RoomsPanel(this.mainFrame, this.facade));
 			} 
 			catch (FalseFieldsException e1) 
 			{
@@ -347,19 +347,19 @@ public class PanelRoomDetails extends JPanel {
 	
 	private void cancel()
 	{
-		this.mainFrame.changePanel(new PanelRooms(this.mainFrame, this.facade));
+		this.mainFrame.changePanel(new RoomsPanel(this.mainFrame, this.facade));
 	}
 
 	private void removeAccessory(Have have)
 	{
 		this.facade.getRoomFacade().removeHave(have);
-		this.mainFrame.changePanel(new PanelRoomDetails(this.mainFrame, this.facade, this.room));
+		this.mainFrame.changePanel(new RoomDetailsPanel(this.mainFrame, this.facade, this.room));
 	}
 	
 	private void updateAccessory(Have have, int quantity)
 	{
 		this.facade.getRoomFacade().updateHave(have, quantity);
-		this.mainFrame.changePanel(new PanelRoomDetails(this.mainFrame, this.facade, this.room));
+		this.mainFrame.changePanel(new RoomDetailsPanel(this.mainFrame, this.facade, this.room));
 	}
 	
 	private void addAccessory()

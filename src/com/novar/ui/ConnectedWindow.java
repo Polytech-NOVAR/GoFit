@@ -33,7 +33,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JList;
 import javax.swing.JMenu;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 
 import java.awt.GridBagLayout;
 
@@ -58,7 +58,7 @@ import java.util.HashMap;
 public class ConnectedWindow extends JFrame {
 
 	
-	private FacadeMain facade;
+	private MainFacade facade;
 	
 	private JPanel contentPane;
 	
@@ -70,7 +70,7 @@ public class ConnectedWindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ConnectedWindow(FacadeMain facade) 
+	public ConnectedWindow(MainFacade facade) 
 	{
 		super("GoFit");
 		frame = this;
@@ -102,7 +102,7 @@ public class ConnectedWindow extends JFrame {
 		mnShop.setMaximumSize(new Dimension(1, 32767));
 		mnShop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changePanel(new JPanelShop());
+				changePanel(new ShopPanel());
 			}
 		});
 		menuBar.add(mnShop);
@@ -124,21 +124,21 @@ public class ConnectedWindow extends JFrame {
 			mntmCategories.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					changePanel(new JPanelCategory());
+					changePanel(new CategoryPanel());
 				}
 			});
 			
 			mntmRooms.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					changePanel(new PanelRooms(frame, facade));
+					changePanel(new RoomsPanel(frame, facade));
 				}
 			});
 			
 			mntmAccessories.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					changePanel(new PanelAccessories(frame, facade));
+					changePanel(new AccessoriesPanel(frame, facade));
 				}
 			});		
 		}
@@ -179,7 +179,7 @@ public class ConnectedWindow extends JFrame {
 		mnNotification.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				changePanel(new PanelNotifications(frame, facade));
+				changePanel(new NotificationsPanel(frame, facade));
 			}
 		});
 		menuBar.add(mnNotification);

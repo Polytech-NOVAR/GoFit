@@ -4,7 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.business.Accessory;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
@@ -19,9 +19,9 @@ import java.util.HashMap;
 
 import javax.swing.JTextField;
 
-public class PanelAccDetails extends JPanel {
+public class AccDetailsPanel extends JPanel {
 
-	private FacadeMain facade;
+	private MainFacade facade;
 	private ConnectedWindow mainFrame;
 	private Accessory acc = null;
 	
@@ -30,7 +30,7 @@ public class PanelAccDetails extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelAccDetails(ConnectedWindow frame, FacadeMain facade, Accessory acc) {
+	public AccDetailsPanel(ConnectedWindow frame, MainFacade facade, Accessory acc) {
 		this.facade = facade;
 		this.mainFrame = frame;
 		this.acc = acc;
@@ -99,7 +99,7 @@ public class PanelAccDetails extends JPanel {
 		HashMap<String,Object> mapAcc = new HashMap<String,Object>();
 		mapAcc.put("name", textFieldName.getText());
 		facade.getRoomFacade().createAccessory(mapAcc);
-		this.mainFrame.changePanel(new PanelAccessories(this.mainFrame, this.facade));
+		this.mainFrame.changePanel(new AccessoriesPanel(this.mainFrame, this.facade));
 	}
 	
 	private void update()
@@ -108,12 +108,12 @@ public class PanelAccDetails extends JPanel {
 		mapAcc.put("accID", acc.getAccID());
 		mapAcc.put("name", textFieldName.getText());
 		facade.getRoomFacade().updateAccessory(mapAcc);
-		this.mainFrame.changePanel(new PanelAccessories(this.mainFrame, this.facade));
+		this.mainFrame.changePanel(new AccessoriesPanel(this.mainFrame, this.facade));
 	}
 	
 	private void cancel()
 	{
-		this.mainFrame.changePanel(new PanelAccessories(this.mainFrame, this.facade));
+		this.mainFrame.changePanel(new AccessoriesPanel(this.mainFrame, this.facade));
 	}
 
 }

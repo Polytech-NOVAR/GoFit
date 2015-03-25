@@ -25,13 +25,13 @@ import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 
 
-public class JPanelCategory extends JPanel {
+public class CategoryPanel extends JPanel {
 	private JTable table;
 
 	/**
 	 * Create the panel.
 	 */
-	public JPanelCategory() {
+	public CategoryPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{279, 82, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{22, 0, 0, 0};

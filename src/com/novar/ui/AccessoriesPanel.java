@@ -10,18 +10,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.business.Accessory;
 
-public class PanelAccessories extends JPanel {
+public class AccessoriesPanel extends JPanel {
 
-	private FacadeMain facade;
+	private MainFacade facade;
 	
 	private ConnectedWindow mainFrame;
 	/**
 	 * Create the panel.
 	 */
-	public PanelAccessories(ConnectedWindow frame, FacadeMain facade) {
+	public AccessoriesPanel(ConnectedWindow frame, MainFacade facade) {
 		this.facade = facade;
 		this.mainFrame = frame;
 		SpringLayout springLayout = new SpringLayout();
@@ -89,11 +89,11 @@ public class PanelAccessories extends JPanel {
 	}
 	
 	private void seeMore(Accessory acc){
-		this.mainFrame.changePanel(new PanelAccDetails(this.mainFrame, this.facade, acc));
+		this.mainFrame.changePanel(new AccDetailsPanel(this.mainFrame, this.facade, acc));
 	}
 	
 	private void addOne(){
-		this.mainFrame.changePanel(new PanelAccDetails(this.mainFrame, this.facade, null));
+		this.mainFrame.changePanel(new AccDetailsPanel(this.mainFrame, this.facade, null));
 	}
 	
 	private void delete(Accessory acc)

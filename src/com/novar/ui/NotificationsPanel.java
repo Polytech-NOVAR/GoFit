@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.JLabel;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.business.Notification;
 
 import javax.swing.JButton;
@@ -15,15 +15,15 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PanelNotifications extends JPanel {
+public class NotificationsPanel extends JPanel {
 
-	private FacadeMain facade;
+	private MainFacade facade;
 	
 	private ConnectedWindow mainFrame;
 	/**
 	 * Create the panel.
 	 */
-	public PanelNotifications(ConnectedWindow frame, FacadeMain facade) {
+	public NotificationsPanel(ConnectedWindow frame, MainFacade facade) {
 		this.facade = facade;
 		this.mainFrame = frame;
 		SpringLayout springLayout = new SpringLayout();

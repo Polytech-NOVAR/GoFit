@@ -7,12 +7,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout.Alignment;
 
-public class JPanelShop extends JPanel {
+public class ShopPanel extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
-	public JPanelShop() 
+	public ShopPanel() 
 	{
 		
 		JLabel lblNewLabel = new JLabel("Shop");
