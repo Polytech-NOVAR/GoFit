@@ -55,15 +55,13 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ConnectedWindow extends JFrame {
-
-	
+public class ConnectedWindow extends JFrame
+{	
 	private MainFacade facade;
-	
 	private JPanel contentPane;
-	
 	private ConnectedWindow frame;
 	private JMenuItem mnNotification;
+
 	/**
 	 * @wbp.nonvisual location=-29,199
 	 */
@@ -75,6 +73,7 @@ public class ConnectedWindow extends JFrame {
 		super("GoFit");
 		frame = this;
 		this.facade = facade;
+		this.frame = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Toolkit tk = Toolkit.getDefaultToolkit(); 
 		Dimension d = tk.getScreenSize();
@@ -96,6 +95,11 @@ public class ConnectedWindow extends JFrame {
 		
 		JMenuItem mnProfile = new JMenuItem("Profile");
 		mnProfile.setMaximumSize(new Dimension(1, 32767));
+		mnProfile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				changePanel(new ProfilePanel(frame));
+			}
+		});
 		menuBar.add(mnProfile);
 		
 		JMenuItem mnShop = new JMenuItem("Shop");
@@ -191,12 +195,14 @@ public class ConnectedWindow extends JFrame {
 		JMenuItem mnLogoff = new JMenuItem("Logoff");
 		mnLogoff.setMaximumSize(new Dimension(1, 32767));
 		menuBar.add(mnLogoff);
-		
+
 		loadNotifs();
 		
 		ArrayList<String> receivers = new ArrayList<String>();
 		receivers.add("Antoine1");
 		this.facade.getNotificationFacade().notify(this.facade.getUser(), "tergsguh", receivers);
+
+		changePanel(new ProfilePanel(frame));
 	}
 	
 	public void changePanel (JPanel panel)
@@ -212,5 +218,10 @@ public class ConnectedWindow extends JFrame {
 		int nbNotif = this.facade.getNotificationFacade().countNewNotifs(this.facade.getUser());
 		String text = "Notification ("+Integer.toString(nbNotif)+")";
 		mnNotification.setText(text);
+	}
+	
+	public MainFacade getFacade()
+	{
+		return this.facade;
 	}
 }

@@ -16,8 +16,8 @@ import com.novar.exception.RegisterFailedException;
 import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
 
-public class UserJdbc extends User{
-	
+public class UserJdbc extends User
+{	
 	public UserJdbc()
 	{
 		super();
@@ -58,6 +58,57 @@ public class UserJdbc extends User{
 				throw new RegisterFailedException("pseudo2");
 			}
 		}
+	}
+	
+	public void updateProfile() throws SQLException
+	{
+		// TODO update Speaker
+		
+		PreparedStatement updateProfile;
+		updateProfile = ConnectionUtil.connection.prepareStatement("UPDATE User "
+				+ "SET "
+				+ "lastName = ?,"
+				+ "firstName = ?,"
+				+ "phone = ?,"
+				+ "email = ?,"
+				+ "street = ?,"
+				+ "town = ?,"
+				+ "zipCode = ?,"
+				+ "country = ?"
+				+ "WHERE pseudo = ?;");
+		
+		updateProfile.setObject(1, getLastName(),Types.VARCHAR);
+		updateProfile.setObject(2, getFirstName(),Types.VARCHAR);
+		updateProfile.setObject(3, getPhone(),Types.VARCHAR);
+		updateProfile.setObject(4, getEmail(),Types.VARCHAR);
+		updateProfile.setObject(5, getStreet(),Types.VARCHAR);
+		updateProfile.setObject(6, getTown(),Types.VARCHAR);
+		updateProfile.setObject(7, getZipCode(), Types.VARCHAR);
+		updateProfile.setObject(8, getCountry(),Types.VARCHAR);
+		updateProfile.setObject(9, getPseudo(), Types.VARCHAR);
+		updateProfile.executeUpdate();
+	}
+	
+	public void updatePassword() throws SQLException
+	{
+		PreparedStatement updatePassword;
+		updatePassword = ConnectionUtil.connection.prepareStatement("UPDATE User "
+				+ "SET "
+				+ "password = ?"
+				+ "WHERE pseudo = ?;");
+		
+		updatePassword.setObject(1, getPassword(),Types.VARCHAR);
+		updatePassword.setObject(2, getPseudo(), Types.VARCHAR);
+		updatePassword.executeUpdate();
+	}
+	
+	public void delete() throws SQLException
+	{
+		PreparedStatement delete;
+		delete = ConnectionUtil.connection.prepareStatement("DELETE FROM User "
+				+ "WHERE pseudo = ?;");
+		delete.setObject(1, getPseudo(), Types.VARCHAR);
+		delete.executeUpdate();
 	}
 	
 	public void load() throws LoginFailedException
@@ -105,7 +156,7 @@ public class UserJdbc extends User{
 		}
 	}
 	
-	public void updatePassword() throws InvalidEmailException
+	public void updateForgottenPassword() throws InvalidEmailException
 	{
 		
 		PreparedStatement updatePassword;
@@ -139,7 +190,8 @@ public class UserJdbc extends User{
 
 	public void loadRoles()
 	{		
-		try {
+		try
+		{
 			PreparedStatement selectRoles;
 			selectRoles = ConnectionUtil.connection.prepareStatement("SELECT * "
 																	+ "FROM User u "
@@ -158,7 +210,7 @@ public class UserJdbc extends User{
 			if( resRoles.getString("pseudoManager") != null )
 				setManager(new Manager());
 			if( resRoles.getString("pseudoSpeaker") != null )
-				setSpeaker(new Speaker());
+				setSpeaker(new Speaker(resRoles.getString("shortDescription"), resRoles.getString("detailedDescription")));
 			if( resRoles.getString("pseudoMember") != null )
 				setMember(new Member());
 		}

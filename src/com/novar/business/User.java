@@ -45,6 +45,11 @@ public abstract class User
 	
 	public User(HashMap<String,Object> data) throws FalseFieldsException
 	{
+		setAll(data);
+	}
+	
+	public void setAll(HashMap<String,Object> data) throws FalseFieldsException
+	{
 		Class[] typeArg = new Class[1];
 		Object[] arg = new Object[1];
 		ArrayList<String> errors = new ArrayList<String>();
@@ -73,8 +78,6 @@ public abstract class User
 		if(!errors.isEmpty())
 			throw new FalseFieldsException(errors);
 	}
-	
-	
 	
 	public String getPseudo()
 	{
@@ -362,6 +365,9 @@ public abstract class User
 	public abstract void load() throws LoginFailedException;
 	public abstract void save() throws RegisterFailedException;
 	public abstract void loadProducts();
-	public abstract void updatePassword() throws InvalidEmailException;
-	/*public abstract void delete();*/
+	public abstract void updateForgottenPassword() throws InvalidEmailException;
+	public abstract void updateProfile() throws SQLException;
+	public abstract void updatePassword() throws SQLException;
+	public abstract void delete() throws SQLException;
+
 }
