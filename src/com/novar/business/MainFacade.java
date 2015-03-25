@@ -18,6 +18,12 @@ public class MainFacade
 		this.kit = kit;
 	}
 	
+	public User getUser()
+	{
+		return this.theUser;
+	}
+	
+	// Disconnected methods
 	public void register(HashMap<String,Object> dataUser) throws RegisterFailedException, FalseFieldsException
 	{
 		User userInRegistration = kit.makeUser(dataUser);
@@ -34,11 +40,7 @@ public class MainFacade
 		}
 	}
 	
-	public User getUser()
-	{
-		return this.theUser;
-	}
-	
+	// Profile methods
 	public void updateTheUserProfile(HashMap<String,Object> dataUser) throws FalseFieldsException, SQLException
 	{
 		theUser.setAll(dataUser);
