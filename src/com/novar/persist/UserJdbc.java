@@ -58,6 +58,8 @@ public class UserJdbc extends User{
 	
 	public void updateProfile() throws SQLException
 	{
+		// TODO update Speaker
+		
 		PreparedStatement updateProfile;
 		updateProfile = ConnectionUtil.connection.prepareStatement("UPDATE User "
 				+ "SET "
@@ -152,7 +154,8 @@ public class UserJdbc extends User{
 
 	public void loadRoles()
 	{		
-		try {
+		try
+		{
 			PreparedStatement selectRoles;
 			selectRoles = ConnectionUtil.connection.prepareStatement("SELECT * "
 																	+ "FROM User u "
@@ -171,7 +174,7 @@ public class UserJdbc extends User{
 			if( resRoles.getString("pseudoManager") != null )
 				setManager(new Manager());
 			if( resRoles.getString("pseudoSpeaker") != null )
-				setSpeaker(new Speaker());
+				setSpeaker(new Speaker(resRoles.getString("shortDescription"), resRoles.getString("detailedDescription")));
 			if( resRoles.getString("pseudoMember") != null )
 				setMember(new Member());
 		}

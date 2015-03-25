@@ -36,7 +36,7 @@ public class ProfilePanel extends JPanel
 		add(lblProfile);
 		
 		JLabel lblPseudo = new JLabel("Pseudo :");
-		springLayout.putConstraint(SpringLayout.NORTH, lblPseudo, 100, SpringLayout.NORTH, lblProfile);
+		springLayout.putConstraint(SpringLayout.NORTH, lblPseudo, 75, SpringLayout.NORTH, lblProfile);
 		springLayout.putConstraint(SpringLayout.EAST, lblPseudo, 0, SpringLayout.WEST, lblProfile);
 		add(lblPseudo);
 		
@@ -147,29 +147,44 @@ public class ProfilePanel extends JPanel
 			add(lblDetailedDescription);
 
 			JLabel lblShortDescriptionDynamic = new JLabel("");
+			lblShortDescriptionDynamic.setText(frame.getFacade().getUser().getSpeaker().getShortDescription());
 			springLayout.putConstraint(SpringLayout.NORTH, lblShortDescriptionDynamic, 0, SpringLayout.NORTH, lblShortDescription);
 			springLayout.putConstraint(SpringLayout.WEST, lblShortDescriptionDynamic, 0, SpringLayout.WEST, lblPseudoDynamic);
 			add(lblShortDescriptionDynamic);
 
-			JLabel lblDetailedDescriptionDynamic = new JLabel("");
+			JLabel lblDetailedDescriptionDynamic = new JLabel(frame.getFacade().getUser().getSpeaker().getDetailedDescription());
 			springLayout.putConstraint(SpringLayout.NORTH, lblDetailedDescriptionDynamic, 0, SpringLayout.NORTH, lblDetailedDescription);
 			springLayout.putConstraint(SpringLayout.WEST, lblDetailedDescriptionDynamic, 0, SpringLayout.WEST, lblPseudoDynamic);
 			add(lblDetailedDescriptionDynamic);
 		}
 		
-		JButton btnUpdate = new JButton("Update");
-		btnUpdate.addActionListener(new ActionListener()
+		JButton btnUpdatePassword = new JButton("Update password");
+		btnUpdatePassword.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				frame.changePanel(new UpdatePasswordPanel(frame));
+			}
+		});
+		springLayout.putConstraint(SpringLayout.SOUTH, btnUpdatePassword, -20, SpringLayout.SOUTH, this);
+		springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, btnUpdatePassword, 0, SpringLayout.HORIZONTAL_CENTER, this);
+		add(btnUpdatePassword);
+		
+		JButton btnUpdateProfile = new JButton("Update profile");
+		springLayout.putConstraint(SpringLayout.NORTH, btnUpdateProfile, 0, SpringLayout.NORTH, btnUpdatePassword);
+		springLayout.putConstraint(SpringLayout.EAST, btnUpdateProfile, -20, SpringLayout.WEST, btnUpdatePassword);
+		btnUpdateProfile.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				frame.changePanel(new UpdateProfilePanel(frame));
 			}
 		});
-		springLayout.putConstraint(SpringLayout.SOUTH, btnUpdate, -20, SpringLayout.SOUTH, this);
-		springLayout.putConstraint(SpringLayout.EAST, btnUpdate, 0, SpringLayout.EAST, lblPseudo);
-		add(btnUpdate);
+		add(btnUpdateProfile);
 		
 		JButton btnDelete = new JButton("Delete");
+		springLayout.putConstraint(SpringLayout.NORTH, btnDelete, 0, SpringLayout.NORTH, btnUpdatePassword);
+		springLayout.putConstraint(SpringLayout.WEST, btnDelete, 20, SpringLayout.EAST, btnUpdatePassword);
 		btnDelete.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -191,8 +206,6 @@ public class ProfilePanel extends JPanel
 				}
 			}
 		});
-		springLayout.putConstraint(SpringLayout.NORTH, btnDelete, 0, SpringLayout.NORTH, btnUpdate);
-		springLayout.putConstraint(SpringLayout.WEST, btnDelete, 0, SpringLayout.WEST, lblPseudoDynamic);
 		add(btnDelete);
 	}
 }
