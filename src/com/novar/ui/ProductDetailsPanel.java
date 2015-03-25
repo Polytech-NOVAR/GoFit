@@ -138,11 +138,11 @@ public class ProductDetailsPanel extends JPanel {
 			{
 				comboBoxCategory.addItem(listSubCategory.get(j));
 				
-				if(listSubCategory.get(j).getCatID() == product.getCategory().getCatID())
+				if(product != null && listSubCategory.get(j).getCatID() == product.getCategory().getCatID())
 					tempCat = listSubCategory.get(j);
 			}
 			
-			if(listMainCategory.get(i).getCatID() == product.getCategory().getCatID())
+			if(product != null && listMainCategory.get(i).getCatID() == product.getCategory().getCatID())
 				tempCat = listMainCategory.get(i);
 		}
 		add(comboBoxCategory);

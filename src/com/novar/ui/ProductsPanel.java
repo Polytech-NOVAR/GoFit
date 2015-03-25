@@ -117,13 +117,13 @@ public class ProductsPanel extends JPanel
 			lblproductiDesc.setFont(new Font("Calibri", Font.PLAIN, 12));
 			add(lblproductiDesc);
 			
-			JLabel lblproductiPrice = new JLabel(producti.getPrice().toString() + " €");
+			JLabel lblproductiPrice = new JLabel(producti.getPrice().toString() + " euros");
 			springLayout.putConstraint(SpringLayout.NORTH, lblproductiPrice, (int)(90*multiplier), SpringLayout.NORTH, this);
 			springLayout.putConstraint(SpringLayout.WEST, lblproductiPrice, mainFrame.getWidth()/7, SpringLayout.WEST, lblproductiDesc);
 			lblproductiPrice.setFont(new Font("Calibri", Font.PLAIN, 12));
 			add(lblproductiPrice);
 			
-			JLabel lblproductiDiscount = new JLabel(producti.getDiscountPrice().toString() + " €");
+			JLabel lblproductiDiscount = new JLabel(producti.getDiscountPrice().toString() + " euros");
 			springLayout.putConstraint(SpringLayout.NORTH, lblproductiDiscount, (int)(90*multiplier), SpringLayout.NORTH, this);
 			springLayout.putConstraint(SpringLayout.WEST, lblproductiDiscount, mainFrame.getWidth()/7, SpringLayout.WEST, lblproductiPrice);;
 			lblproductiDiscount.setFont(new Font("Calibri", Font.PLAIN, 12));
