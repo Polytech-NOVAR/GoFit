@@ -27,7 +27,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.RegisterFailedException;
 
@@ -48,7 +48,7 @@ public class RegisterWindow extends JDialog {
 	private JTextField cityTextField;
 	private JTextField zipTextField;
 	private JTextField countryTextField;
-	private FacadeMain facade;
+	private MainFacade facade;
 	private Border defaultBorder;
 	private JLabel lblErrorPseudo;
 	private JLabel lblErrorPseudo2;
@@ -67,7 +67,7 @@ public class RegisterWindow extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	public RegisterWindow(JFrame frame, FacadeMain facade) {
+	public RegisterWindow(JFrame frame, MainFacade facade) {
 		super(frame, "Register", Dialog.ModalityType.DOCUMENT_MODAL);
 		this.facade = facade;
 		setResizable(false);

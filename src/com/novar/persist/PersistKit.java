@@ -14,7 +14,7 @@ import com.novar.exception.LoginFailedException;
  * <br><br>
  * This interface is use in FacadeMain and JdbcKit implements this interface
  * @author Antoine JOERG
- * @see FacadeMain
+ * @see MainFacade
  * @see JdbcKit
  */
 public interface PersistKit
