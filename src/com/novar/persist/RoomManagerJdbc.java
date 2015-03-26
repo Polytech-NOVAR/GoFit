@@ -32,6 +32,7 @@ public class RoomManagerJdbc extends RoomManager{
 					Room room = new RoomJdbc();
 					room.setRoomID(res.getInt("roomID"));
 					room.load();
+					room.loadType();
 					
 					rooms.add(room);
 					

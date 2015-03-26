@@ -3,16 +3,21 @@ package com.novar.ui;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 
 import com.novar.business.Accessory;
+import com.novar.business.ClassRoom;
 import com.novar.business.MainFacade;
 import com.novar.business.Have;
+import com.novar.business.Office;
 import com.novar.business.Room;
+import com.novar.business.TypeRoom;
 import com.novar.exception.FalseFieldsException;
 
 import javax.swing.JLabel;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -21,6 +26,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.JRadioButton;
 
 public class RoomDetailsPanel extends JPanel {
 
@@ -28,17 +35,24 @@ public class RoomDetailsPanel extends JPanel {
 	private ConnectedWindow mainFrame;
 	private Room room = null;
 	
-	private JTextField textFieldNum;
-	private JTextField textFieldArea;
-	private JTextField textFieldStreet;
-	private JTextField textFieldCountry;
-	private JTextField textFieldZip;
-	private JTextField textFieldCity;
-	private JLabel lblErrorStreet;
-	private JLabel lblErrorCity;
-	private JLabel lblErrorZip;
-	private JLabel lblErrorCountry;
-	private JLabel lblErrorArea;
+	private JTextField numTextField;
+	private JTextField areaTextField;
+	private JTextField streetTextField;
+	private JTextField countryTextField;
+	private JTextField zipTextField;
+	private JTextField cityTextField;
+	private JTextField seatsTextField;
+	private JLabel lblSeats;
+	private JLabel streetLabelError;
+	private JLabel cityLabelError;
+	private JLabel zipLabelError;
+	private JLabel countryLabelError;
+	private JLabel areaLabelError;
+	private JLabel seatsLabelError;
+	private Border defaultBorder;
+	private JRadioButton officeRadioButton;
+	private JRadioButton classroomRadioButton;
+	
 	
 	/**
 	 * Create the panel.
@@ -86,76 +100,85 @@ public class RoomDetailsPanel extends JPanel {
 		lblCity.setFont(new Font("Calibri", Font.PLAIN, 12));
 		add(lblCity);
 		
-		textFieldNum = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textFieldNum, 0, SpringLayout.NORTH, lblNum);
-		springLayout.putConstraint(SpringLayout.WEST, textFieldNum, 6, SpringLayout.EAST, lblNum);
-		add(textFieldNum);
-		textFieldNum.setColumns(10);
+		numTextField = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, numTextField, 0, SpringLayout.NORTH, lblNum);
+		springLayout.putConstraint(SpringLayout.WEST, numTextField, 6, SpringLayout.EAST, lblNum);
+		add(numTextField);
+		numTextField.setColumns(10);
 		
-		textFieldArea = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textFieldArea, 0, SpringLayout.NORTH, lblArea);
-		springLayout.putConstraint(SpringLayout.EAST, textFieldArea, 0, SpringLayout.EAST, textFieldNum);
-		add(textFieldArea);
-		textFieldArea.setColumns(10);
+		defaultBorder = numTextField.getBorder();
 		
-		textFieldStreet = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textFieldStreet, 0, SpringLayout.NORTH, lblStreet);
-		springLayout.putConstraint(SpringLayout.EAST, textFieldStreet, 0, SpringLayout.EAST, textFieldNum);
-		add(textFieldStreet);
-		textFieldStreet.setColumns(10);
+		areaTextField = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, areaTextField, 0, SpringLayout.NORTH, lblArea);
+		springLayout.putConstraint(SpringLayout.EAST, areaTextField, 0, SpringLayout.EAST, numTextField);
+		add(areaTextField);
+		areaTextField.setColumns(10);
 		
-		textFieldCountry = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textFieldCountry, -3, SpringLayout.NORTH, lblCountry);
-		springLayout.putConstraint(SpringLayout.EAST, textFieldCountry, 0, SpringLayout.EAST, textFieldNum);
-		add(textFieldCountry);
-		textFieldCountry.setColumns(10);
+		streetTextField = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, streetTextField, 0, SpringLayout.NORTH, lblStreet);
+		springLayout.putConstraint(SpringLayout.EAST, streetTextField, 0, SpringLayout.EAST, numTextField);
+		add(streetTextField);
+		streetTextField.setColumns(10);
 		
-		textFieldZip = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textFieldZip, 0, SpringLayout.NORTH, lblZipcode);
-		springLayout.putConstraint(SpringLayout.EAST, textFieldZip, 0, SpringLayout.EAST, textFieldNum);
-		add(textFieldZip);
-		textFieldZip.setColumns(10);
+		countryTextField = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, countryTextField, -3, SpringLayout.NORTH, lblCountry);
+		springLayout.putConstraint(SpringLayout.EAST, countryTextField, 0, SpringLayout.EAST, numTextField);
+		add(countryTextField);
+		countryTextField.setColumns(10);
 		
-		textFieldCity = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textFieldCity, 0, SpringLayout.NORTH, lblCity);
-		springLayout.putConstraint(SpringLayout.WEST, textFieldCity, 0, SpringLayout.WEST, textFieldNum);
-		add(textFieldCity);
-		textFieldCity.setColumns(10);
+		zipTextField = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, zipTextField, 0, SpringLayout.NORTH, lblZipcode);
+		springLayout.putConstraint(SpringLayout.EAST, zipTextField, 0, SpringLayout.EAST, numTextField);
+		add(zipTextField);
+		zipTextField.setColumns(10);
 		
-		lblErrorStreet = new JLabel("The street field must contains 1 to 50 letters or numbers.");
-		springLayout.putConstraint(SpringLayout.NORTH, lblErrorStreet, 0, SpringLayout.NORTH, lblStreet);
-		springLayout.putConstraint(SpringLayout.EAST, lblErrorStreet, -115, SpringLayout.EAST, this);
-		lblErrorStreet.setFont(new Font("Calibri", Font.PLAIN, 11));
-		lblErrorStreet.setVisible(false);
-		add(lblErrorStreet);
+		cityTextField = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, cityTextField, 0, SpringLayout.NORTH, lblCity);
+		springLayout.putConstraint(SpringLayout.WEST, cityTextField, 0, SpringLayout.WEST, numTextField);
+		add(cityTextField);
+		cityTextField.setColumns(10);
 		
-		lblErrorCity = new JLabel("The city field must contains 1 to 50 letters.");
-		springLayout.putConstraint(SpringLayout.NORTH, lblErrorCity, 0, SpringLayout.NORTH, lblCity);
-		springLayout.putConstraint(SpringLayout.EAST, lblErrorCity, -115, SpringLayout.EAST, this);
-		lblErrorCity.setFont(new Font("Calibri", Font.PLAIN, 11));
-		lblErrorCity.setVisible(false);
-		add(lblErrorCity);
+		streetLabelError = new JLabel("The street field must contains 1 to 50 letters or numbers.");
+		springLayout.putConstraint(SpringLayout.NORTH, streetLabelError, 0, SpringLayout.NORTH, lblStreet);
+		springLayout.putConstraint(SpringLayout.EAST, streetLabelError, -115, SpringLayout.EAST, this);
+		streetLabelError.setFont(new Font("Calibri", Font.PLAIN, 11));
+		streetLabelError.setVisible(false);
+		add(streetLabelError);
 		
-		lblErrorZip = new JLabel("The zipCode field must contains 5 numbers.");
-		springLayout.putConstraint(SpringLayout.NORTH, lblErrorZip, 0, SpringLayout.NORTH, lblZipcode);
-		springLayout.putConstraint(SpringLayout.EAST, lblErrorZip, -115, SpringLayout.EAST, this);
-		lblErrorZip.setFont(new Font("Calibri", Font.PLAIN, 11));
-		lblErrorZip.setVisible(false);
-		add(lblErrorZip);
+		cityLabelError = new JLabel("The city field must contains 1 to 50 letters.");
+		springLayout.putConstraint(SpringLayout.NORTH, cityLabelError, 0, SpringLayout.NORTH, lblCity);
+		springLayout.putConstraint(SpringLayout.EAST, cityLabelError, -115, SpringLayout.EAST, this);
+		cityLabelError.setFont(new Font("Calibri", Font.PLAIN, 11));
+		cityLabelError.setVisible(false);
+		add(cityLabelError);
 		
-		lblErrorCountry = new JLabel("The country field must contains 2 to 50 letters.");
-		springLayout.putConstraint(SpringLayout.NORTH, lblErrorCountry, 0, SpringLayout.NORTH, lblCountry);
-		springLayout.putConstraint(SpringLayout.EAST, lblErrorCountry, -115, SpringLayout.EAST, this);
-		lblErrorCountry.setFont(new Font("Calibri", Font.PLAIN, 11));
-		lblErrorCountry.setVisible(false);
-		add(lblErrorCountry);
+		zipLabelError = new JLabel("The zipCode field must contains 5 numbers.");
+		springLayout.putConstraint(SpringLayout.NORTH, zipLabelError, 0, SpringLayout.NORTH, lblZipcode);
+		springLayout.putConstraint(SpringLayout.EAST, zipLabelError, -115, SpringLayout.EAST, this);
+		zipLabelError.setFont(new Font("Calibri", Font.PLAIN, 11));
+		zipLabelError.setVisible(false);
+		add(zipLabelError);
 		
-		lblErrorArea = new JLabel("The area field must contains only numbers.");
-		springLayout.putConstraint(SpringLayout.NORTH, lblErrorArea, 0, SpringLayout.NORTH, lblArea);
-		springLayout.putConstraint(SpringLayout.EAST, lblErrorArea, -115, SpringLayout.EAST, this);
-		lblErrorArea.setFont(new Font("Calibri", Font.PLAIN, 11));
-		lblErrorArea.setVisible(false);
-		add(lblErrorArea);
+		countryLabelError = new JLabel("The country field must contains 2 to 50 letters.");
+		springLayout.putConstraint(SpringLayout.NORTH, countryLabelError, 0, SpringLayout.NORTH, lblCountry);
+		springLayout.putConstraint(SpringLayout.EAST, countryLabelError, -115, SpringLayout.EAST, this);
+		countryLabelError.setFont(new Font("Calibri", Font.PLAIN, 11));
+		countryLabelError.setVisible(false);
+		add(countryLabelError);
+		
+		areaLabelError = new JLabel("The area field must contains only numbers.");
+		springLayout.putConstraint(SpringLayout.NORTH, areaLabelError, 0, SpringLayout.NORTH, lblArea);
+		springLayout.putConstraint(SpringLayout.EAST, areaLabelError, -115, SpringLayout.EAST, this);
+		areaLabelError.setFont(new Font("Calibri", Font.PLAIN, 11));
+		areaLabelError.setVisible(false);
+		add(areaLabelError);
+		
+		seatsLabelError = new JLabel("The seats field must contains only numbers.");
+		springLayout.putConstraint(SpringLayout.NORTH, seatsLabelError, 20, SpringLayout.NORTH, lblCountry);
+		springLayout.putConstraint(SpringLayout.EAST, seatsLabelError, -115, SpringLayout.EAST, this);
+		seatsLabelError.setFont(new Font("Calibri", Font.PLAIN, 11));
+		seatsLabelError.setVisible(false);
+		add(seatsLabelError);
 				
 		if(room != null)
 		{
@@ -182,12 +205,29 @@ public class RoomDetailsPanel extends JPanel {
 			});
 			add(btnAddAccessory);
 			
-			textFieldNum.setText(room.getNum());
-			textFieldArea.setText(Integer.toString(room.getArea()));
-			textFieldStreet.setText(room.getStreet());
-			textFieldCity.setText(room.getTown());
-			textFieldZip.setText(room.getZipCode());
-			textFieldCountry.setText(room.getCountry());
+			numTextField.setText(room.getNum());
+			areaTextField.setText(Integer.toString(room.getArea()));
+			streetTextField.setText(room.getStreet());
+			cityTextField.setText(room.getTown());
+			zipTextField.setText(room.getZipCode());
+			countryTextField.setText(room.getCountry());
+			
+			if(room.getType() instanceof ClassRoom)
+			{
+				lblSeats = new JLabel("Seats :");
+				springLayout.putConstraint(SpringLayout.WEST, lblSeats, 0, SpringLayout.WEST, lblCountry);
+				springLayout.putConstraint(SpringLayout.NORTH, lblSeats, 20, SpringLayout.NORTH, lblCountry);
+				lblSeats.setFont(new Font("Calibri", Font.PLAIN, 12));
+				add(lblSeats);
+				
+				seatsTextField = new JTextField();
+				seatsTextField.setText(Integer.toString(((ClassRoom)room.getType()).getSeats()));
+				springLayout.putConstraint(SpringLayout.WEST, seatsTextField, 0, SpringLayout.WEST, countryTextField);
+				springLayout.putConstraint(SpringLayout.NORTH, seatsTextField, 0, SpringLayout.NORTH, lblSeats);
+				seatsTextField.setFont(new Font("Calibri", Font.PLAIN, 12));
+				add(seatsTextField);
+				seatsTextField.setColumns(10);
+			}
 			
 			JLabel lblName = new JLabel("Name");
 			springLayout.putConstraint(SpringLayout.NORTH, lblName, 50, SpringLayout.NORTH, lblAccessoriesList);
@@ -273,6 +313,48 @@ public class RoomDetailsPanel extends JPanel {
 				}
 			});
 			add(btnCreate);
+			
+			JLabel lblType = new JLabel("Type :");
+			springLayout.putConstraint(SpringLayout.WEST, lblType, 0, SpringLayout.WEST, lblNum);
+			springLayout.putConstraint(SpringLayout.SOUTH, lblType, 50, SpringLayout.NORTH, lblCountry);
+			lblType.setFont(new Font("Calibri", Font.PLAIN, 12));
+			add(lblType);
+			
+			officeRadioButton = new JRadioButton("Office");
+			springLayout.putConstraint(SpringLayout.WEST, officeRadioButton, 100, SpringLayout.WEST, lblType);
+			springLayout.putConstraint(SpringLayout.SOUTH, officeRadioButton, 0, SpringLayout.SOUTH, lblType);
+			officeRadioButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					typeOffice();
+				}
+			});
+			add(officeRadioButton);
+			officeRadioButton.setSelected(true);
+			
+			classroomRadioButton = new JRadioButton("ClassRoom");
+			springLayout.putConstraint(SpringLayout.WEST, classroomRadioButton, 100, SpringLayout.WEST, officeRadioButton);
+			springLayout.putConstraint(SpringLayout.SOUTH, classroomRadioButton, 0, SpringLayout.SOUTH, officeRadioButton);
+			classroomRadioButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					typeClass();
+				}
+			});
+			add(classroomRadioButton);
+			
+			lblSeats = new JLabel("Number of seats :");
+			springLayout.putConstraint(SpringLayout.WEST, lblSeats, 0, SpringLayout.WEST, lblType);
+			springLayout.putConstraint(SpringLayout.SOUTH, lblSeats, 50, SpringLayout.NORTH, lblType);
+			lblSeats.setFont(new Font("Calibri", Font.PLAIN, 12));
+			add(lblSeats);
+			lblSeats.setVisible(false);
+			
+			seatsTextField = new JTextField();
+			springLayout.putConstraint(SpringLayout.WEST, seatsTextField, 100, SpringLayout.WEST, lblSeats);
+			springLayout.putConstraint(SpringLayout.NORTH, seatsTextField, 0, SpringLayout.NORTH, lblSeats);
+			seatsTextField.setFont(new Font("Calibri", Font.PLAIN, 12));
+			add(seatsTextField);
+			seatsTextField.setColumns(10);
+			seatsTextField.setVisible(false);
 		}
 		
 		JButton btnCancel = new JButton("Cancel");
@@ -292,12 +374,32 @@ public class RoomDetailsPanel extends JPanel {
 		try
 		{
 			HashMap<String,Object> mapRoom = new HashMap<String,Object>();
-			mapRoom.put("num", textFieldNum.getText());
-			mapRoom.put("area", Integer.parseInt((textFieldArea.getText())));
-			mapRoom.put("street", textFieldStreet.getText());
-			mapRoom.put("town", textFieldCity.getText());
-			mapRoom.put("zipCode", textFieldZip.getText());
-			mapRoom.put("country", textFieldCountry.getText());
+			mapRoom.put("num", numTextField.getText());
+			mapRoom.put("area", Integer.parseInt((areaTextField.getText())));
+			mapRoom.put("street", streetTextField.getText());
+			mapRoom.put("town", cityTextField.getText());
+			mapRoom.put("zipCode", zipTextField.getText());
+			mapRoom.put("country", countryTextField.getText());
+			
+			if(officeRadioButton.isSelected())
+			{
+				TypeRoom o = new Office();
+				mapRoom.put("type", o);
+			}
+			else if(classroomRadioButton.isSelected())
+			{
+				try
+				{
+					TypeRoom c = new ClassRoom();
+					((ClassRoom)c).setSeats(Integer.parseInt(seatsTextField.getText()));
+					mapRoom.put("type", c);
+				}
+				catch (NumberFormatException e)
+				{
+					seatsTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+					seatsLabelError.setVisible(true);
+				}
+			}
 			
 			try 
 			{
@@ -312,7 +414,8 @@ public class RoomDetailsPanel extends JPanel {
 		}
 		catch (NumberFormatException e2)
 		{
-			lblErrorArea.setVisible(true);
+			areaTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+			areaLabelError.setVisible(true);
 		}
 	}
 	
@@ -322,12 +425,27 @@ public class RoomDetailsPanel extends JPanel {
 		try
 		{
 			HashMap<String,Object> mapRoom = new HashMap<String,Object>();
-			mapRoom.put("num", textFieldNum.getText());
-			mapRoom.put("area", Integer.parseInt((textFieldArea.getText())));
-			mapRoom.put("street", textFieldStreet.getText());
-			mapRoom.put("town", textFieldCity.getText());
-			mapRoom.put("zipCode", textFieldZip.getText());
-			mapRoom.put("country", textFieldCountry.getText());
+			mapRoom.put("num", numTextField.getText());
+			mapRoom.put("area", Integer.parseInt((areaTextField.getText())));
+			mapRoom.put("street", streetTextField.getText());
+			mapRoom.put("town", cityTextField.getText());
+			mapRoom.put("zipCode", zipTextField.getText());
+			mapRoom.put("country", countryTextField.getText());
+			
+			if(room.getType() instanceof ClassRoom)
+			{
+				try
+				{
+					TypeRoom c = room.getType();
+					((ClassRoom)c).setSeats(Integer.parseInt((seatsTextField.getText())));
+					mapRoom.put("type", c);
+				}
+				catch (NumberFormatException e)
+				{
+					seatsTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+					seatsLabelError.setVisible(true);
+				}
+			}
 			
 			try 
 			{
@@ -342,8 +460,10 @@ public class RoomDetailsPanel extends JPanel {
 		}
 		catch (NumberFormatException e2)
 		{
-			lblErrorArea.setVisible(true);
-		}	}
+			areaTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+			areaLabelError.setVisible(true);
+		}	
+	}
 	
 	private void cancel()
 	{
@@ -375,21 +495,21 @@ public class RoomDetailsPanel extends JPanel {
 		{
 			switch(errors.get(i))
 			{
-				case "street" : textFieldStreet.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-								textFieldStreet.setText("");
-								lblErrorStreet.setVisible(true);
+				case "street" : streetTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+								streetTextField.setText("");
+								streetLabelError.setVisible(true);
 				break;
-				case "town" : textFieldCity.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-							  textFieldCity.setText("");
-							  lblErrorCity.setVisible(true);
+				case "town" : cityTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+							  cityTextField.setText("");
+							  cityLabelError.setVisible(true);
 				break;
-				case "zipCode" : textFieldZip.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-								 textFieldZip.setText("");
-								 lblErrorZip.setVisible(true);
+				case "zipCode" : zipTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+								 zipTextField.setText("");
+								 zipLabelError.setVisible(true);
 				break;
-				case "country" : textFieldCountry.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-								textFieldCountry.setText("");
-								 lblErrorCountry.setVisible(true);
+				case "country" : countryTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+								countryTextField.setText("");
+								 countryLabelError.setVisible(true);
 				break;
 
 			}
@@ -398,10 +518,32 @@ public class RoomDetailsPanel extends JPanel {
 	
 	private void hideErrors()
 	{
-		lblErrorStreet.setVisible(false);
-		lblErrorCity.setVisible(false);
-		lblErrorZip.setVisible(false);
-		lblErrorCountry.setVisible(false);
-		lblErrorArea.setVisible(false);
+		streetLabelError.setVisible(false);
+		cityLabelError.setVisible(false);
+		zipLabelError.setVisible(false);
+		countryLabelError.setVisible(false);
+		areaLabelError.setVisible(false);		
+		seatsLabelError.setVisible(false);
+		numTextField.setBorder(defaultBorder);
+		areaTextField.setBorder(defaultBorder);
+		streetTextField.setBorder(defaultBorder);
+		countryTextField.setBorder(defaultBorder);
+		zipTextField.setBorder(defaultBorder);
+		cityTextField.setBorder(defaultBorder);
+		seatsTextField.setBorder(defaultBorder);
+	}
+	
+	private void typeOffice()
+	{
+		classroomRadioButton.setSelected(false);
+		lblSeats.setVisible(false);
+		seatsTextField.setVisible(false);
+	}
+	
+	private void typeClass()
+	{
+		officeRadioButton.setSelected(false);
+		lblSeats.setVisible(true);
+		seatsTextField.setVisible(true);
 	}
 }
