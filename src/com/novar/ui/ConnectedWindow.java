@@ -109,7 +109,7 @@ public class ConnectedWindow extends JFrame {
 			mntmCategories.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					//changePanel(new JPanelCategory());
+					changePanel(new CategoriesPanel(frame,facade));
 				}
 			});
 		}

@@ -11,6 +11,7 @@ public class ProductFacade
 	
 	private PersistKit kit = null;
 
+	//private ProductManager manager;
 	
 	public ProductFacade(PersistKit kit)
 	{
@@ -23,10 +24,9 @@ public class ProductFacade
 		p.save();
 	}
 	
-	public void deleteProduct(Product p, User u)
+	public void deleteProduct(Product p)
 	{
 		p.delete();
-		u.removeProduct(p);
 	}
 	
 	public void updateProduct(Product p, HashMap<String, Object> data) throws FalseFieldsException

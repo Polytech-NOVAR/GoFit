@@ -11,28 +11,29 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import com.novar.business.FacadeMain;
-import com.novar.business.Product;
+import com.novar.business.Category;
 
 import javax.swing.SpringLayout;
 import javax.swing.JLabel;
+import java.awt.Font;
 
-public class DeleteProductDialog extends JDialog {
+public class DeleteCategoryDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
 	private FacadeMain facade;
 	private ConnectedWindow mainFrame;
-	private Product product;
+	private Category category;
 	
 	/**
 	 * Create the dialog.
 	 */
-	public DeleteProductDialog(ConnectedWindow frame, FacadeMain facade, Product product) 
+	public DeleteCategoryDialog(ConnectedWindow frame, FacadeMain facade, Category category) 
 	{
 		super(frame, "Delete", Dialog.ModalityType.DOCUMENT_MODAL);
 		this.mainFrame = frame;
 		this.facade = facade;
-		this.product = product;
+		this.category = category;
 		setResizable(false);
 		Toolkit tk = Toolkit.getDefaultToolkit(); 
 		Dimension d = tk.getScreenSize();
@@ -43,7 +44,7 @@ public class DeleteProductDialog extends JDialog {
 		SpringLayout springLayout = new SpringLayout();
 		getContentPane().setLayout(springLayout);
 		
-		String text = "Do you really want to delete the Product number "+product.getProductID()+" ?";
+		String text = "Do you really want to delete the Category number "+category.getCatID()+" ?";
 		JLabel labelConfirm = new JLabel(text);
 		springLayout.putConstraint(SpringLayout.NORTH, labelConfirm, 34, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, labelConfirm, -42, SpringLayout.EAST, getContentPane());
@@ -68,6 +69,12 @@ public class DeleteProductDialog extends JDialog {
 			}
 		});
 		getContentPane().add(btnNo);
+		
+		JLabel lblAllTheProducts = new JLabel("All the products and subcategories of that category will be deleted too");
+		lblAllTheProducts.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		springLayout.putConstraint(SpringLayout.NORTH, lblAllTheProducts, 6, SpringLayout.SOUTH, labelConfirm);
+		springLayout.putConstraint(SpringLayout.EAST, lblAllTheProducts, -10, SpringLayout.EAST, getContentPane());
+		getContentPane().add(lblAllTheProducts);
 	}
 	
 	private void cancel()
@@ -77,12 +84,9 @@ public class DeleteProductDialog extends JDialog {
 	
 	private void delete()
 	{
-		facade.getUser().removeProduct(product);
-		facade.getProductFacade().deleteProduct(product);
-		mainFrame.getContentPane().removeAll();
-		((ProductsPanel)mainFrame.getContentPane()).reload();
-		mainFrame.getContentPane().repaint();
-		mainFrame.getContentPane().revalidate();
+		//facade.getProductFacade().deleteCategoriesProducts(category);
+		facade.getCategoryFacade().deleteCategory(category);
+		this.mainFrame.changePanel(new CategoriesPanel(this.mainFrame, this.facade));
 		dispose();
 	}
 

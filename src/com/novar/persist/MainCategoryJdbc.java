@@ -27,6 +27,7 @@ public class MainCategoryJdbc extends MainCategory{
 		super(data);
 	}
 	
+	@Override
 	public void save()
 	{
 		try 
@@ -51,6 +52,7 @@ public class MainCategoryJdbc extends MainCategory{
 		}
 	}
 	
+	@Override
 	public void load()
 	{
 		PreparedStatement selectCat;
@@ -81,5 +83,42 @@ public class MainCategoryJdbc extends MainCategory{
 			e.printStackTrace();
 		}
 	}
-
+	
+	@Override
+	public void delete() {
+		PreparedStatement deleteCategory;
+		try {
+			deleteCategory = ConnectionUtil.connection.prepareStatement("DELETE FROM MainCategory "
+						+ "WHERE catID = ? ; ");
+			deleteCategory.setObject(1, getCatID(), Types.INTEGER);
+			deleteCategory.executeUpdate();
+			deleteCategory = ConnectionUtil.connection.prepareStatement("DELETE FROM Category "
+					+ "WHERE catID = ? ; ");
+			deleteCategory.setObject(1, getCatID(), Types.INTEGER);
+			deleteCategory.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Override
+	public void update()
+	{
+		try 
+		{
+			PreparedStatement insertProd = ConnectionUtil.connection.prepareStatement("UPDATE Category "
+					+ "SET description = ? "
+					+ "WHERE catID = ? ");
+			
+			insertProd.setObject(1, getDescription(),Types.VARCHAR);
+			insertProd.setObject(2, getCatID(),Types.INTEGER);
+			
+			insertProd.executeUpdate();	
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	}
 }

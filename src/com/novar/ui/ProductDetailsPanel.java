@@ -292,7 +292,6 @@ public class ProductDetailsPanel extends JPanel {
 			mapProduct.put("discountPrice", Double.parseDouble(textFieldDiscountPrice.getText()));
 			mapProduct.put("quantity", Integer.parseInt(textFieldQuantity.getText()));
 			mapProduct.put("category", comboBoxCategory.getSelectedItem());
-			mapProduct.put("user", facade.getUser());
 			try 
 			{
 				facade.getProductFacade().createProduct(mapProduct);
@@ -303,7 +302,7 @@ public class ProductDetailsPanel extends JPanel {
 				showErrors(e1);
 			}
 		}
-		catch (NumberFormatException e)
+		catch (NumberFormatException e )
 		{
 			lblErrorParse.setVisible(true);
 			textFieldPrice.setText("");

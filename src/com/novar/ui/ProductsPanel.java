@@ -137,7 +137,7 @@ public class ProductsPanel extends JPanel
 			
 			
 			JButton btnSeeMore = new JButton("See more");
-			springLayout.putConstraint(SpringLayout.NORTH, btnSeeMore, (int)(90*multiplier), SpringLayout.NORTH, this);
+			springLayout.putConstraint(SpringLayout.NORTH, btnSeeMore, (int)(90*multiplier-4), SpringLayout.NORTH, this);
 			springLayout.putConstraint(SpringLayout.WEST, btnSeeMore, mainFrame.getWidth()/7, SpringLayout.WEST, lblproductiCateg);
 			btnSeeMore.setFont(new Font("Calibri", Font.PLAIN, 12));
 			btnSeeMore.addActionListener(new ActionListener() {
@@ -148,7 +148,7 @@ public class ProductsPanel extends JPanel
 			add(btnSeeMore);
 			
 			JButton btnDelete = new JButton("Delete");
-			springLayout.putConstraint(SpringLayout.NORTH, btnDelete,(int)(90*multiplier), SpringLayout.NORTH, this);
+			springLayout.putConstraint(SpringLayout.NORTH, btnDelete,(int)(90*multiplier-4), SpringLayout.NORTH, this);
 			springLayout.putConstraint(SpringLayout.WEST, btnDelete, mainFrame.getWidth()/9, SpringLayout.WEST, btnSeeMore);
 			btnDelete.setFont(new Font("Calibri", Font.PLAIN, 12));
 			btnDelete.addActionListener(new ActionListener() {

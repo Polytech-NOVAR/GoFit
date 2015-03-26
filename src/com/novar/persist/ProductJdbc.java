@@ -30,6 +30,7 @@ public class ProductJdbc extends Product
 	{
 		super.setCategory(category);
 	}
+
 	
 	public void setCategory(MainCategoryJdbc category)
 	{
@@ -106,6 +107,7 @@ public class ProductJdbc extends Product
 		}
 	}
 	
+	@Override
 	public void update()
 	{
 		try 

@@ -44,9 +44,14 @@ public abstract class Category
 	 * Constructs a Category whit data of the hashmap. The number of data of the hashmap is not fixed. 
 	 * For each couple (key, value) the right setter is called.
 	 * @param data Its keys are the names of instance's variables. Its values are the data to affect.
-	 * @throws FalseFieldsException thorw if one condition at least is not respected in the setters.
+	 * @throws FalseFieldsException throw if one condition at least is not respected in the setters.
 	 */
 	public Category(HashMap<String,Object> data) throws FalseFieldsException
+	{
+		set(data);
+	}
+	
+	public void set(HashMap<String,Object> data) throws FalseFieldsException
 	{
 
 		Class[] typeArg = new Class[1];
@@ -116,8 +121,8 @@ public abstract class Category
 	////////////// HOOKS ////////////////
 	public abstract void load();
 	public abstract void save();
-	/*public abstract void update();
-	public abstract void delete();*/
+	public abstract void update();
+	public abstract void delete();
 	
 	
 	

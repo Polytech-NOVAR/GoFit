@@ -35,7 +35,7 @@ public class SubCategoryJdbc extends SubCategory
 		super.setParent(parent);
 	}
 	
-	
+	@Override
 	public void save()
 	{
 		try 
@@ -60,7 +60,7 @@ public class SubCategoryJdbc extends SubCategory
 			e.printStackTrace();
 		}
 	}
-	
+	@Override
 	public void load()
 	{
 		PreparedStatement selectCat;
@@ -135,7 +135,42 @@ public class SubCategoryJdbc extends SubCategory
 	}
 	*/
 	
+	@Override
+	public void delete() {
+		PreparedStatement deleteCategory;
+		try {
+			deleteCategory = ConnectionUtil.connection.prepareStatement("DELETE FROM SubCategory "
+						+ "WHERE catID = ? ; ");
+			deleteCategory.setObject(1, getCatID(), Types.INTEGER);
+			deleteCategory.executeUpdate();
+			deleteCategory = ConnectionUtil.connection.prepareStatement("DELETE FROM Category "
+					+ "WHERE catID = ? ; ");
+			deleteCategory.setObject(1, getCatID(), Types.INTEGER);
+			deleteCategory.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
-	
-	
+	@Override
+	public void update()
+	{
+		try 
+		{
+			PreparedStatement insertProd = ConnectionUtil.connection.prepareStatement("UPDATE SubCategory sc, Category c "
+					+ "SET sc.parentID = ?, c.description = ? "
+					+ "WHERE sc.catID = c.catID "
+					+ "AND c.catID = ?; ");
+			insertProd.setObject(1, getParent().getCatID(),Types.VARCHAR);
+			insertProd.setObject(2, getDescription(),Types.VARCHAR);
+			insertProd.setObject(3, getCatID(),Types.INTEGER);
+			
+			insertProd.executeUpdate();	
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	}
 }
