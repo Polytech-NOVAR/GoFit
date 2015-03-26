@@ -124,6 +124,7 @@ public class AddAccDialog extends JDialog {
 	
 	private void add()
 	{
+		lblErrorQuantity.setVisible(false);
 		try
 		{
 			Accessory acc = ((Accessory)comboBoxAccs.getSelectedItem());
