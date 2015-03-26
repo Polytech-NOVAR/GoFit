@@ -164,10 +164,14 @@ public abstract class Room {
 		return type;
 	}
 
-	public void setType(TypeRoom type) {
+	public void setType(Office type) {
 		this.type = type;
 	}
-
+	
+	public void setType(ClassRoom type) {
+		this.type = type;
+	}
+	
 	@Override
 	public String toString() {
 		return "Room [roomID=" + roomID + ", num=" + num + ", area=" + area
@@ -181,6 +185,7 @@ public abstract class Room {
 	public abstract void save();
 	public abstract void update();
 	public abstract void delete();
+	public abstract void loadType();
 	public abstract void loadAccessories();
 	public abstract void addAccessory(Accessory acc, int quantity);
 	

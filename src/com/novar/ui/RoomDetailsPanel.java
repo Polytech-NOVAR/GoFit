@@ -3,16 +3,21 @@ package com.novar.ui;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 
 import com.novar.business.Accessory;
+import com.novar.business.ClassRoom;
 import com.novar.business.MainFacade;
 import com.novar.business.Have;
+import com.novar.business.Office;
 import com.novar.business.Room;
+import com.novar.business.TypeRoom;
 import com.novar.exception.FalseFieldsException;
 
 import javax.swing.JLabel;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -22,6 +27,7 @@ import java.util.HashMap;
 
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.JRadioButton;
 
 public class RoomDetailsPanel extends JPanel {
 
@@ -35,12 +41,18 @@ public class RoomDetailsPanel extends JPanel {
 	private JTextField countryTextField;
 	private JTextField zipTextField;
 	private JTextField cityTextField;
+	private JTextField seatsTextField;
+	private JLabel lblSeats;
 	private JLabel streetLabelError;
 	private JLabel cityLabelError;
 	private JLabel zipLabelError;
 	private JLabel countryLabelError;
 	private JLabel areaLabelError;
+	private JLabel seatsLabelError;
 	private Border defaultBorder;
+	private JRadioButton officeRadioButton;
+	private JRadioButton classroomRadioButton;
+	
 	
 	/**
 	 * Create the panel.
@@ -160,6 +172,13 @@ public class RoomDetailsPanel extends JPanel {
 		areaLabelError.setFont(new Font("Calibri", Font.PLAIN, 11));
 		areaLabelError.setVisible(false);
 		add(areaLabelError);
+		
+		seatsLabelError = new JLabel("The seats field must contains only numbers.");
+		springLayout.putConstraint(SpringLayout.NORTH, seatsLabelError, 20, SpringLayout.NORTH, lblCountry);
+		springLayout.putConstraint(SpringLayout.EAST, seatsLabelError, -115, SpringLayout.EAST, this);
+		seatsLabelError.setFont(new Font("Calibri", Font.PLAIN, 11));
+		seatsLabelError.setVisible(false);
+		add(seatsLabelError);
 				
 		if(room != null)
 		{
@@ -192,6 +211,23 @@ public class RoomDetailsPanel extends JPanel {
 			cityTextField.setText(room.getTown());
 			zipTextField.setText(room.getZipCode());
 			countryTextField.setText(room.getCountry());
+			
+			if(room.getType() instanceof ClassRoom)
+			{
+				lblSeats = new JLabel("Seats :");
+				springLayout.putConstraint(SpringLayout.WEST, lblSeats, 0, SpringLayout.WEST, lblCountry);
+				springLayout.putConstraint(SpringLayout.NORTH, lblSeats, 20, SpringLayout.NORTH, lblCountry);
+				lblSeats.setFont(new Font("Calibri", Font.PLAIN, 12));
+				add(lblSeats);
+				
+				seatsTextField = new JTextField();
+				seatsTextField.setText(Integer.toString(((ClassRoom)room.getType()).getSeats()));
+				springLayout.putConstraint(SpringLayout.WEST, seatsTextField, 0, SpringLayout.WEST, countryTextField);
+				springLayout.putConstraint(SpringLayout.NORTH, seatsTextField, 0, SpringLayout.NORTH, lblSeats);
+				seatsTextField.setFont(new Font("Calibri", Font.PLAIN, 12));
+				add(seatsTextField);
+				seatsTextField.setColumns(10);
+			}
 			
 			JLabel lblName = new JLabel("Name");
 			springLayout.putConstraint(SpringLayout.NORTH, lblName, 50, SpringLayout.NORTH, lblAccessoriesList);
@@ -277,6 +313,48 @@ public class RoomDetailsPanel extends JPanel {
 				}
 			});
 			add(btnCreate);
+			
+			JLabel lblType = new JLabel("Type :");
+			springLayout.putConstraint(SpringLayout.WEST, lblType, 0, SpringLayout.WEST, lblNum);
+			springLayout.putConstraint(SpringLayout.SOUTH, lblType, 50, SpringLayout.NORTH, lblCountry);
+			lblType.setFont(new Font("Calibri", Font.PLAIN, 12));
+			add(lblType);
+			
+			officeRadioButton = new JRadioButton("Office");
+			springLayout.putConstraint(SpringLayout.WEST, officeRadioButton, 100, SpringLayout.WEST, lblType);
+			springLayout.putConstraint(SpringLayout.SOUTH, officeRadioButton, 0, SpringLayout.SOUTH, lblType);
+			officeRadioButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					typeOffice();
+				}
+			});
+			add(officeRadioButton);
+			officeRadioButton.setSelected(true);
+			
+			classroomRadioButton = new JRadioButton("ClassRoom");
+			springLayout.putConstraint(SpringLayout.WEST, classroomRadioButton, 100, SpringLayout.WEST, officeRadioButton);
+			springLayout.putConstraint(SpringLayout.SOUTH, classroomRadioButton, 0, SpringLayout.SOUTH, officeRadioButton);
+			classroomRadioButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					typeClass();
+				}
+			});
+			add(classroomRadioButton);
+			
+			lblSeats = new JLabel("Number of seats :");
+			springLayout.putConstraint(SpringLayout.WEST, lblSeats, 0, SpringLayout.WEST, lblType);
+			springLayout.putConstraint(SpringLayout.SOUTH, lblSeats, 50, SpringLayout.NORTH, lblType);
+			lblSeats.setFont(new Font("Calibri", Font.PLAIN, 12));
+			add(lblSeats);
+			lblSeats.setVisible(false);
+			
+			seatsTextField = new JTextField();
+			springLayout.putConstraint(SpringLayout.WEST, seatsTextField, 100, SpringLayout.WEST, lblSeats);
+			springLayout.putConstraint(SpringLayout.NORTH, seatsTextField, 0, SpringLayout.NORTH, lblSeats);
+			seatsTextField.setFont(new Font("Calibri", Font.PLAIN, 12));
+			add(seatsTextField);
+			seatsTextField.setColumns(10);
+			seatsTextField.setVisible(false);
 		}
 		
 		JButton btnCancel = new JButton("Cancel");
@@ -303,6 +381,26 @@ public class RoomDetailsPanel extends JPanel {
 			mapRoom.put("zipCode", zipTextField.getText());
 			mapRoom.put("country", countryTextField.getText());
 			
+			if(officeRadioButton.isSelected())
+			{
+				TypeRoom o = new Office();
+				mapRoom.put("type", o);
+			}
+			else if(classroomRadioButton.isSelected())
+			{
+				try
+				{
+					TypeRoom c = new ClassRoom();
+					((ClassRoom)c).setSeats(Integer.parseInt(seatsTextField.getText()));
+					mapRoom.put("type", c);
+				}
+				catch (NumberFormatException e)
+				{
+					seatsTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+					seatsLabelError.setVisible(true);
+				}
+			}
+			
 			try 
 			{
 				facade.getRoomFacade().createRoom(mapRoom);
@@ -316,6 +414,7 @@ public class RoomDetailsPanel extends JPanel {
 		}
 		catch (NumberFormatException e2)
 		{
+			areaTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 			areaLabelError.setVisible(true);
 		}
 	}
@@ -333,6 +432,21 @@ public class RoomDetailsPanel extends JPanel {
 			mapRoom.put("zipCode", zipTextField.getText());
 			mapRoom.put("country", countryTextField.getText());
 			
+			if(room.getType() instanceof ClassRoom)
+			{
+				try
+				{
+					TypeRoom c = room.getType();
+					((ClassRoom)c).setSeats(Integer.parseInt((seatsTextField.getText())));
+					mapRoom.put("type", c);
+				}
+				catch (NumberFormatException e)
+				{
+					seatsTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
+					seatsLabelError.setVisible(true);
+				}
+			}
+			
 			try 
 			{
 				facade.getRoomFacade().createRoom(mapRoom);
@@ -346,8 +460,10 @@ public class RoomDetailsPanel extends JPanel {
 		}
 		catch (NumberFormatException e2)
 		{
+			areaTextField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
 			areaLabelError.setVisible(true);
-		}	}
+		}	
+	}
 	
 	private void cancel()
 	{
@@ -406,12 +522,28 @@ public class RoomDetailsPanel extends JPanel {
 		cityLabelError.setVisible(false);
 		zipLabelError.setVisible(false);
 		countryLabelError.setVisible(false);
-		areaLabelError.setVisible(false);
+		areaLabelError.setVisible(false);		
+		seatsLabelError.setVisible(false);
 		numTextField.setBorder(defaultBorder);
 		areaTextField.setBorder(defaultBorder);
 		streetTextField.setBorder(defaultBorder);
 		countryTextField.setBorder(defaultBorder);
 		zipTextField.setBorder(defaultBorder);
 		cityTextField.setBorder(defaultBorder);
+		seatsTextField.setBorder(defaultBorder);
+	}
+	
+	private void typeOffice()
+	{
+		classroomRadioButton.setSelected(false);
+		lblSeats.setVisible(false);
+		seatsTextField.setVisible(false);
+	}
+	
+	private void typeClass()
+	{
+		officeRadioButton.setSelected(false);
+		lblSeats.setVisible(true);
+		seatsTextField.setVisible(true);
 	}
 }
