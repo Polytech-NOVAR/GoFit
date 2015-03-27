@@ -36,7 +36,6 @@ public interface PersistKit
 	public User makeUser(HashMap<String,Object> data) throws FalseFieldsException;
 	
 	/**
-<<<<<<< HEAD
 	 * This is the declaration of the method to make a room
 	 * @param data of a room
 	 * @return the room
@@ -93,7 +92,8 @@ public interface PersistKit
 	 * @return the NotifyTo
 	 */
 	public NotifyTo makeNotifyTo(Notification notif, String receiver);
-/*
+	
+	/**
 	 * This is the declaration of the method to make a MainCategory
 	 * @param data of a Maincategory
 	 * @return the Maincategory
