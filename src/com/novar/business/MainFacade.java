@@ -18,14 +18,18 @@ public class MainFacade
 	private PersistKit kit = null;
 	private RoomAccessoryFacade roomFacade;
 	private NotificationFacade notificationFacade;
-	private ProductFacade product = null;
+	private ProductFacade productFacade = null;
+	private CategoryFacade categoryFacade = null;
+
 	
 	public MainFacade(PersistKit kit)
 	{
 		this.kit = kit;
-		this.roomFacade = new RoomAccessoryFacade(kit);
-		this.notificationFacade = new NotificationFacade(kit);
-		//product = new FacadeProduct(kit);
+		roomFacade = new RoomAccessoryFacade(kit);
+		notificationFacade = new NotificationFacade(kit);
+		productFacade = new ProductFacade(kit);
+		categoryFacade = new CategoryFacade(kit);
+
 	}
 	
 	public User getUser()
@@ -42,12 +46,17 @@ public class MainFacade
 	{
 		return this.notificationFacade;
 	}	
-	public ArrayList<Product> getUserProducts()
+	
+	public ProductFacade getProductFacade()
 	{
-		theUser.loadProducts();
-		return theUser.getMember().getProducts();
+		return productFacade;
 	}
 	
+	public CategoryFacade getCategoryFacade()
+	{
+		return categoryFacade;
+	}
+
 	// Disconnected methods
 	public void register(HashMap<String,Object> dataUser) throws RegisterFailedException, FalseFieldsException
 	{
@@ -76,6 +85,12 @@ public class MainFacade
 	}
 	
 	// Profile methods
+	public ArrayList<Product> getUserProducts()
+	{
+		theUser.loadProducts();
+		return theUser.getMember().getProducts();
+	}
+
 	public void updateTheUserProfile(HashMap<String,Object> dataUser) throws FalseFieldsException, SQLException
 	{
 		theUser.setAll(dataUser);

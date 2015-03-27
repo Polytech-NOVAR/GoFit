@@ -214,6 +214,7 @@ public class CategoryDetailsPanel extends JPanel {
 			try 
 			{
 				facade.getCategoryFacade().createSubCategory(mapCategory);
+				//facade.getNotificationFacade().notify(facade.getUser(), "A new SubCategory has been created :  " + textAreaDescription.getText(), listdesMembers);
 				this.mainFrame.changePanel(new CategoriesPanel(this.mainFrame, this.facade));
 			} 
 			catch (FalseFieldsException e1) 
@@ -226,6 +227,7 @@ public class CategoryDetailsPanel extends JPanel {
 			try 
 			{
 				facade.getCategoryFacade().createMainCategory(mapCategory);
+				//facade.getNotificationFacade().notify(facade.getUser(), "A new MainCategory has been created :  " + textAreaDescription.getText(), listdesMembers);
 				this.mainFrame.changePanel(new CategoriesPanel(this.mainFrame, this.facade));
 			} 
 			catch (FalseFieldsException e1) 
