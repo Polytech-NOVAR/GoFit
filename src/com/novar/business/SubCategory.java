@@ -4,7 +4,7 @@ import java.util.HashMap;
 import com.novar.exception.FalseFieldsException;
 /**
  * This abstract class represent a product's sub category. 
- * It's a category which have a parent. The parent could be a SubCategory or a MainCategory.
+ * It's a category which have a parent. The parent is a MainCategory.
  * @author Antoine JOERG
  */
 
@@ -12,6 +12,11 @@ public abstract class SubCategory extends Category
 {
 	
 	private MainCategory parent;
+	
+	public SubCategory()
+	{
+		super();
+	}
 	
 	public SubCategory(HashMap<String,Object> data) throws FalseFieldsException
 	{
@@ -26,13 +31,6 @@ public abstract class SubCategory extends Category
 	public void setParent(MainCategory parent) 
 	{
 		this.parent = parent;
-	}
-
-	@Override
-	public String toString() 
-	{
-		return "SubCategory [parent=" + parent + ", CatID=" + getCatID()
-				+ ", description=" + getDescription() + "]\n";
 	}
 	
 	

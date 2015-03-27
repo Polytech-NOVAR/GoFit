@@ -22,6 +22,7 @@ import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JEditorPane;
 import javax.swing.JMenuBar;
@@ -41,7 +42,9 @@ import javax.swing.JLabel;
 
 import java.awt.GridBagConstraints;
 import java.awt.Font;
+
 import java.awt.Toolkit;
+
 
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
@@ -50,6 +53,8 @@ import java.awt.Insets;
 
 import javax.swing.Box;
 import javax.swing.JMenuItem;
+
+import java.awt.Dimension;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -61,10 +66,8 @@ public class ConnectedWindow extends JFrame
 	private JPanel contentPane;
 	private ConnectedWindow frame;
 	private JMenuItem mnNotification;
-
-	/**
-	 * @wbp.nonvisual location=-29,199
-	 */
+	
+	private JScrollPane scrollPane;
 	/**
 	 * Create the frame.
 	 */
@@ -74,6 +77,7 @@ public class ConnectedWindow extends JFrame
 		frame = this;
 		this.facade = facade;
 		this.frame = this;
+		frame = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Toolkit tk = Toolkit.getDefaultToolkit(); 
 		Dimension d = tk.getScreenSize();
@@ -82,6 +86,8 @@ public class ConnectedWindow extends JFrame
 		int height = 720;
 		int width = 980;
 		setBounds(screenWidth/6, screenHeight/10, width, height);
+		
+		setResizable(false);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -128,7 +134,7 @@ public class ConnectedWindow extends JFrame
 			mntmCategories.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					changePanel(new CategoryPanel());
+					changePanel(new CategoriesPanel(frame,facade));
 				}
 			});
 			
@@ -170,7 +176,7 @@ public class ConnectedWindow extends JFrame
 			mntmProducts.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					changePanel(new ProductsPanel(facade));
+					changePanel(new ProductsPanel(frame,facade));
 				}
 			});
 		}
@@ -198,17 +204,17 @@ public class ConnectedWindow extends JFrame
 
 		loadNotifs();
 		
-		ArrayList<String> receivers = new ArrayList<String>();
+		/*ArrayList<String> receivers = new ArrayList<String>();
 		receivers.add("Antoine1");
-		this.facade.getNotificationFacade().notify(this.facade.getUser(), "tergsguh", receivers);
+		this.facade.getNotificationFacade().notify(this.facade.getUser(), "tergsguh", receivers);*/
 
 		changePanel(new ProfilePanel(frame));
 	}
 	
 	public void changePanel (JPanel panel)
 	{
-		contentPane = panel;
-		setContentPane(contentPane);
+		scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		setContentPane(scrollPane);
 		loadNotifs();
 		validate();
 	}

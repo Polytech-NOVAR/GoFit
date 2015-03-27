@@ -1,6 +1,7 @@
 package com.novar.persist;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.novar.business.Administrator;
@@ -236,22 +237,18 @@ public class UserJdbc extends User
 	
 				selectProducts.setObject(1, getPseudo(), Types.VARCHAR);
 				ResultSet resProducts = selectProducts.executeQuery();
-				
+				ArrayList<Product> products = new ArrayList<Product>();
 				while(resProducts.next())
 				{
 					
 					HashMap<String,Object> mapProduct = new HashMap<String,Object>();
-					
 					mapProduct.put("ProductID", resProducts.getInt("ProductID"));
-					mapProduct.put("description", resProducts.getString("description"));
-					mapProduct.put("price", resProducts.getDouble("price"));
-					mapProduct.put("quantity", resProducts.getInt("quantity"));
-					mapProduct.put("discountPrice", resProducts.getDouble("discountPrice"));
-					
 					Product prod = new ProductJdbc(mapProduct);
-					
-					addProduct(prod);
+					prod.load();
+				
+					products.add(prod);
 				}
+				this.getMember().setProducts(products);
 			}
 			catch (SQLException | FalseFieldsException e) 
 			{

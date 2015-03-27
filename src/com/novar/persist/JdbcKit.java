@@ -10,7 +10,7 @@ import com.novar.business.NotificationManager;
 import com.novar.business.NotifyTo;
 import com.novar.business.Room;
 import com.novar.business.RoomManager;
-
+import com.novar.business.CategoryManager;
 import com.novar.business.Product;
 
 import com.novar.business.User;
@@ -41,7 +41,6 @@ public class JdbcKit implements PersistKit
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * This is the definition of the method to make a room
 	 * @param data of a room
 	 * @return the room with persistence methods
@@ -122,7 +121,8 @@ public class JdbcKit implements PersistKit
 	{
 		return new NotifyToJdbc(notif, receiver);
 	}
-/*
+	
+	/**
 	 * This is the definition of the method to make a MainCategory
 	 * @param data of a MainCategory
 	 * @return the MainCategory with persistance methods
@@ -153,5 +153,14 @@ public class JdbcKit implements PersistKit
 	public ProductJdbc makeProduct(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		return new ProductJdbc(data);
+	}
+	
+	/**
+	 * This is the definition of the method to make a CategoryManager
+	 * @return the manager
+	 */
+	public CategoryManager makeCategoryManager()
+	{
+		return new CategoryManagerJdbc();
 	}
 }
