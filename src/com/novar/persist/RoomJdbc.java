@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.novar.business.Accessory;
+import com.novar.business.ClassRoom;
 import com.novar.business.Have;
+import com.novar.business.Office;
 import com.novar.business.Room;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.SyntaxException;
@@ -43,6 +45,23 @@ public class RoomJdbc extends Room{
 			ResultSet key = insertRoom.getGeneratedKeys();
 			if(key.next()){
 				setRoomID(key.getInt(1));
+			}
+			
+			PreparedStatement insertType;
+			if(getType() instanceof Office)
+			{
+				insertType = ConnectionUtil.connection.prepareStatement("INSERT INTO Office (roomID)"
+						+ "VALUES (?);");
+				insertType.setObject(1, key.getInt(1),Types.INTEGER);
+				insertType.executeUpdate();
+			}
+			else if(getType() instanceof ClassRoom)
+			{
+				insertType = ConnectionUtil.connection.prepareStatement("INSERT INTO ClassRoom (roomID, seats)"
+						+ "VALUES (?, ?);");
+				insertType.setObject(1, key.getInt(1),Types.INTEGER);
+				insertType.setObject(2, ((ClassRoom)getType()).getSeats(),Types.INTEGER);
+				insertType.executeUpdate();
 			}
 		}
 		catch (SQLException e) 
@@ -84,6 +103,44 @@ public class RoomJdbc extends Room{
 		{
 			e.printStackTrace();
 		}	
+	}
+	
+	public void loadType()
+	{
+		PreparedStatement selectType;
+		
+		try{
+			selectType = ConnectionUtil.connection.prepareStatement("SELECT * "
+					+ "FROM ClassRoom "
+					+ "WHERE roomID = ? ");
+			selectType.setObject(1, getRoomID(), Types.INTEGER);
+			ResultSet res = selectType.executeQuery();
+			res.last();
+			if(res.getRow() == 1)
+			{
+				ClassRoom cr = new ClassRoom();
+				cr.setSeats(res.getInt("seats"));
+				setType(cr);
+			}
+			else
+			{
+				selectType = ConnectionUtil.connection.prepareStatement("SELECT * "
+						+ "FROM Office "
+						+ "WHERE roomID = ? ");
+				selectType.setObject(1, getRoomID(), Types.INTEGER);
+				res = selectType.executeQuery();
+				res.last();
+				if(res.getRow() == 1)
+				{
+					Office o = new Office();
+					setType(o);
+				}
+			}
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public void loadAccessories()
@@ -138,6 +195,16 @@ public class RoomJdbc extends Room{
 			updateRoom.setObject(6, getCountry(), Types.VARCHAR);
 			updateRoom.setObject(7, getRoomID(), Types.INTEGER);
 			updateRoom.executeUpdate();
+			
+			if(getType() instanceof ClassRoom)
+			{
+				PreparedStatement updateClassRoom  = ConnectionUtil.connection.prepareStatement("UPDATE ClassRoom "
+						+ "SET seats = ? "
+						+ "WHERE roomID = ? ");
+				updateClassRoom.setObject(1, ((ClassRoom)getType()).getSeats(), Types.INTEGER);
+				updateClassRoom.setObject(2, getRoomID(), Types.INTEGER);
+				updateClassRoom.executeUpdate();;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -145,6 +212,7 @@ public class RoomJdbc extends Room{
 	}
 	
 	public void delete(){
+		PreparedStatement deleteType;
 		PreparedStatement deleteRoom;
 		this.loadAccessories();
 		for(int acci=0; acci<this.getAccessories().size(); acci++)
@@ -152,6 +220,21 @@ public class RoomJdbc extends Room{
 			getAccessories().get(acci).delete();
 		}
 		try {
+			if(getType() instanceof ClassRoom)
+			{
+				deleteType = ConnectionUtil.connection.prepareStatement("DELETE FROM ClassRoom "
+						+ "WHERE roomID = ? ");
+				deleteType.setObject(1, getRoomID(), Types.INTEGER);
+				deleteType.executeUpdate();
+			}
+			else if(getType() instanceof Office)
+			{
+				deleteType = ConnectionUtil.connection.prepareStatement("DELETE FROM Office "
+						+ "WHERE roomID = ? ");
+				deleteType.setObject(1, getRoomID(), Types.INTEGER);
+				deleteType.executeUpdate();
+			}
+			
 			deleteRoom = ConnectionUtil.connection.prepareStatement("DELETE FROM Room "
 						+ "WHERE roomID = ? ");
 			deleteRoom.setObject(1, getRoomID(), Types.INTEGER);

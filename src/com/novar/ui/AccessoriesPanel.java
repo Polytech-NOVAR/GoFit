@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 
 import com.novar.business.MainFacade;
@@ -86,6 +87,10 @@ public class AccessoriesPanel extends JPanel {
 			});
 			add(btnDelete);
 		}
+		
+		JScrollPane scrollPane = new JScrollPane(this);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 	}
 	
 	private void seeMore(Accessory acc){
