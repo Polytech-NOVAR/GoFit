@@ -46,7 +46,7 @@ public abstract class Product
 	/**
 	  * Could be a SubCategory or mainCategory 
 	  */
-	private Category category;
+	private Category product;
 	
 	/**
 	 * Must be a Member
@@ -176,11 +176,11 @@ public abstract class Product
 
 
 	public Category getCategory() {
-		return category;
+		return product;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setCategory(Category product) {
+		this.product = product;
 	}
 
 	
@@ -197,67 +197,32 @@ public abstract class Product
 	public String toString() {
 		return "Product [productID=" + productID + ", description="
 				+ description + ", price=" + price + ", quantity=" + quantity
-				+ ", discountPrice=" + discountPrice + ", category=" + category
+				+ ", discountPrice=" + discountPrice + ", product=" + product
 				+ "]";
 	}
 
-	////////////// HOOKS ////////////////
+	// METHODS DESIGNED TO BE OVERRIDDEN BY CONCRETE SUBCLASSES, THEY MUST BE IMPLEMENTED ---------
+
+	/**
+	 * Load the product with all his attributes. The productID must be not null.
+	 */
 	public abstract void load();
-	public abstract void save();
-	public abstract void update();
-	public abstract void delete();
 	
-	public static void main(String[] args) 
-	{
-		
-		ConnectionUtil.start();
-		PersistKit kit = new JdbcKit();
-		for(int i=0;i<1;i++)
-		{
-			try {
-				PreparedStatement insertProd = ConnectionUtil.connection.prepareStatement("INSERT INTO Product (description, price, quantity, discountPrice, pseudo, catID) VALUES ('Bonnet 1', 12.52, 10, 10.0, 'Antoine', 48);");
-				insertProd.executeUpdate();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		
-		/*
-		// ===== CREATE USER =====
-		HashMap<String,Object> mapUser = new HashMap<String,Object>();
-		mapUser.put("pseudo", "Antoine");
-		mapUser.put("password", "123456");
-		User user = null;
-		
-		try {
-			user = kit.makeUser(mapUser);
-			user.load();
-			
-		} catch (FalseFieldsException | LoginFailedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		
-		// ===== CREATE PRODUCTS =====
-		HashMap<String,Object> mapProduct = new HashMap<String,Object>();
-		mapProduct.put("productID", 13);
-		Product prod = null;
-		try {
-			prod = kit.makeProduct(mapProduct);
-			
-		} catch (FalseFieldsException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getFalseFields());
-		}
-		
-		// ===== PERSISTENCE ====
-		prod.load();
-		System.out.println(prod);*/
-		
-	}
+	/**
+	 * Save the product with all his attributes. The productID must be not null.
+	 */
+	public abstract void save();
+	
+	/**
+	 * Update the product with all his attributes. The productID must be not null.
+	 */
+	public abstract void update();
+	
+	/**
+	 * Delete the product with. The productID must be not null.
+	 */
+	public abstract void delete();
+
 
 
 }

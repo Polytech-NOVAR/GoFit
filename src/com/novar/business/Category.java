@@ -40,6 +40,7 @@ public abstract class Category
 	{
 		
 	}
+	
 	/**
 	 * Constructs a Category whit data of the hashmap. The number of data of the hashmap is not fixed. 
 	 * For each couple (key, value) the right setter is called.
@@ -51,6 +52,12 @@ public abstract class Category
 		set(data);
 	}
 	
+	/**
+	 * sets a Category whit data of the hashmap. The number of data of the hashmap is not fixed. 
+	 * For each couple (key, value) the right setter is called.
+	 * @param data Its keys are the names of instance's variables. Its values are the data to affect.
+	 * @throws FalseFieldsException throw if one condition at least is not respected in the setters.
+	 */
 	public void set(HashMap<String,Object> data) throws FalseFieldsException
 	{
 
@@ -118,61 +125,28 @@ public abstract class Category
 	}
 	
 	
-	////////////// HOOKS ////////////////
+	// METHODS DESIGNED TO BE OVERRIDDEN BY CONCRETE SUBCLASSES, THEY MUST BE IMPLEMENTED ---------
+
+	/**
+	 * Load the category with all his attributes. The catID must be not null.
+	 */
 	public abstract void load();
+	
+	/**
+	 * Save the category with all his attributes. The catID must be not null.
+	 */
 	public abstract void save();
+	
+	/**
+	 * Update the category with all his attributes. The catID must be not null.
+	 */
 	public abstract void update();
+	
+	/**
+	 * Delete the category with. The catID must be not null.
+	 */
 	public abstract void delete();
 	
-	
-	
-	public static void main(String[] args) 
-	{
-		PersistKit kit = new JdbcKit();
-		
-		ConnectionUtil.start();
-
-		HashMap<String,Object> mapCat = new HashMap<String,Object>();
-		mapCat.put("catID", 47);
-		
-		try 
-		{
-			Category cat1 = kit.makeSubCategory(mapCat);
-			cat1.load();
-			System.out.println(cat1);
-		} 
-		catch (FalseFieldsException e) 
-		{
-			e.printStackTrace();
-		}
-		
-		
-		/*
-		HashMap<String,Object> mapCat2 = new HashMap<String,Object>();
-		mapCat2.put("description", "Moufles");
-		
-		HashMap<String,Object> mapCat3 = new HashMap<String,Object>();
-		mapCat3.put("description", "Moufles rouges");
-
-		
-		try {
-			MainCategory cat1 = kit.makeMainCategory(mapCat);
-			
-			mapCat2.put("parent", cat1);
-			SubCategory cat2 = kit.makeSubCategory(mapCat2);
-			
-			mapCat3.put("parent", cat2);
-			SubCategory cat3 = kit.makeSubCategory(mapCat3);
-			
-			System.out.println(cat3);
-			System.out.println(cat3.getParent());
-			System.out.println(((SubCategory)cat3.getParent()).getParent());
-		} catch (FalseFieldsException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getFalseFields());
-		}*/
-	}
-
 	
 	
 }

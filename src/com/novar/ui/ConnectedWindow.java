@@ -22,6 +22,7 @@ import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JEditorPane;
 import javax.swing.JMenuBar;
@@ -60,6 +61,8 @@ public class ConnectedWindow extends JFrame {
 	private JPanel contentPane;
 	
 	private ConnectedWindow frame;
+	
+	private JScrollPane scrollPane;
 	/**
 	 * @wbp.nonvisual location=-29,199
 	 */
@@ -73,6 +76,8 @@ public class ConnectedWindow extends JFrame {
 		frame = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 980, 800);
+		
+		setResizable(false);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -160,8 +165,8 @@ public class ConnectedWindow extends JFrame {
 	
 	public void changePanel (JPanel panel)
 	{
-		contentPane = panel;
-		setContentPane(contentPane);
-		validate();
+		scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		setContentPane(scrollPane);
+		revalidate();
 	}
 }

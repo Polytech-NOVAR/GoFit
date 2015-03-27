@@ -6,17 +6,17 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.HashMap;
 
-import com.novar.business.Category;
 import com.novar.business.MainCategory;
-import com.novar.business.Product;
 import com.novar.business.SubCategory;
-import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
-import com.novar.exception.LoginFailedException;
-import com.novar.exception.RegisterFailedException;
 import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
 
+/**
+ * This concrete subclass of SubCategory uses the Jdbc technology to perfom the methods defined in Category.
+ * @author Antoine JOERG
+ *
+ */
 public class SubCategoryJdbc extends SubCategory
 {
 	
@@ -60,6 +60,7 @@ public class SubCategoryJdbc extends SubCategory
 			e.printStackTrace();
 		}
 	}
+	
 	@Override
 	public void load()
 	{
@@ -96,44 +97,6 @@ public class SubCategoryJdbc extends SubCategory
 			e.printStackTrace();
 		}
 	}
-/*	
-	public void loadProducts()
-	{
-		PreparedStatement selectProducts;
-		try 
-		{
-			selectProducts = ConnectionUtil.connection.prepareStatement("SELECT * "
-					+ "FROM SubCategory mc, Product p "
-					+ "WHERE mc.catID = p.catID "
-					+ "AND mc.catID = ? ;");
-
-			selectProducts.setObject(1, getCatID(), Types.VARCHAR);
-			ResultSet resProducts = selectProducts.executeQuery();
-			
-			while(resProducts.next())
-			{
-				
-				
-				HashMap<String,Object> mapProduct = new HashMap<String,Object>();
-				
-				mapProduct.put("ProductID", resProducts.getInt("ProductID"));
-				mapProduct.put("description", resProducts.getString("description"));
-				mapProduct.put("price", resProducts.getDouble("price"));
-				mapProduct.put("quantity", resProducts.getInt("quantity"));
-				mapProduct.put("discountPrice", resProducts.getDouble("discountPrice"));
-				
-				Product prod = new ProductJdbc(mapProduct);
-				
-				this.addProduct(prod);
-			}
-		}
-		catch (SQLException | FalseFieldsException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	*/
 	
 	@Override
 	public void delete() {

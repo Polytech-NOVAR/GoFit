@@ -4,7 +4,7 @@ import java.util.HashMap;
 import com.novar.exception.FalseFieldsException;
 /**
  * This abstract class represent a product's sub category. 
- * It's a category which have a parent. The parent could be a SubCategory or a MainCategory.
+ * It's a category which have a parent. The parent is a MainCategory.
  * @author Antoine JOERG
  */
 

@@ -5,17 +5,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.HashMap;
-
-import com.novar.business.Category;
 import com.novar.business.MainCategory;
-import com.novar.business.Product;
-import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
-import com.novar.exception.LoginFailedException;
 import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
 
-public class MainCategoryJdbc extends MainCategory{
+/**
+ * This concrete subclass of MainCategory uses the Jdbc technology to perfom the methods defined in Category.
+ * @author Antoine JOERG
+ *
+ */
+public class MainCategoryJdbc extends MainCategory
+{
 	
 	public MainCategoryJdbc()
 	{

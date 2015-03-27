@@ -291,6 +291,7 @@ public class ProductDetailsPanel extends JPanel {
 			mapProduct.put("price", Double.parseDouble(textFieldPrice.getText()));
 			mapProduct.put("discountPrice", Double.parseDouble(textFieldDiscountPrice.getText()));
 			mapProduct.put("quantity", Integer.parseInt(textFieldQuantity.getText()));
+			mapProduct.put("user", facade.getUser());
 			mapProduct.put("category", comboBoxCategory.getSelectedItem());
 			try 
 			{

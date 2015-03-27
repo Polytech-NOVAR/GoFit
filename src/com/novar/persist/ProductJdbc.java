@@ -5,14 +5,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.HashMap;
-
 import com.novar.business.Category;
-import com.novar.business.MainCategory;
 import com.novar.business.Product;
-import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
+
+/**
+ * This concrete subclass of Product uses the Jdbc technology to perfom the methods defined in Product.
+ * @author Antoine JOERG
+ *
+ */
 
 public class ProductJdbc extends Product
 {
@@ -31,7 +34,6 @@ public class ProductJdbc extends Product
 		super.setCategory(category);
 	}
 
-	
 	public void setCategory(MainCategoryJdbc category)
 	{
 		super.setCategory(category);

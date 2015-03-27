@@ -9,6 +9,7 @@ import java.awt.Font;
 
 import javax.swing.SwingConstants;
 
+import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -30,8 +31,8 @@ public class CategoriesPanel extends JPanel
 {
 	private ConnectedWindow mainFrame;
 	private FacadeMain facade;
-	private ArrayList<MainCategory> mainCategories;
-	private ArrayList<SubCategory> subCategories;
+	private ArrayList<MainCategory> mainCategories = new ArrayList<MainCategory>();
+	private ArrayList<SubCategory> subCategories = new ArrayList<SubCategory>();
 
 	/**
 	 * Create the panel.
@@ -168,8 +169,8 @@ public class CategoriesPanel extends JPanel
 				add(btnDelete);
 				cptligne++;
 			}
-			
 		}
+		setPreferredSize(new Dimension(980, ((mainCategories.size()+subCategories.size())*80)));
 	}
 	
 	private void seeMore(Category category)
@@ -187,4 +188,5 @@ public class CategoriesPanel extends JPanel
 		DeleteCategoryDialog delete = new DeleteCategoryDialog(this.mainFrame, this.facade, product);
 		delete.setVisible(true);
 	}
+	
 }

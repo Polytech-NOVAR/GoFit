@@ -9,6 +9,7 @@ import java.awt.Font;
 
 import javax.swing.SwingConstants;
 
+import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -18,6 +19,7 @@ import javax.swing.border.Border;
 
 import com.novar.business.FacadeMain;
 import com.novar.business.Product;
+import com.novar.business.SubCategory;
 
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
@@ -28,7 +30,7 @@ public class ProductsPanel extends JPanel
 {
 	private ConnectedWindow mainFrame;
 	private FacadeMain facade;
-	private ArrayList<Product> products;
+	private ArrayList<Product> products = new ArrayList<Product>();
 
 	/**
 	 * Create the panel.
@@ -158,6 +160,7 @@ public class ProductsPanel extends JPanel
 			});
 			add(btnDelete);
 		}
+		setPreferredSize(new Dimension(980, products.size()*52));
 	}
 	
 	private void seeMore(Product room){
