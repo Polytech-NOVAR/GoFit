@@ -34,7 +34,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JList;
 import javax.swing.JMenu;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 
 import java.awt.GridBagLayout;
 
@@ -56,7 +56,7 @@ import java.awt.Dimension;
 public class ConnectedWindow extends JFrame {
 
 	
-	private FacadeMain facade;
+	private MainFacade facade;
 	
 	private JPanel contentPane;
 	
@@ -69,7 +69,7 @@ public class ConnectedWindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ConnectedWindow(FacadeMain facade) 
+	public ConnectedWindow(MainFacade facade) 
 	{
 		super("GoFit");
 		this.facade = facade;

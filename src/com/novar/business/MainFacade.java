@@ -7,14 +7,14 @@ import com.novar.exception.*;
 import com.novar.persist.PersistKit;
 import com.novar.util.StringUtil;
 
-public class FacadeMain
+public class MainFacade
 {
 	private User theUser = null;
 	private PersistKit kit = null;
 	private ProductFacade product = null;
 	private CategoryFacade category = null;
 	
-	public FacadeMain(PersistKit kit)
+	public MainFacade(PersistKit kit)
 	{
 		this.kit = kit;
 		product = new ProductFacade(kit);

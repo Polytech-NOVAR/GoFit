@@ -17,7 +17,7 @@ import java.awt.Insets;
 import javax.swing.SpringLayout;
 import javax.swing.border.Border;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.business.Product;
 import com.novar.business.SubCategory;
 
@@ -29,13 +29,13 @@ import java.util.ArrayList;
 public class ProductsPanel extends JPanel 
 {
 	private ConnectedWindow mainFrame;
-	private FacadeMain facade;
+	private MainFacade facade;
 	private ArrayList<Product> products = new ArrayList<Product>();
 
 	/**
 	 * Create the panel.
 	 */
-	public ProductsPanel(ConnectedWindow frame,FacadeMain facade) 
+	public ProductsPanel(ConnectedWindow frame,MainFacade facade) 
 	{
 		this.facade = facade;
 		this.mainFrame = frame;

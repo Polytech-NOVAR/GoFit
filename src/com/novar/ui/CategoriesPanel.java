@@ -17,7 +17,7 @@ import java.awt.Insets;
 import javax.swing.SpringLayout;
 import javax.swing.border.Border;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.business.MainCategory;
 import com.novar.business.SubCategory;
 import com.novar.business.Category;
@@ -30,14 +30,14 @@ import java.util.ArrayList;
 public class CategoriesPanel extends JPanel 
 {
 	private ConnectedWindow mainFrame;
-	private FacadeMain facade;
+	private MainFacade facade;
 	private ArrayList<MainCategory> mainCategories = new ArrayList<MainCategory>();
 	private ArrayList<SubCategory> subCategories = new ArrayList<SubCategory>();
 
 	/**
 	 * Create the panel.
 	 */
-	public CategoriesPanel(ConnectedWindow frame,FacadeMain facade) 
+	public CategoriesPanel(ConnectedWindow frame,MainFacade facade) 
 	{
 		this.facade = facade;
 		this.mainFrame = frame;

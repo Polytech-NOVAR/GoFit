@@ -8,7 +8,7 @@ import javax.swing.SpringLayout;
 import com.novar.business.Category;
 import com.novar.business.MainCategory;
 import com.novar.business.Product;
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.business.SubCategory;
 import com.novar.exception.FalseFieldsException;
 
@@ -28,7 +28,7 @@ import javax.swing.border.Border;
 
 public class ProductDetailsPanel extends JPanel {
 
-	private FacadeMain facade;
+	private MainFacade facade;
 	private ConnectedWindow mainFrame;
 	private Product product = null;
 	
@@ -41,7 +41,7 @@ public class ProductDetailsPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public ProductDetailsPanel(ConnectedWindow frame, FacadeMain facade, Product product) {
+	public ProductDetailsPanel(ConnectedWindow frame, MainFacade facade, Product product) {
 		this.facade = facade;
 		this.mainFrame = frame;
 		this.product = product;

@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.business.Product;
 
 import javax.swing.SpringLayout;
@@ -20,14 +20,14 @@ public class DeleteProductDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
-	private FacadeMain facade;
+	private MainFacade facade;
 	private ConnectedWindow mainFrame;
 	private Product product;
 	
 	/**
 	 * Create the dialog.
 	 */
-	public DeleteProductDialog(ConnectedWindow frame, FacadeMain facade, Product product) 
+	public DeleteProductDialog(ConnectedWindow frame, MainFacade facade, Product product) 
 	{
 		super(frame, "Delete", Dialog.ModalityType.DOCUMENT_MODAL);
 		this.mainFrame = frame;

@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.business.Category;
 
 import javax.swing.SpringLayout;
@@ -21,14 +21,14 @@ public class DeleteCategoryDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
-	private FacadeMain facade;
+	private MainFacade facade;
 	private ConnectedWindow mainFrame;
 	private Category category;
 	
 	/**
 	 * Create the dialog.
 	 */
-	public DeleteCategoryDialog(ConnectedWindow frame, FacadeMain facade, Category category) 
+	public DeleteCategoryDialog(ConnectedWindow frame, MainFacade facade, Category category) 
 	{
 		super(frame, "Delete", Dialog.ModalityType.DOCUMENT_MODAL);
 		this.mainFrame = frame;
