@@ -53,7 +53,7 @@ private MainFacade facade;
 		add(lblManager);
 		
 		User manager = facade.getUser();
-		ArrayList<User> users = facade.getAdminFacade().getAllAdmin(manager);
+		ArrayList<User> users = facade.getAdminFacade().getAllManager(manager);
 		for(int i=0; i<users.size(); i++)
 		{
 			double multiplier = 1.5 + 0.5*i;
@@ -79,7 +79,7 @@ private MainFacade facade;
 			
 			JButton btnDelete = new JButton("Delete");
 			springLayout.putConstraint(SpringLayout.NORTH, btnDelete,(int)(90*multiplier), SpringLayout.NORTH, this);
-			springLayout.putConstraint(SpringLayout.WEST, btnDelete, mainFrame.getWidth()/8, SpringLayout.WEST, btnSeeMore);
+			springLayout.putConstraint(SpringLayout.WEST, btnDelete, mainFrame.getWidth()/4, SpringLayout.WEST, btnSeeMore);
 			btnDelete.setFont(new Font("Calibri", Font.PLAIN, 12));
 			btnDelete.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

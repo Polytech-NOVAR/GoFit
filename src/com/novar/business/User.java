@@ -258,10 +258,7 @@ public abstract class User
 	
 	public void setAdministrator(Administrator administrator)
 	{
-		if (this.administrator == null)
-		{
-			this.administrator = administrator;
-		}
+		this.administrator = administrator;
 	}
 	
 	public boolean isAdministrator()
@@ -279,10 +276,7 @@ public abstract class User
 	
 	public void setManager(Manager manager)
 	{
-		if (this.manager == null)
-		{
-			this.manager = manager;
-		}
+		this.manager = manager;
 	}
 	
 	public boolean isManager()
@@ -300,10 +294,7 @@ public abstract class User
 	
 	public void setSpeaker(Speaker speaker)
 	{
-		if (this.speaker == null)
-		{
-			this.speaker = speaker;
-		}
+		this.speaker = speaker;
 	}
 	
 	public boolean isSpeaker()
@@ -321,10 +312,7 @@ public abstract class User
 	
 	public void setMember(Member member)
 	{
-		if (this.member == null)
-		{
-			this.member = member;
-		}
+		this.member = member;
 	}
 	
 	public boolean isMember()

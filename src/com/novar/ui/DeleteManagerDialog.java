@@ -21,7 +21,6 @@ import com.novar.business.User;
 
 public class DeleteManagerDialog extends JDialog {
 
-
 	private final JPanel contentPanel = new JPanel();
 
 	private MainFacade facade;
@@ -31,11 +30,11 @@ public class DeleteManagerDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public DeleteManagerDialog(ConnectedWindow frame, MainFacade facade, User member) {
+	public DeleteManagerDialog(ConnectedWindow frame, MainFacade facade, User manager) {
 		super(frame, "Delete", Dialog.ModalityType.DOCUMENT_MODAL);
 		this.mainFrame = frame;
 		this.facade = facade;
-		this.user = member;
+		this.user = manager;
 		setResizable(false);
 		Toolkit tk = Toolkit.getDefaultToolkit(); 
 		Dimension d = tk.getScreenSize();
@@ -46,7 +45,7 @@ public class DeleteManagerDialog extends JDialog {
 		SpringLayout springLayout = new SpringLayout();
 		getContentPane().setLayout(springLayout);
 		
-		String text = "Do you really want to delete the Manager "+ member.getPseudo() + " ?";
+		String text = "Do you really want to delete the Manager "+ manager.getPseudo() + " ?";
 		JLabel labelConfirm = new JLabel(text);
 		springLayout.putConstraint(SpringLayout.NORTH, labelConfirm, 34, SpringLayout.NORTH, getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, labelConfirm, -42, SpringLayout.EAST, getContentPane());
@@ -90,3 +89,4 @@ public class DeleteManagerDialog extends JDialog {
 		this.dispose();
 	}
 }
+

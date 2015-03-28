@@ -1,10 +1,14 @@
 package com.novar.persist;
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import com.novar.business.Administrator;
 import com.novar.business.User;
@@ -223,13 +227,24 @@ public class UserManagerJdbc extends UserManager {
 			e.printStackTrace();
 		}
 	}
+	
+
 	public  void setMember(User member)
 	{
+
+		Date d1 = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		String d2 = formatter.format(d1);
+		
+		System.out.println(d2);
+
+
 		try 
 		{
-			PreparedStatement insertUser = ConnectionUtil.connection.prepareStatement("INSERT INTO Member (pseudoMember) "
-																		+ "VALUES ( ? )");
+			PreparedStatement insertUser = ConnectionUtil.connection.prepareStatement("INSERT INTO Member (pseudoMember, registrationDate) "
+																		+ "VALUES ( ?, ? )");
 			insertUser.setObject(1, member.getPseudo(),Types.VARCHAR);
+			insertUser.setObject(2, d2,Types.DATE);
 			insertUser.executeUpdate();		
 		}
 		catch (SQLException e) 
@@ -289,7 +304,7 @@ public class UserManagerJdbc extends UserManager {
 	
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 	
 		ConnectionUtil.start();
 		User user = new UserJdbc();
@@ -306,9 +321,9 @@ public class UserManagerJdbc extends UserManager {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-		/*manager.setMember(user);*/
-		manager.setManager(user);
+		}
+		manager.setMember(user);
+		/*manager.setManager(user);
 		manager.setSpeaker(user);
 		manager.setAdmin(user);
 		ArrayList<User> users =  manager.getAllAdmin(user);
@@ -316,8 +331,5 @@ public class UserManagerJdbc extends UserManager {
 		{
 			System.out.println(users.get(i));
 		
-		}
-	}
-	
-		
+		}*/
 }
