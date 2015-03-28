@@ -63,8 +63,6 @@ public class UserJdbc extends User
 	
 	public void updateProfile() throws SQLException
 	{
-		// TODO update Speaker
-		
 		PreparedStatement updateProfile;
 		updateProfile = ConnectionUtil.connection.prepareStatement("UPDATE User "
 				+ "SET "
@@ -123,6 +121,38 @@ public class UserJdbc extends User
 		updatePassword.executeUpdate();
 	}
 	
+	public void updateForgottenPassword() throws InvalidEmailException
+	{
+		
+		PreparedStatement updatePassword;
+		PreparedStatement email;
+		
+		try {
+			email = ConnectionUtil.connection.prepareStatement("SELECT * "
+					+ "FROM User "
+					+ "Where email = ?; ");
+			email.setObject(1, getEmail(), Types.VARCHAR);
+			ResultSet res = email.executeQuery();
+			res.last();
+			if(res.getRow() == 0)
+					throw new InvalidEmailException();
+			else
+			{
+				updatePassword = ConnectionUtil.connection.prepareStatement("UPDATE User "
+						+ "SET password = ? "
+						+ "WHERE email = ?");
+				updatePassword.setObject(1, getPassword(),Types.VARCHAR);
+				updatePassword.setObject(2, getEmail(), Types.VARCHAR);
+				updatePassword.executeUpdate();
+			}
+		}
+			catch (SQLException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
+	
 	public void delete() throws SQLException
 	{
 		PreparedStatement delete;
@@ -177,38 +207,6 @@ public class UserJdbc extends User
 		}
 	}
 	
-	public void updateForgottenPassword() throws InvalidEmailException
-	{
-		
-		PreparedStatement updatePassword;
-		PreparedStatement email;
-		
-		try {
-			email = ConnectionUtil.connection.prepareStatement("SELECT * "
-					+ "FROM User "
-					+ "Where email = ?; ");
-			email.setObject(1, getEmail(), Types.VARCHAR);
-			ResultSet res = email.executeQuery();
-			res.last();
-			if(res.getRow() == 0)
-					throw new InvalidEmailException();
-			else
-			{
-				updatePassword = ConnectionUtil.connection.prepareStatement("UPDATE User "
-						+ "SET password = ? "
-						+ "WHERE email = ?");
-				updatePassword.setObject(1, getPassword(),Types.VARCHAR);
-				updatePassword.setObject(2, getEmail(), Types.VARCHAR);
-				updatePassword.executeUpdate();
-			}
-		}
-			catch (SQLException e) 
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
 	public void loadRoles()
 	{		
 		try
