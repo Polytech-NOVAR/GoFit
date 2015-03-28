@@ -40,7 +40,7 @@ public class ManagerDetailsPanel extends JPanel {
 		lblManagerDetails.setFont(new Font("Calibri", Font.BOLD, 24));
 		add(lblManagerDetails);
 		
-		JLabel lblName = new JLabel("Name :");
+		JLabel lblName = new JLabel("Pseudo :");
 		springLayout.putConstraint(SpringLayout.NORTH, lblName, 100, SpringLayout.NORTH, lblManagerDetails);
 		springLayout.putConstraint(SpringLayout.WEST, lblName, mainFrame.getWidth()/3, SpringLayout.WEST, this);
 		lblName.setFont(new Font("Calibri", Font.PLAIN, 12));
@@ -68,7 +68,7 @@ public class ManagerDetailsPanel extends JPanel {
 		}
 		else
 		{
-			JButton btnCreate = new JButton("Create");
+			JButton btnCreate = new JButton("Add");
 			springLayout.putConstraint(SpringLayout.NORTH, btnCreate, 30, SpringLayout.NORTH, this);
 			springLayout.putConstraint(SpringLayout.EAST, btnCreate, -80, SpringLayout.EAST, this);
 			btnCreate.setFont(new Font("Calibri", Font.PLAIN, 14));

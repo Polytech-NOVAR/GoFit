@@ -78,7 +78,7 @@ public class UpdateRoleDialog extends JDialog {
 	
 	private void update()
 	{
-		this.facade.getMainFacade().deleteManager(user);
+		this.facade.getAdminFacade().setManager(user);
 		this.mainFrame.changePanel(new ManagerPanel(this.mainFrame, this.facade));
 		this.dispose();
 	}

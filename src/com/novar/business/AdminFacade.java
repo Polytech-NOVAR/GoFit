@@ -74,19 +74,19 @@ public class AdminFacade {
 	public void deleteManager(User manager) throws SQLException
 	{
 		UserManager um = kit.makeUserManager();
-		um.deleteAdmin(manager);
+		um.deleteManager(manager);
 	}
 	
 	public void deleteMember(User member) throws SQLException
 	{
 		UserManager um = kit.makeUserManager();
-		um.deleteAdmin(member);
+		um.deleteMember(member);
 	}
 	
 	public void deleteSpeaker(User speaker) throws SQLException
 	{
 		UserManager um = kit.makeUserManager();
-		um.deleteAdmin(speaker);
+		um.deleteSpeaker(speaker);
 	}
 
 }
