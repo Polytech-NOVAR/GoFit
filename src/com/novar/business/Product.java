@@ -1,6 +1,8 @@
 package com.novar.business;
 
 import java.lang.reflect.Method;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -19,35 +21,57 @@ public abstract class Product
 	private Integer productID;
 	
 	/**
-	  * maximal size : 257 characters
+	  * maximal size : 256 characters
 	  */
 	private String description;	
 	
 	/**
 	  * Greater than or equal to zero
+	  * Lesser than 1 000 000
 	  */
 	private Double price;
 	
 	/**
 	  * Greater than or equal to zero
+	  * Lesser than 1 000 000
 	  */
 	private Integer quantity;
 	
 	/**
 	  * Greater than or equal to zero
+	  * Lesser than 1 000 000
 	  */
 	private Double discountPrice;
 	
+	/**
+	  * Could be a SubCategory or mainCategory 
+	  */
+	private Category product;
 	
 	/**
-	 * Constructs a Product whit data of the hashmap. The number of data of the hashmap is not fixed. 
+	 * Must be a Member
+	 */
+	private User user;
+	
+	/**
+	 * Create a Product whit data of the hashmap. The number of data of the hashmap is not fixed. 
 	 * For each couple (key, value) the right setter is called.
 	 * @param data Its keys are the names of instance's variables. Its values are the data to affect.
-	 * @throws FalseFieldsException thorw if one condition at least is not respected in the setters.
+	 * @throws FalseFieldsException throw if one condition at least is not respected in the setters.
 	 */
 	public Product(HashMap<String,Object> data) throws FalseFieldsException
 	{
-
+		set(data);
+	}
+	
+	/**
+	 * Set a Product whit data of the hashmap. The number of data of the hashmap is not fixed. 
+	 * For each couple (key, value) the right setter is called.
+	 * @param data Its keys are the names of instance's variables. Its values are the data to affect.
+	 * @throws FalseFieldsException throw if one condition at least is not respected in the setters.
+	 */
+	public void set(HashMap<String,Object> data) throws FalseFieldsException
+	{
 		Class[] typeArg = new Class[1];
 		Object[] arg = new Object[1];
 		ArrayList<String> errors = new ArrayList<String>();
@@ -94,7 +118,7 @@ public abstract class Product
 
 	public void setDescription(String description) throws SyntaxException
 	{
-		Pattern pDesc = Pattern.compile("^[a-zA-Z-0-9- -._]{1,256}$");
+		Pattern pDesc = Pattern.compile("^[a-zA-Z-0-9- -._\n]{1,256}$");
 		Matcher mDesc = pDesc.matcher(description);
 		if(mDesc.matches())
 		{
@@ -112,7 +136,7 @@ public abstract class Product
 
 	public void setPrice(Double price) throws SyntaxException
 	{
-		if(price >= 0)
+		if(price >= 0 && price <= 1000000)
 		{
 			this.price = price;
 		}
@@ -125,11 +149,11 @@ public abstract class Product
 		return quantity;
 	}
 
-	public void setQuantity(Integer remainingQuantity) throws SyntaxException
+	public void setQuantity(Integer quantity) throws SyntaxException
 	{
-		if(remainingQuantity >= 0)
+		if(quantity >= 0 && quantity <= 1000000)
 		{
-			this.quantity = remainingQuantity;
+			this.quantity = quantity;
 		}
 		else
 			throw new SyntaxException("quantity");
@@ -142,7 +166,7 @@ public abstract class Product
 
 	public void setDiscountPrice(Double discountPrice) throws SyntaxException
 	{
-		if(discountPrice >= 0)
+		if(discountPrice >= 0 && discountPrice <= 1000000)
 		{
 			this.discountPrice = discountPrice;
 		}
@@ -151,107 +175,54 @@ public abstract class Product
 	}
 
 
+	public Category getCategory() {
+		return product;
+	}
+
+	public void setCategory(Category product) {
+		this.product = product;
+	}
+
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		if(user.isMember())
+			this.user = user;
+	}
+
 	@Override
-	public String toString() 
-	{
+	public String toString() {
 		return "Product [productID=" + productID + ", description="
-				+ description + ", price=" + price + ", quantity="
-				+ quantity + ", discountPrice=" + discountPrice+"]\n";
+				+ description + ", price=" + price + ", quantity=" + quantity
+				+ ", discountPrice=" + discountPrice + ", product=" + product
+				+ "]";
 	}
-	
-	////////////// HOOKS ////////////////
+
+	// METHODS DESIGNED TO BE OVERRIDDEN BY CONCRETE SUBCLASSES, THEY MUST BE IMPLEMENTED ---------
+
+	/**
+	 * Load the product with all his attributes. The productID must be not null.
+	 */
 	public abstract void load();
-	public abstract void save();
-	/*public abstract void update();
-	public abstract void delete();*/
 	
-	public static void main(String[] args) 
-	{
-		
-		ConnectionUtil.start();
-		PersistKit kit = new JdbcKit();
-		
-		// ===== CREATE USER =====
-		HashMap<String,Object> mapUser = new HashMap<String,Object>();
-		mapUser.put("pseudo", "Antoine");
-		mapUser.put("password", "123456");
-		User user = null;
-		
-		try {
-			user = kit.makeUser(mapUser);
-			user.load();
-			
-		} catch (FalseFieldsException | LoginFailedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		
-		
-		/*// ===== CREATE CATEGORIES =====
-		HashMap<String,Object> mapCat = new HashMap<String,Object>();
-		mapCat.put("description", "Gant");
-		HashMap<String,Object> mapCat2 = new HashMap<String,Object>();
-		mapCat2.put("description", "Moufle");
-		MainCategory cat1 = null;
-		SubCategory cat2 = null;
-		try {
-			cat1 = kit.makeMainCategory(mapCat);
-			
-			mapCat2.put("parent", cat1);
-			cat2 = kit.makeSubCategory(mapCat2);
-			
-		} catch (FalseFieldsException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getFalseFields());
-		}
+	/**
+	 * Save the product with all his attributes. The productID must be not null.
+	 */
+	public abstract void save();
+	
+	/**
+	 * Update the product with all his attributes. The productID must be not null.
+	 */
+	public abstract void update();
+	
+	/**
+	 * Delete the product with. The productID must be not null.
+	 */
+	public abstract void delete();
 
-		cat1.save();
-		cat2.save();
-
-		System.out.println(cat1);
-		System.out.println(cat2);
-		
-		HashMap<String,Object> mapCat = new HashMap<String,Object>();
-		mapCat.put("catID", 49);
-		SubCategory cat1 = null;
-		try {
-			cat1 = kit.makeSubCategory(mapCat);
-			cat1.load();
-			
-		} catch (FalseFieldsException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getFalseFields());
-		}
-		
-		System.out.println(cat1);
-		
-		// ===== CREATE PRODUCTS =====
-		HashMap<String,Object> mapProduct = new HashMap<String,Object>();
-		mapProduct.put("description", "Moufle 1");
-		mapProduct.put("price", 15.28);
-		mapProduct.put("quantity", 10);
-		mapProduct.put("discountPrice", 14.0);
-		mapProduct.put("seller", user);
-		mapProduct.put("category", cat1);
-		Product prod = null;
-		try {
-			prod = kit.makeProduct(mapProduct);
-			
-		} catch (FalseFieldsException e) {
-			// TODO Auto-generated catch block
-			System.out.println(e.getFalseFields());
-		}
-		
-		===== PERSISTENCE ====
-		prod.save();
-		System.out.println(prod);*/
-		
-		
-		user.loadProducts();
-		System.out.println(user.getMember().getProducts());
-		
-	}
 
 
 }

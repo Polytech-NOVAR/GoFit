@@ -1,6 +1,7 @@
 package com.novar.persist;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.novar.business.Administrator;
@@ -62,8 +63,6 @@ public class UserJdbc extends User
 	
 	public void updateProfile() throws SQLException
 	{
-		// TODO update Speaker
-		
 		PreparedStatement updateProfile;
 		updateProfile = ConnectionUtil.connection.prepareStatement("UPDATE User "
 				+ "SET "
@@ -74,7 +73,7 @@ public class UserJdbc extends User
 				+ "street = ?,"
 				+ "town = ?,"
 				+ "zipCode = ?,"
-				+ "country = ?"
+				+ "country = ? "
 				+ "WHERE pseudo = ?;");
 		
 		updateProfile.setObject(1, getLastName(),Types.VARCHAR);
@@ -87,6 +86,26 @@ public class UserJdbc extends User
 		updateProfile.setObject(8, getCountry(),Types.VARCHAR);
 		updateProfile.setObject(9, getPseudo(), Types.VARCHAR);
 		updateProfile.executeUpdate();
+		
+		if (isSpeaker())
+		{
+			updateSpeaker();
+		}
+	}
+	
+	public void updateSpeaker() throws SQLException
+	{
+		PreparedStatement updateSpeaker;
+		updateSpeaker = ConnectionUtil.connection.prepareStatement("UPDATE Speaker "
+				+ "SET "
+				+ "shortDescription = ?,"
+				+ "detailedDescription = ? "
+				+ "WHERE pseudoSpeaker = ?;");
+		
+		updateSpeaker.setObject(1, getSpeaker().getShortDescription(), Types.VARCHAR);
+		updateSpeaker.setObject(2, getSpeaker().getDetailedDescription(), Types.VARCHAR);
+		updateSpeaker.setObject(3, getPseudo(), Types.VARCHAR);
+		updateSpeaker.executeUpdate();
 	}
 	
 	public void updatePassword() throws SQLException
@@ -100,6 +119,38 @@ public class UserJdbc extends User
 		updatePassword.setObject(1, getPassword(),Types.VARCHAR);
 		updatePassword.setObject(2, getPseudo(), Types.VARCHAR);
 		updatePassword.executeUpdate();
+	}
+	
+	public void updateForgottenPassword() throws InvalidEmailException
+	{
+		
+		PreparedStatement updatePassword;
+		PreparedStatement email;
+		
+		try {
+			email = ConnectionUtil.connection.prepareStatement("SELECT * "
+					+ "FROM User "
+					+ "Where email = ?; ");
+			email.setObject(1, getEmail(), Types.VARCHAR);
+			ResultSet res = email.executeQuery();
+			res.last();
+			if(res.getRow() == 0)
+					throw new InvalidEmailException();
+			else
+			{
+				updatePassword = ConnectionUtil.connection.prepareStatement("UPDATE User "
+						+ "SET password = ? "
+						+ "WHERE email = ?");
+				updatePassword.setObject(1, getPassword(),Types.VARCHAR);
+				updatePassword.setObject(2, getEmail(), Types.VARCHAR);
+				updatePassword.executeUpdate();
+			}
+		}
+			catch (SQLException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 	
 	public void delete() throws SQLException
@@ -157,38 +208,6 @@ public class UserJdbc extends User
 		}
 	}
 	
-	public void updateForgottenPassword() throws InvalidEmailException
-	{
-		
-		PreparedStatement updatePassword;
-		PreparedStatement email;
-		
-		try {
-			email = ConnectionUtil.connection.prepareStatement("SELECT * "
-					+ "FROM User "
-					+ "Where email = ?; ");
-			email.setObject(1, getEmail(), Types.VARCHAR);
-			ResultSet res = email.executeQuery();
-			res.last();
-			if(res.getRow() == 0)
-					throw new InvalidEmailException();
-			else
-			{
-				updatePassword = ConnectionUtil.connection.prepareStatement("UPDATE User "
-						+ "SET password = ? "
-						+ "WHERE email = ?");
-				updatePassword.setObject(1, getPassword(),Types.VARCHAR);
-				updatePassword.setObject(2, getEmail(), Types.VARCHAR);
-				updatePassword.executeUpdate();
-			}
-		}
-			catch (SQLException e) 
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
 	public void loadRoles()
 	{		
 		try
@@ -273,22 +292,18 @@ public class UserJdbc extends User
 	
 				selectProducts.setObject(1, getPseudo(), Types.VARCHAR);
 				ResultSet resProducts = selectProducts.executeQuery();
-				
+				ArrayList<Product> products = new ArrayList<Product>();
 				while(resProducts.next())
 				{
 					
 					HashMap<String,Object> mapProduct = new HashMap<String,Object>();
-					
 					mapProduct.put("ProductID", resProducts.getInt("ProductID"));
-					mapProduct.put("description", resProducts.getString("description"));
-					mapProduct.put("price", resProducts.getDouble("price"));
-					mapProduct.put("quantity", resProducts.getInt("quantity"));
-					mapProduct.put("discountPrice", resProducts.getDouble("discountPrice"));
-					
 					Product prod = new ProductJdbc(mapProduct);
-					
-					addProduct(prod);
+					prod.load();
+				
+					products.add(prod);
 				}
+				this.getMember().setProducts(products);
 			}
 			catch (SQLException | FalseFieldsException e) 
 			{

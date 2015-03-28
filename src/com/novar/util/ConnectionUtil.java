@@ -1,6 +1,11 @@
 package com.novar.util;
 import java.sql.*;
 
+/**
+ * This Utility class is used to connect the application to a database.
+ * @author All
+ *
+ */
 public class ConnectionUtil
 {	
 	private final static String url = "jdbc:mysql://gofit.cb9xv2w6phgt.us-west-2.rds.amazonaws.com:3306/GOFIT";
@@ -8,6 +13,9 @@ public class ConnectionUtil
 	private final static String pwd = "gofit5151";
 	public static Connection connection = null;
 	
+	/**
+	 * Static method which start the connection 
+	 */
 	public static void start()
 	{
 		try
@@ -23,6 +31,9 @@ public class ConnectionUtil
 		}
 	}
 	
+	/**
+	 * Static method which Stop the connection
+	 */
 	public static void stop()
 	{
 		try

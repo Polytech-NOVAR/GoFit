@@ -25,6 +25,11 @@ public class Member implements Role
 		this.products.add(p);
 	}
 	
+	public void removeProduct(Product p)
+	{
+		this.products.remove(p);
+	}
+	
 	public ArrayList<Product> getProducts() 
 	{
 		return products;

@@ -331,6 +331,14 @@ public abstract class User
 		}
 	}
 	
+	public void removeProduct(Product p)
+	{
+		if (isMember())
+		{
+			this.member.removeProduct(p);
+		}
+	}
+	
 	public String toString()
 	{
 		String result = new String();
@@ -357,6 +365,7 @@ public abstract class User
 	public abstract void load() throws LoginFailedException;
 	public abstract void loadAdmin();
 	public abstract void save() throws RegisterFailedException;
+	public abstract void loadRoles();
 	public abstract void loadProducts();
 	public abstract void updateForgottenPassword() throws InvalidEmailException;
 	public abstract void updateProfile() throws SQLException;

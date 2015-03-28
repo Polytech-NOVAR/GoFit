@@ -6,19 +6,25 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.HashMap;
 
-import com.novar.business.Category;
 import com.novar.business.MainCategory;
-import com.novar.business.Product;
 import com.novar.business.SubCategory;
-import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
-import com.novar.exception.LoginFailedException;
-import com.novar.exception.RegisterFailedException;
 import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
 
+/**
+ * This concrete subclass of SubCategory uses the Jdbc technology to perfom the methods defined in Category.
+ * @author Antoine JOERG
+ *
+ */
 public class SubCategoryJdbc extends SubCategory
 {
+	
+	public SubCategoryJdbc()
+	{
+		super();
+	}
+	
 	public SubCategoryJdbc(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		super(data);
@@ -29,7 +35,7 @@ public class SubCategoryJdbc extends SubCategory
 		super.setParent(parent);
 	}
 	
-	
+	@Override
 	public void save()
 	{
 		try 
@@ -55,6 +61,7 @@ public class SubCategoryJdbc extends SubCategory
 		}
 	}
 	
+	@Override
 	public void load()
 	{
 		PreparedStatement selectCat;
@@ -71,17 +78,10 @@ public class SubCategoryJdbc extends SubCategory
 			ResultSet res = selectCat.executeQuery();
 			res.next();
 			
-			HashMap<String, Object> mapParent = new HashMap<String, Object>();
-			mapParent.put("catID", res.getInt("parentID"));
-			mapParent.put("description", res.getString("descMain"));
-			
-			try {
-				MainCategory parent = new MainCategoryJdbc(mapParent);
-				setParent(parent);
-			} catch (FalseFieldsException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			MainCategory parent = new MainCategoryJdbc();
+			parent.setCatID(res.getInt("parentID"));
+			parent.load();
+			setParent(parent);
 			
 			try {
 				setDescription(res.getString("descSub"));
@@ -98,45 +98,42 @@ public class SubCategoryJdbc extends SubCategory
 		}
 	}
 	
-	public void loadProducts()
-	{
-		PreparedStatement selectProducts;
-		try 
-		{
-			selectProducts = ConnectionUtil.connection.prepareStatement("SELECT * "
-					+ "FROM SubCategory mc, Product p "
-					+ "WHERE mc.catID = p.catID "
-					+ "AND mc.catID = ? ;");
-
-			selectProducts.setObject(1, getCatID(), Types.VARCHAR);
-			ResultSet resProducts = selectProducts.executeQuery();
-			
-			while(resProducts.next())
-			{
-				
-				
-				HashMap<String,Object> mapProduct = new HashMap<String,Object>();
-				
-				mapProduct.put("ProductID", resProducts.getInt("ProductID"));
-				mapProduct.put("description", resProducts.getString("description"));
-				mapProduct.put("price", resProducts.getDouble("price"));
-				mapProduct.put("quantity", resProducts.getInt("quantity"));
-				mapProduct.put("discountPrice", resProducts.getDouble("discountPrice"));
-				
-				Product prod = new ProductJdbc(mapProduct);
-				
-				this.addProduct(prod);
-			}
-		}
-		catch (SQLException | FalseFieldsException e) 
-		{
+	@Override
+	public void delete() {
+		PreparedStatement deleteCategory;
+		try {
+			deleteCategory = ConnectionUtil.connection.prepareStatement("DELETE FROM SubCategory "
+						+ "WHERE catID = ? ; ");
+			deleteCategory.setObject(1, getCatID(), Types.INTEGER);
+			deleteCategory.executeUpdate();
+			deleteCategory = ConnectionUtil.connection.prepareStatement("DELETE FROM Category "
+					+ "WHERE catID = ? ; ");
+			deleteCategory.setObject(1, getCatID(), Types.INTEGER);
+			deleteCategory.executeUpdate();
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	
-	
-	
-	
+	@Override
+	public void update()
+	{
+		try 
+		{
+			PreparedStatement insertProd = ConnectionUtil.connection.prepareStatement("UPDATE SubCategory sc, Category c "
+					+ "SET sc.parentID = ?, c.description = ? "
+					+ "WHERE sc.catID = c.catID "
+					+ "AND c.catID = ?; ");
+			insertProd.setObject(1, getParent().getCatID(),Types.VARCHAR);
+			insertProd.setObject(2, getDescription(),Types.VARCHAR);
+			insertProd.setObject(3, getCatID(),Types.INTEGER);
+			
+			insertProd.executeUpdate();	
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	}
 }

@@ -11,11 +11,19 @@ import com.novar.util.ConnectionUtil;
 
 public class AccessoryManagerJdbc extends AccessoryManager{
 
+	/**
+	 * This is the default constructor of an AccessoryManagerJdbc. 
+	 * It is used to make an empty one.
+	 */
 	public AccessoryManagerJdbc()
 	{
 		
 	}
 	
+	/**
+	 * Load all the Accessory from the DB
+	 * @return an ArrayList of Accessory
+	 */
 	public ArrayList<Accessory> getAllAccessories() {
 		PreparedStatement selectAccessories;
 		ArrayList<Accessory> accessories = new ArrayList<Accessory>();

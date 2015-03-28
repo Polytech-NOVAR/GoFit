@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.novar.business.*;
 
+import com.novar.business.CategoryManager;
 import com.novar.business.MainCategory;
 import com.novar.business.Product;
 import com.novar.business.SubCategory;
@@ -36,12 +37,12 @@ public interface PersistKit
 	public User makeUser(HashMap<String,Object> data) throws FalseFieldsException;
 	
 	/**
-<<<<<<< HEAD
 	 * This is the declaration of the method to make a room
 	 * @param data of a room
 	 * @return the room
 	 * @throws FalseFieldsException
 	 */
+	
 	public Room makeRoom(HashMap<String,Object> data) throws FalseFieldsException;
 	/**
 	 * This is the declaration of the method to make a accessory
@@ -93,7 +94,8 @@ public interface PersistKit
 	 * @return the NotifyTo
 	 */
 	public NotifyTo makeNotifyTo(Notification notif, String receiver);
-/*
+	
+	/**
 	 * This is the declaration of the method to make a MainCategory
 	 * @param data of a Maincategory
 	 * @return the Maincategory
@@ -119,6 +121,7 @@ public interface PersistKit
 	public Product makeProduct(HashMap<String,Object> data) throws FalseFieldsException;
 
 	/**
+<<<<<<< HEAD
 	 * This is the declaration of the method to make a RoomManager
 	 * @param data of a RoomManager
 	 * @return the RoomManager
@@ -131,4 +134,9 @@ public interface PersistKit
 	 * @return the RoomManager
 	 */
 	public ManagerManager makeManagerManager();
+
+	 /** This is the declaration of the method to make a CategoryManager
+	 * @return the manager
+	 */
+	public CategoryManager makeCategoryManager();
 }

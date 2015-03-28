@@ -11,6 +11,7 @@ import com.novar.business.NotificationManager;
 import com.novar.business.NotifyTo;
 import com.novar.business.Room;
 import com.novar.business.RoomManager;
+import com.novar.business.CategoryManager;
 import com.novar.business.Product;
 import com.novar.business.User;
 import com.novar.business.UserManager;
@@ -20,9 +21,9 @@ import com.novar.persist.PersistKit;
 import com.novar.persist.UserJdbc;
 
 /**
- * This class permit for each method to return the specific Object of the persistance with methods that permit to load, save and more.
+ * This class permit for each method to return the specific Object of the persistence with methods that permit to load, save and more.
  * <br><br>
- * This class implements PersistKit and return the specific Object persistance that you want.
+ * This class implements PersistKit and return the specific Object persistence that you want.
  * @author Antoine JOERG
  * @see PersistKit
  */
@@ -121,10 +122,11 @@ public class JdbcKit implements PersistKit
 	{
 		return new NotifyToJdbc(notif, receiver);
 	}
-/*
+	
+	/**
 	 * This is the definition of the method to make a MainCategory
 	 * @param data of a MainCategory
-	 * @return the MainCategory with persistance methods
+	 * @return the MainCategory with persistenc methods
 	 * @throws FalseFieldsException
 	 */
 	public MainCategoryJdbc makeMainCategory(HashMap<String,Object> data) throws FalseFieldsException
@@ -135,7 +137,7 @@ public class JdbcKit implements PersistKit
 	/**
 	 * This is the definition of the method to make a SubCategory
 	 * @param data of a SubCategory
-	 * @return the SubCategory with persistance methods
+	 * @return the SubCategory with persistenc methods
 	 * @throws FalseFieldsException
 	 */
 	public SubCategoryJdbc makeSubCategory(HashMap<String,Object> data) throws FalseFieldsException
@@ -146,7 +148,7 @@ public class JdbcKit implements PersistKit
 	/**
 	 * This is the definition of the method to make a Product
 	 * @param data of a Product
-	 * @return the Product with persistance methods
+	 * @return the Product with persistenc methods
 	 * @throws FalseFieldsException
 	 */
 	public ProductJdbc makeProduct(HashMap<String,Object> data) throws FalseFieldsException
@@ -172,5 +174,12 @@ public class JdbcKit implements PersistKit
 	public ManagerManager makeManagerManager()
 	{
 		return new ManagerManagerJdbc();
+	}
+	 /** This is the definition of the method to make a CategoryManager
+	 * @return the manager
+	 */
+	public CategoryManager makeCategoryManager()
+	{
+		return new CategoryManagerJdbc();
 	}
 }

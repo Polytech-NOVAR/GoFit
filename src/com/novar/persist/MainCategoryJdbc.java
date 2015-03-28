@@ -5,23 +5,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.HashMap;
-
-import com.novar.business.Category;
 import com.novar.business.MainCategory;
-import com.novar.business.Product;
-import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
-import com.novar.exception.LoginFailedException;
 import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
 
-public class MainCategoryJdbc extends MainCategory{
+/**
+ * This concrete subclass of MainCategory uses the Jdbc technology to perfom the methods defined in Category.
+ * @author Antoine JOERG
+ *
+ */
+public class MainCategoryJdbc extends MainCategory
+{
+	
+	public MainCategoryJdbc()
+	{
+		super();
+	}
 	
 	public MainCategoryJdbc(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		super(data);
 	}
 	
+	@Override
 	public void save()
 	{
 		try 
@@ -46,6 +53,7 @@ public class MainCategoryJdbc extends MainCategory{
 		}
 	}
 	
+	@Override
 	public void load()
 	{
 		PreparedStatement selectCat;
@@ -76,11 +84,42 @@ public class MainCategoryJdbc extends MainCategory{
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Override
-	public void loadProducts() {
-		// TODO Auto-generated method stub
-		
+	public void delete() {
+		PreparedStatement deleteCategory;
+		try {
+			deleteCategory = ConnectionUtil.connection.prepareStatement("DELETE FROM MainCategory "
+						+ "WHERE catID = ? ; ");
+			deleteCategory.setObject(1, getCatID(), Types.INTEGER);
+			deleteCategory.executeUpdate();
+			deleteCategory = ConnectionUtil.connection.prepareStatement("DELETE FROM Category "
+					+ "WHERE catID = ? ; ");
+			deleteCategory.setObject(1, getCatID(), Types.INTEGER);
+			deleteCategory.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
+	
+	@Override
+	public void update()
+	{
+		try 
+		{
+			PreparedStatement insertProd = ConnectionUtil.connection.prepareStatement("UPDATE Category "
+					+ "SET description = ? "
+					+ "WHERE catID = ? ");
+			
+			insertProd.setObject(1, getDescription(),Types.VARCHAR);
+			insertProd.setObject(2, getCatID(),Types.INTEGER);
+			
+			insertProd.executeUpdate();	
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+	}
 }

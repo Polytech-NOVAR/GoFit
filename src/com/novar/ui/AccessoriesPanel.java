@@ -1,5 +1,6 @@
 package com.novar.ui;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 
 import com.novar.business.MainFacade;
@@ -86,6 +88,8 @@ public class AccessoriesPanel extends JPanel {
 			});
 			add(btnDelete);
 		}
+		
+		setPreferredSize(new Dimension(980, accs.size()*60));
 	}
 	
 	private void seeMore(Accessory acc){
