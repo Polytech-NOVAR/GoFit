@@ -75,7 +75,7 @@ public class UserJdbc extends User
 				+ "street = ?,"
 				+ "town = ?,"
 				+ "zipCode = ?,"
-				+ "country = ?"
+				+ "country = ? "
 				+ "WHERE pseudo = ?;");
 		
 		updateProfile.setObject(1, getLastName(),Types.VARCHAR);
@@ -88,6 +88,26 @@ public class UserJdbc extends User
 		updateProfile.setObject(8, getCountry(),Types.VARCHAR);
 		updateProfile.setObject(9, getPseudo(), Types.VARCHAR);
 		updateProfile.executeUpdate();
+		
+		if (isSpeaker())
+		{
+			updateSpeaker();
+		}
+	}
+	
+	public void updateSpeaker() throws SQLException
+	{
+		PreparedStatement updateSpeaker;
+		updateSpeaker = ConnectionUtil.connection.prepareStatement("UPDATE Speaker "
+				+ "SET "
+				+ "shortDescription = ?,"
+				+ "detailedDescription = ? "
+				+ "WHERE pseudoSpeaker = ?;");
+		
+		updateSpeaker.setObject(1, getSpeaker().getShortDescription(), Types.VARCHAR);
+		updateSpeaker.setObject(2, getSpeaker().getDetailedDescription(), Types.VARCHAR);
+		updateSpeaker.setObject(3, getPseudo(), Types.VARCHAR);
+		updateSpeaker.executeUpdate();
 	}
 	
 	public void updatePassword() throws SQLException

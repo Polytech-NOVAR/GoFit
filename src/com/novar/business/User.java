@@ -300,10 +300,7 @@ public abstract class User
 	
 	public void setSpeaker(Speaker speaker)
 	{
-		if (this.speaker == null)
-		{
-			this.speaker = speaker;
-		}
+		this.speaker = speaker;
 	}
 	
 	public boolean isSpeaker()
