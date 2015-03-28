@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.novar.business.Administrator;
+import com.novar.business.Basket;
 import com.novar.business.Manager;
 import com.novar.business.Product;
 import com.novar.business.Speaker;
@@ -290,6 +291,34 @@ public class UserJdbc extends User
 				e.printStackTrace();
 			}
 			loadRoles();	
+		}
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void loadBasket() 
+	{
+		PreparedStatement selectBasket;
+		try 
+		{
+			selectBasket = ConnectionUtil.connection.prepareStatement("SELECT * "
+					+ "FROM User u, Basket b "
+					+ "WHERE u.pseudo = b.pseudo "
+					+ "AND p.pseudo = ? ;");
+
+			selectBasket.setObject(1, getPseudo(), Types.VARCHAR);
+			ResultSet res = selectBasket.executeQuery();
+			
+			Basket basket = new BasketJdbc();
+			basket.setBasketID(res.getInt("basketID"));
+			basket.load();
+			
+			this.setBasket(basket);
 		}
 		catch (SQLException e) 
 		{

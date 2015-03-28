@@ -151,6 +151,11 @@ public class ConnectedWindow extends JFrame
 		menuBar.add(mnNotification);
 		
 		JMenuItem mnBasket = new JMenuItem("Basket");
+		mnBasket.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				changePanel(new BasketPanel(frame, facade));
+			}
+		});
 		mnBasket.setMaximumSize(new Dimension(1, 32767));
 		menuBar.add(mnBasket);
 		

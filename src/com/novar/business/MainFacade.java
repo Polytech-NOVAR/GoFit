@@ -108,4 +108,9 @@ public class MainFacade
 		theUser.delete();
 		//logoff
 	}
+	
+	public void getBasketLines()
+	{
+		theUser.loadBasket();
+	}
 }
