@@ -64,7 +64,7 @@ private MainFacade facade;
 			
 			JLabel lblAdmini= new JLabel(admini.getPseudo());
 			springLayout.putConstraint(SpringLayout.NORTH, lblAdmini, (int)(90*multiplier), SpringLayout.NORTH, this);
-			springLayout.putConstraint(SpringLayout.WEST, lblAdmini, mainFrame.getWidth()/9, SpringLayout.WEST, this);
+			springLayout.putConstraint(SpringLayout.WEST, lblAdmini, mainFrame.getWidth()/8, SpringLayout.WEST, this);
 			lblAdmini.setFont(new Font("Calibri", Font.PLAIN, 12));
 			add(lblAdmini);
 			
@@ -103,7 +103,7 @@ private MainFacade facade;
 	
 	private void delete(User user)
 	{
-		DeleteManagerDialog delete = new DeleteManagerDialog(this.mainFrame, this.facade, user);
+		DeleteMemberDialog delete = new DeleteMemberDialog(this.mainFrame, this.facade, user);
 		delete.setVisible(true);
 	}
 	

@@ -14,5 +14,23 @@ public class ManagerFacade {
 	{
 		this.kit = kit;
 	}
+	
+	public  ArrayList<User> getAllSpeaker(User speaker)
+	{
+		ManagerManager um = kit.makeManagerManager();
+		return um.getAllSpeaker(speaker);	
+	}
+	
+	public  void setSpeaker(User speaker)
+	{
+		ManagerManager um = kit.makeManagerManager();
+		um.setSpeaker(speaker);
+	}
+		
+	public void deleteSpeaker(User speaker) throws SQLException
+	{
+		ManagerManager um = kit.makeManagerManager();
+		um.deleteSpeaker(speaker);
+	}
 }
 	

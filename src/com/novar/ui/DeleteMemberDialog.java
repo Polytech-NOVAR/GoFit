@@ -84,7 +84,7 @@ public class DeleteMemberDialog extends JDialog {
 	
 	private void delete() throws SQLException
 	{
-		this.facade.getUser().delete();
+		this.facade.getAdminFacade().deleteMember(user);
 		this.mainFrame.changePanel(new MemberPanel(this.mainFrame, this.facade));
 		this.dispose();
 	}

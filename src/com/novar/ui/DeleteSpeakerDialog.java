@@ -84,7 +84,7 @@ public class DeleteSpeakerDialog extends JDialog {
 	
 	private void delete() throws SQLException
 	{
-		this.facade.getUser().delete();
+		this.facade.getManagerFacade().deleteSpeaker(user);
 		this.mainFrame.changePanel(new SpeakerPanel(this.mainFrame, this.facade));
 		this.dispose();
 	}

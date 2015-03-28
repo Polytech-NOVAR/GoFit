@@ -20,6 +20,7 @@ public class MainFacade
 	private NotificationFacade notificationFacade;
 	private ProductFacade product = null;
 	private AdminFacade adminFacade;
+	private ManagerFacade managerFacade;
 	
 	public MainFacade(PersistKit kit)
 	{
@@ -27,6 +28,7 @@ public class MainFacade
 		this.roomFacade = new RoomAccessoryFacade(kit);
 		this.notificationFacade = new NotificationFacade(kit);
 		this.adminFacade = new AdminFacade(kit);
+		this.managerFacade = new ManagerFacade(kit);
 		
 		//product = new FacadeProduct(kit);
 	}
@@ -100,5 +102,10 @@ public class MainFacade
 	public AdminFacade getAdminFacade()
 	{
 		return this.adminFacade;
+	}
+	
+	public ManagerFacade getManagerFacade()
+	{
+		return this.managerFacade;
 	}
 }

@@ -6,14 +6,14 @@ import java.util.ArrayList;
 public abstract class ManagerManager {
 
 		
-		public ManagerManager()
-		{
+	public ManagerManager()
+	{
 			
-		}
-		public abstract ArrayList<User> getAllSpeaker(User admin);
-		
-		public abstract void setSpeaker(User speaker);
-		
-		public abstract void deleteSpeaker(User speaker) throws SQLException;
-		
 	}
+	public abstract ArrayList<User> getAllSpeaker(User admin);
+		
+	public abstract void setSpeaker(User speaker);
+		
+	public abstract void deleteSpeaker(User speaker) throws SQLException;
+		
+}

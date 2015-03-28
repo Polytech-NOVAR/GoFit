@@ -12,15 +12,21 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import com.novar.business.MainFacade;
+import com.novar.business.ManagerManager;
 import com.novar.business.Speaker;
 import com.novar.business.User;
+import com.novar.business.UserManager;
+import com.novar.exception.FalseFieldsException;
+import com.novar.persist.ManagerManagerJdbc;
+import com.novar.persist.UserJdbc;
+import com.novar.persist.UserManagerJdbc;
 
 public class SpeakerDetailsPanel extends JPanel {
 
 	private MainFacade facade;
 	private ConnectedWindow mainFrame;
 	private User user = null;
-	
+
 	private JTextField textFieldName;
 	
 	/**
@@ -33,14 +39,14 @@ public class SpeakerDetailsPanel extends JPanel {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		
-		JLabel lblSpeakerDetails = new JLabel("Accessory details");
-		springLayout.putConstraint(SpringLayout.NORTH, lblSpeakerDetails, 10, SpringLayout.NORTH, this);
-		springLayout.putConstraint(SpringLayout.WEST, lblSpeakerDetails, mainFrame.getWidth()/3, SpringLayout.WEST, this);
-		lblSpeakerDetails.setFont(new Font("Calibri", Font.BOLD, 24));
-		add(lblSpeakerDetails);
+		JLabel lblManagerDetails = new JLabel("Speakers details");
+		springLayout.putConstraint(SpringLayout.NORTH, lblManagerDetails, 10, SpringLayout.NORTH, this);
+		springLayout.putConstraint(SpringLayout.WEST, lblManagerDetails, mainFrame.getWidth()/3, SpringLayout.WEST, this);
+		lblManagerDetails.setFont(new Font("Calibri", Font.BOLD, 24));
+		add(lblManagerDetails);
 		
-		JLabel lblName = new JLabel("Name :");
-		springLayout.putConstraint(SpringLayout.NORTH, lblName, 100, SpringLayout.NORTH, lblSpeakerDetails);
+		JLabel lblName = new JLabel("Pseudo :");
+		springLayout.putConstraint(SpringLayout.NORTH, lblName, 100, SpringLayout.NORTH, lblManagerDetails);
 		springLayout.putConstraint(SpringLayout.WEST, lblName, mainFrame.getWidth()/3, SpringLayout.WEST, this);
 		lblName.setFont(new Font("Calibri", Font.PLAIN, 12));
 		add(lblName);
@@ -53,21 +59,21 @@ public class SpeakerDetailsPanel extends JPanel {
 		
 		if(user != null)
 		{
-			textFieldName.setText(user.getFirstName() + user.getLastName());
+			textFieldName.setText(user.getPseudo());
 			JButton btnUpdate = new JButton("Update");
 			springLayout.putConstraint(SpringLayout.NORTH, btnUpdate, 30, SpringLayout.NORTH, this);
 			springLayout.putConstraint(SpringLayout.EAST, btnUpdate, -80, SpringLayout.EAST, this);
 			btnUpdate.setFont(new Font("Calibri", Font.PLAIN, 14));
 			btnUpdate.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					update();
+					/*update();*/
 				}
 			});
 			add(btnUpdate);
 		}
 		else
 		{
-			JButton btnCreate = new JButton("Create");
+			JButton btnCreate = new JButton("Add");
 			springLayout.putConstraint(SpringLayout.NORTH, btnCreate, 30, SpringLayout.NORTH, this);
 			springLayout.putConstraint(SpringLayout.EAST, btnCreate, -80, SpringLayout.EAST, this);
 			btnCreate.setFont(new Font("Calibri", Font.PLAIN, 14));
@@ -92,21 +98,23 @@ public class SpeakerDetailsPanel extends JPanel {
 	}
 	
 	private void create(){
-		HashMap<String,Object> mapAcc = new HashMap<String,Object>();
-		mapAcc.put("name", textFieldName.getText());
-		facade.getRoomFacade().createAccessory(mapAcc);
-		this.mainFrame.changePanel(new AccessoriesPanel(this.mainFrame, this.facade));
+		HashMap<String,Object> dataUser = new HashMap<String,Object>();
+		dataUser.put("pseudo", textFieldName.getText());
+		try {
+			user = new UserJdbc(dataUser);
+		} catch (FalseFieldsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		facade.getManagerFacade().setSpeaker(user);
+		this.mainFrame.changePanel(new SpeakerPanel(this.mainFrame, this.facade));
 	}
 	
-	private void update()
+	/*private void update()
 	{
-		HashMap<String,Object> mapUser = new HashMap<String,Object>();
-		mapUser.put("accID", user.getAccID());
-		mapUser.put("name", textFieldName.getText());
-		facade.updateTheUserProfile(mapUser);
-		this.mainFrame.changePanel(new AccessoriesPanel(this.mainFrame, this.facade));
+		this.mainFrame.changePanel(new UpdateProfilePanel(this.mainFrame));;
 	}
-	
+	*/
 	private void cancel()
 	{
 		this.mainFrame.changePanel(new SpeakerPanel(this.mainFrame, this.facade));

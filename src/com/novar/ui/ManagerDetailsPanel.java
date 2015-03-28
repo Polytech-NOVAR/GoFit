@@ -14,6 +14,8 @@ import javax.swing.SpringLayout;
 import com.novar.business.MainFacade;
 import com.novar.business.User;
 import com.novar.business.UserManager;
+import com.novar.exception.FalseFieldsException;
+import com.novar.persist.UserJdbc;
 import com.novar.persist.UserManagerJdbc;
 
 public class ManagerDetailsPanel extends JPanel {
@@ -93,19 +95,18 @@ public class ManagerDetailsPanel extends JPanel {
 	}
 	
 	private void create(){
-		HashMap<String,Object> mapUser = new HashMap<String,Object>();
-		mapUser.put("pseudo", textFieldName.getText());
-		user.loadAdmin();
-		UserManager manager = new UserManagerJdbc();
-		manager.setManager(user);
+		HashMap<String,Object> dataUser = new HashMap<String,Object>();
+		dataUser.put("pseudo", textFieldName.getText());
+		try {
+			user = new UserJdbc(dataUser);
+		} catch (FalseFieldsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		facade.getAdminFacade().setManager(user);
 		this.mainFrame.changePanel(new ManagerPanel(this.mainFrame, this.facade));
 	}
-	
-	/*private void update()
-	{
-		this.mainFrame.changePanel(new UpdateProfilePanel(this.mainFrame));;
-	}
-	*/
+
 	private void cancel()
 	{
 		this.mainFrame.changePanel(new ManagerPanel(this.mainFrame, this.facade));

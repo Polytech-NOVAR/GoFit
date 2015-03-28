@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.novar.business.Accessory;
 import com.novar.business.AccessoryManager;
+import com.novar.business.ManagerManager;
 import com.novar.business.Notification;
 import com.novar.business.NotificationManager;
 import com.novar.business.NotifyTo;
@@ -161,5 +162,15 @@ public class JdbcKit implements PersistKit
 	public UserManager makeUserManager()
 	{
 		return new UserManagerJdbc();
+	}
+	
+	/**
+	 * This is the definition of the method to make a RoomManager
+	 * @param data of a RoomManager
+	 * @return the RoomManager with persistence methods
+	 */
+	public ManagerManager makeManagerManager()
+	{
+		return new ManagerManagerJdbc();
 	}
 }

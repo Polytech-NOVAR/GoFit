@@ -15,8 +15,10 @@ import com.novar.business.MainFacade;
 import com.novar.business.Manager;
 import com.novar.business.Member;
 import com.novar.business.User;
+import com.novar.business.UserManager;
 import com.novar.exception.FalseFieldsException;
 import com.novar.persist.UserJdbc;
+import com.novar.persist.UserManagerJdbc;
 
 public class MemberDetailsPanel extends JPanel {
 
@@ -95,16 +97,15 @@ public class MemberDetailsPanel extends JPanel {
 	}
 	
 	private void create(){
-		HashMap<String,Object> mapUser = new HashMap<String,Object>();
-		mapUser.put("pseudo", textFieldName.getText());
-		mapUser.put("manager", new Manager());
-		
+		HashMap<String,Object> dataUser = new HashMap<String,Object>();
+		dataUser.put("pseudo", textFieldName.getText());
 		try {
-			mainFrame.getFacade().getAdminFacade().setManager(new UserJdbc(mapUser));
+			user = new UserJdbc(dataUser);
 		} catch (FalseFieldsException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		facade.getAdminFacade().setMember(user);
 		this.mainFrame.changePanel(new MemberPanel(this.mainFrame, this.facade));
 	}
 	

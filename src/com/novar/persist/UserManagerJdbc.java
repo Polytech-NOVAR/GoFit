@@ -99,9 +99,7 @@ public class UserManagerJdbc extends UserManager {
 		try 
 		{
 			selectmanager = ConnectionUtil.connection.prepareStatement("SELECT * "
-																	+ "FROM Manager ma "
-																	+ "WHERE pseudoManager != ? ");
-			selectmanager.setObject(1, admin.getPseudo(), Types.VARCHAR);
+																	+ "FROM Manager ma ");
 			ResultSet res = selectmanager.executeQuery();
 			res.first();
 			if(res.getRow() > 0)
@@ -134,9 +132,7 @@ public class UserManagerJdbc extends UserManager {
 		try 
 		{
 			selectmember = ConnectionUtil.connection.prepareStatement("SELECT * "
-																	+ "FROM Member me "
-																	+ "WHERE pseudoMember != ? ");
-			selectmember.setObject(1, admin.getPseudo(), Types.VARCHAR);
+																	+ "FROM Member me ");
 			ResultSet res = selectmember.executeQuery();
 			res.first();
 			if(res.getRow() > 0)
@@ -163,40 +159,7 @@ public class UserManagerJdbc extends UserManager {
 		return users;
 	}
 	
-	public ArrayList<User> getAllSpeaker(User admin) {
-		PreparedStatement selectspeaker;
-		ArrayList<User> users = new ArrayList<User>();
-		try 
-		{
-			selectspeaker = ConnectionUtil.connection.prepareStatement("SELECT * "
-																	+ "FROM Speaker u "
-																	+ "WHERE pseudoSpeaker != ? ");
-			selectspeaker.setObject(1, admin.getPseudo(), Types.VARCHAR);
-			ResultSet res = selectspeaker.executeQuery();
-			res.first();
-			if(res.getRow() > 0)
-			{
-				do
-				{
-					User user = new UserJdbc();
-					try {
-						user.setPseudo(res.getString("pseudo"));
-					} catch (SyntaxException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					user.loadAdmin();		
-					users.add(user);
-					
-				}while(res.next());
-			}
-		}
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-		return users;
-	}
+	
 	
 	
 	public  void setAdmin(User admin)
@@ -213,6 +176,7 @@ public class UserManagerJdbc extends UserManager {
 			e.printStackTrace();
 		}
 	}
+	
 	public  void setManager(User manager)
 	{
 		try 
@@ -235,9 +199,6 @@ public class UserManagerJdbc extends UserManager {
 		Date d1 = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		String d2 = formatter.format(d1);
-		
-		System.out.println(d2);
-
 
 		try 
 		{
@@ -245,20 +206,6 @@ public class UserManagerJdbc extends UserManager {
 																		+ "VALUES ( ?, ? )");
 			insertUser.setObject(1, member.getPseudo(),Types.VARCHAR);
 			insertUser.setObject(2, d2,Types.DATE);
-			insertUser.executeUpdate();		
-		}
-		catch (SQLException e) 
-		{
-			e.printStackTrace();
-		}
-	}
-	public  void setSpeaker(User speaker)
-	{
-		try 
-		{
-			PreparedStatement insertUser = ConnectionUtil.connection.prepareStatement("INSERT INTO Speaker (pseudoSpeaker) "
-																		+ "VALUES ( ? )");
-			insertUser.setObject(1, speaker.getPseudo(),Types.VARCHAR);
 			insertUser.executeUpdate();		
 		}
 		catch (SQLException e) 
@@ -293,17 +240,7 @@ public class UserManagerJdbc extends UserManager {
 		delete.setObject(1, member.getPseudo(), Types.VARCHAR);
 		delete.executeUpdate();
 	}
-	
-	public void deleteSpeaker(User speaker) throws SQLException
-	{
-		PreparedStatement delete;
-		delete = ConnectionUtil.connection.prepareStatement("DELETE FROM Speaker "
-				+ "WHERE pseudoSpeaker = ?;");
-		delete.setObject(1, speaker.getPseudo(), Types.VARCHAR);
-		delete.executeUpdate();
-	
-	}
-	
+		
 	/*public static void main(String[] args) {
 	
 		ConnectionUtil.start();

@@ -38,12 +38,6 @@ public class AdminFacade {
 		return um.getAllMember(admin);
 		
 	}
-	public  ArrayList<User> getAllSpeaker(User admin)
-	{
-		UserManager um = kit.makeUserManager();
-		return um.getAllSpeaker(admin);	
-	}
-	
 	public void setAdmin(User admin)
 	{
 		UserManager um = kit.makeUserManager();
@@ -59,11 +53,7 @@ public class AdminFacade {
 		UserManager um = kit.makeUserManager();
 		um.setMember(member);
 	}
-	public  void setSpeaker(User speaker)
-	{
-		UserManager um = kit.makeUserManager();
-		um.setSpeaker(speaker);
-	}
+
 	
 	public void deleteAdmin(User admin) throws SQLException
 	{
@@ -81,12 +71,6 @@ public class AdminFacade {
 	{
 		UserManager um = kit.makeUserManager();
 		um.deleteMember(member);
-	}
-	
-	public void deleteSpeaker(User speaker) throws SQLException
-	{
-		UserManager um = kit.makeUserManager();
-		um.deleteSpeaker(speaker);
 	}
 
 }

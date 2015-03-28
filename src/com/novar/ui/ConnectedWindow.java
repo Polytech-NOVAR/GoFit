@@ -177,6 +177,13 @@ public class ConnectedWindow extends JFrame
 			JMenuItem mntmSpeakers = new JMenuItem("Speakers");
 			mnManager.add(mntmSpeakers);
 			
+			mntmSpeakers.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) 
+				{
+					changePanel(new SpeakerPanel(frame, facade));
+				}
+			});
+			
 		}
 		
 		if(facade.getUser().isSpeaker())
@@ -223,11 +230,6 @@ public class ConnectedWindow extends JFrame
 		menuBar.add(mnLogoff);
 
 		loadNotifs();
-		
-		ArrayList<String> receivers = new ArrayList<String>();
-		receivers.add("Antoine1");
-		this.facade.getNotificationFacade().notify(this.facade.getUser(), "tergsguh", receivers);
-
 		changePanel(new ProfilePanel(frame));
 	}
 	

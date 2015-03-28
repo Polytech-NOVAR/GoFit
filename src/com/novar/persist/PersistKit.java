@@ -124,4 +124,11 @@ public interface PersistKit
 	 * @return the RoomManager
 	 */
 	public UserManager makeUserManager();
+	
+	/**
+	 * This is the declaration of the method to make a RoomManager
+	 * @param data of a RoomManager
+	 * @return the RoomManager
+	 */
+	public ManagerManager makeManagerManager();
 }
