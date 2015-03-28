@@ -38,7 +38,7 @@ public class RoomJdbc extends Room{
 	}
 	
 	/**
-	 * Load the attributes of a RoomJdbc from the BD
+	 * Load the attributes of a RoomJdbc from the DB
 	 */
 	public void save()
 	{
@@ -82,7 +82,7 @@ public class RoomJdbc extends Room{
 	}
 	
 	/**
-	 * Save the RoomJdbc into the BD
+	 * Save the RoomJdbc into the DB
 	 */
 	public void load()
 	{
@@ -120,7 +120,7 @@ public class RoomJdbc extends Room{
 	}
 	
 	/**
-	 * Load the Type of the RoomJdbc from the BD
+	 * Load the Type of the RoomJdbc from the DB
 	 */
 	public void loadType()
 	{
@@ -161,7 +161,7 @@ public class RoomJdbc extends Room{
 	}
 	
 	/**
-	 * Load the Have, all the accessories which have the RoomJdbc and the quantity of them, from the BD.
+	 * Load the Have, all the accessories which have the RoomJdbc and the quantity of them, from the DB.
 	 */
 	public void loadAccessories()
 	{
@@ -202,7 +202,7 @@ public class RoomJdbc extends Room{
 	}
 	
 	/**
-	 * Update the RoomJdbc in the BD
+	 * Update the RoomJdbc in the DB
 	 */
 	public void update(){
 		PreparedStatement updateRoom;
@@ -235,7 +235,7 @@ public class RoomJdbc extends Room{
 	}
 	
 	/**
-	 * Delete the RoomJdbc from the BD
+	 * Delete the RoomJdbc from the DB
 	 */
 	public void delete(){
 		PreparedStatement deleteType;
@@ -272,7 +272,7 @@ public class RoomJdbc extends Room{
 	}
 	
 	/**
-	 * Add an Accessory to this RoomJdbc and save it into the BD
+	 * Add an Accessory to this RoomJdbc and save it into the DB
 	 * @param acc, an Accessory
 	 * @param quantity, an int, the quantity of this Accessory
 	 */

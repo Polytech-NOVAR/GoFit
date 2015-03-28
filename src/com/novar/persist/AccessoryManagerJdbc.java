@@ -21,7 +21,7 @@ public class AccessoryManagerJdbc extends AccessoryManager{
 	}
 	
 	/**
-	 * Load all the Accessory from the BD
+	 * Load all the Accessory from the DB
 	 * @return an ArrayList of Accessory
 	 */
 	public ArrayList<Accessory> getAllAccessories() {

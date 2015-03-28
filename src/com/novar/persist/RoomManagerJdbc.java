@@ -21,7 +21,7 @@ public class RoomManagerJdbc extends RoomManager{
 	}
 	
 	/**
-	 * Load all the Room from the BD
+	 * Load all the Room from the DB
 	 * @return an ArrayList of Room
 	 */
 	public ArrayList<Room> getAllRooms() {

@@ -34,7 +34,7 @@ public class HaveJdbc extends Have{
 	}
 	
 	/**
-	 * Save the HaveJdbc into the BD
+	 * Save the HaveJdbc into the DB
 	 */
 	public void save()
 	{
@@ -54,7 +54,7 @@ public class HaveJdbc extends Have{
 	}
 	
 	/**
-	 * Load the attributes of a HaveJdbc from the BD
+	 * Load the attributes of a HaveJdbc from the DB
 	 */
 	public void load()
 	{
@@ -83,7 +83,7 @@ public class HaveJdbc extends Have{
 	}
 	
 	/**
-	 * Update the HaveJdbc in the BD
+	 * Update the HaveJdbc in the DB
 	 */
 	public void update(){
 		PreparedStatement updateHave;
@@ -102,7 +102,7 @@ public class HaveJdbc extends Have{
 	}
 	
 	/**
-	 * Delete the HaveJdbc from the BD
+	 * Delete the HaveJdbc from the DB
 	 */
 	public void delete(){
 		PreparedStatement deleteHAve;

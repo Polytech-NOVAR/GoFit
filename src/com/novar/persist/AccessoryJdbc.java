@@ -35,7 +35,7 @@ public class AccessoryJdbc extends Accessory{
 	}
 	
 	/**
-	 * Save the AccessoryJdbc into the BD
+	 * Save the AccessoryJdbc into the DB
 	 */
 	public void save()
 	{
@@ -57,7 +57,7 @@ public class AccessoryJdbc extends Accessory{
 	}
 	
 	/**
-	 * Load the attributes of an AccessoryJdbc from the BD
+	 * Load the attributes of an AccessoryJdbc from the DB
 	 */
 	public void load()
 	{
@@ -84,7 +84,7 @@ public class AccessoryJdbc extends Accessory{
 	}
 	
 	/**
-	 * Load the Have, all the rooms which have the AccessoryJdbc and the quantity of it they all have, from the BD
+	 * Load the Have, all the rooms which have the AccessoryJdbc and the quantity of it they all have, from the DB
 	 */
 	public void loadRooms()
 	{
@@ -125,7 +125,7 @@ public class AccessoryJdbc extends Accessory{
 	}
 	
 	/**
-	 * Update the AccessoryJdbc in the BD
+	 * Update the AccessoryJdbc in the DB
 	 */
 	public void update(){
 		PreparedStatement updateAccessory;
@@ -143,7 +143,7 @@ public class AccessoryJdbc extends Accessory{
 	}
 	
 	/**
-	 * Delete the AccessoryJdbc from the BD
+	 * Delete the AccessoryJdbc from the DB
 	 */
 	public void delete(){
 		PreparedStatement deleteAccessory;

@@ -36,7 +36,7 @@ public class NotifyToJdbc extends NotifyTo{
 	}
 
 	/**
-	 * Save the NotifyToJdbc into the BD
+	 * Save the NotifyToJdbc into the DB
 	 */
 	@Override
 	public void save() {
@@ -55,7 +55,7 @@ public class NotifyToJdbc extends NotifyTo{
 	}
 
 	/**
-	 * Update the NotifyToJdbc in the BD
+	 * Update the NotifyToJdbc in the DB
 	 */
 	@Override
 	public void delete() {
@@ -74,7 +74,7 @@ public class NotifyToJdbc extends NotifyTo{
 	}
 
 	/**
-	 * Delete the NotifyToJdbc from the BD
+	 * Delete the NotifyToJdbc from the DB
 	 */
 	@Override
 	public void update() {

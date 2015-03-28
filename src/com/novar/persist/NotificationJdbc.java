@@ -41,7 +41,7 @@ public class NotificationJdbc extends Notification{
 	}
 
 	/**
-	 * Load the attributes of a NotificationJdbc from the BD
+	 * Load the attributes of a NotificationJdbc from the DB
 	 */
 	@Override
 	public void load()
@@ -76,7 +76,7 @@ public class NotificationJdbc extends Notification{
 	}
 
 	/**
-	 * Save the NotificationJdbc into the BD
+	 * Save the NotificationJdbc into the DB
 	 */
 	@Override
 	public void save()
@@ -103,7 +103,7 @@ public class NotificationJdbc extends Notification{
 	}
 
 	/**
-	 * Delete the NotificationJdbc from the BD
+	 * Delete the NotificationJdbc from the DB
 	 */
 	@Override
 	public void delete(){
