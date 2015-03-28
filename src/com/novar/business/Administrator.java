@@ -1,9 +1,19 @@
 package com.novar.business;
 
-public class Administrator implements Role
+import java.util.ArrayList;
+
+public  class Administrator implements Role
 {
+	private String pseudoAdministrator;
+	
 	public String toString()
 	{
 		return ("Administrator");
 	}
+		
+	public String getPseudoAdministrator()
+	{
+		return pseudoAdministrator;
+	}
+	
 }

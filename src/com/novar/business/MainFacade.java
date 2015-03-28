@@ -19,12 +19,15 @@ public class MainFacade
 	private RoomAccessoryFacade roomFacade;
 	private NotificationFacade notificationFacade;
 	private ProductFacade product = null;
+	private AdminFacade adminFacade;
 	
 	public MainFacade(PersistKit kit)
 	{
 		this.kit = kit;
 		this.roomFacade = new RoomAccessoryFacade(kit);
 		this.notificationFacade = new NotificationFacade(kit);
+		this.adminFacade = new AdminFacade(kit);
+		
 		//product = new FacadeProduct(kit);
 	}
 	
@@ -92,5 +95,10 @@ public class MainFacade
 	{
 		theUser.delete();
 		//logoff
+	}
+	
+	public AdminFacade getAdminFacade()
+	{
+		return this.adminFacade;
 	}
 }

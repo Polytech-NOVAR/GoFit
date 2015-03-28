@@ -122,6 +122,12 @@ public class ConnectedWindow extends JFrame
 			JMenuItem mntmRooms = new JMenuItem("Rooms");
 			mnAdministrator.add(mntmRooms);
 			
+			JMenuItem mntmMembers = new JMenuItem("Members");
+			mnAdministrator.add(mntmMembers);
+			
+			JMenuItem mntmManagers = new JMenuItem("Managers");
+			mnAdministrator.add(mntmManagers);
+			
 			JMenuItem mntmAccessories = new JMenuItem("Accessories");
 			mnAdministrator.add(mntmAccessories);
 			
@@ -129,6 +135,20 @@ public class ConnectedWindow extends JFrame
 				public void actionPerformed(ActionEvent arg0) 
 				{
 					changePanel(new CategoryPanel());
+				}
+			});
+			
+			mntmMembers.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) 
+				{
+					changePanel(new MemberPanel(frame, facade));
+				}
+			});
+			
+			mntmManagers.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) 
+				{
+					changePanel(new ManagerPanel(frame, facade));
 				}
 			});
 			
@@ -144,13 +164,19 @@ public class ConnectedWindow extends JFrame
 				{
 					changePanel(new AccessoriesPanel(frame, facade));
 				}
-			});		
+			});	
+			
+			
 		}
 		
 		if(facade.getUser().isManager())
 		{
 			JMenu mnManager = new JMenu("Manager");
 			menuBar.add(mnManager);
+			
+			JMenuItem mntmSpeakers = new JMenuItem("Speakers");
+			mnManager.add(mntmSpeakers);
+			
 		}
 		
 		if(facade.getUser().isSpeaker())

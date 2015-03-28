@@ -109,6 +109,7 @@ public class UserJdbc extends User
 				+ "WHERE pseudo = ?;");
 		delete.setObject(1, getPseudo(), Types.VARCHAR);
 		delete.executeUpdate();
+		
 	}
 	
 	public void load() throws LoginFailedException
@@ -221,6 +222,42 @@ public class UserJdbc extends User
 		}
 	}
 
+	public void loadAdmin()
+	{
+		PreparedStatement selectUser;
+		try 
+		{
+			selectUser = ConnectionUtil.connection.prepareStatement("SELECT * FROM User WHERE pseudo = ? ");
+
+			selectUser.setObject(1, getPseudo(), Types.VARCHAR);
+			ResultSet res = selectUser.executeQuery();
+			res.last();
+				try 
+				{
+					setEmail(res.getString("email"));
+					setFirstName(res.getString("firstName"));
+					setLastName(res.getString("lastName"));
+					setPhone(res.getString("phone"));
+					setStreet(res.getString("street"));
+					setTown(res.getString("town"));
+					setZipCode(res.getString("zipCode"));
+					setCountry(res.getString("country"));
+					
+					loadRoles();	
+				} 
+				catch (SyntaxException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		}
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public void loadProducts() 
 	{
@@ -259,6 +296,6 @@ public class UserJdbc extends User
 				e.printStackTrace();
 			}
 		}
-		
 	}
 }
+

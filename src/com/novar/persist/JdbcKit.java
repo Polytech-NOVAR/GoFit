@@ -10,10 +10,9 @@ import com.novar.business.NotificationManager;
 import com.novar.business.NotifyTo;
 import com.novar.business.Room;
 import com.novar.business.RoomManager;
-
 import com.novar.business.Product;
-
 import com.novar.business.User;
+import com.novar.business.UserManager;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
 import com.novar.persist.PersistKit;
@@ -41,7 +40,6 @@ public class JdbcKit implements PersistKit
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * This is the definition of the method to make a room
 	 * @param data of a room
 	 * @return the room with persistence methods
@@ -153,5 +151,15 @@ public class JdbcKit implements PersistKit
 	public ProductJdbc makeProduct(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		return new ProductJdbc(data);
+	}
+	
+	/**
+	 * This is the definition of the method to make a RoomManager
+	 * @param data of a RoomManager
+	 * @return the RoomManager with persistence methods
+	 */
+	public UserManager makeUserManager()
+	{
+		return new UserManagerJdbc();
 	}
 }

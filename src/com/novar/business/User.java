@@ -356,18 +356,23 @@ public abstract class User
 				+ "Street : " + this.getStreet() + "\n"
 				+ "City : " + this.getTown() + "\n"
 				+ "ZipCode : " + this.getZipCode() + "\n"
-				+ "Country : " + this.getCountry() + "\n";
+				+ "Country : " + this.getCountry() + "\n"
+				+ "Role : " + this.getAdministrator() + ","
+						+ this.getMember() +
+						"," + this.getManager()+
+						"," + this.getSpeaker() + "\n";
 		
 		return result;	
 	}
 	
 	////////////// HOOKS ////////////////
 	public abstract void load() throws LoginFailedException;
+	public abstract void loadAdmin();
 	public abstract void save() throws RegisterFailedException;
 	public abstract void loadProducts();
 	public abstract void updateForgottenPassword() throws InvalidEmailException;
 	public abstract void updateProfile() throws SQLException;
 	public abstract void updatePassword() throws SQLException;
-	public abstract void delete() throws SQLException;
-
+    public abstract void delete()throws SQLException;
+	
 }

@@ -1,6 +1,6 @@
 package com.novar.business;
 
-public interface Role
+public interface Role 
 {
 
 }
