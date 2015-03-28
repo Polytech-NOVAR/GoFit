@@ -238,10 +238,11 @@ public class UserJdbc extends User
 				selectProducts.setObject(1, getPseudo(), Types.VARCHAR);
 				ResultSet resProducts = selectProducts.executeQuery();
 				ArrayList<Product> products = new ArrayList<Product>();
+				
+				HashMap<String,Object> mapProduct = new HashMap<String,Object>();
 				while(resProducts.next())
 				{
-					
-					HashMap<String,Object> mapProduct = new HashMap<String,Object>();
+
 					mapProduct.put("ProductID", resProducts.getInt("ProductID"));
 					Product prod = new ProductJdbc(mapProduct);
 					prod.load();
