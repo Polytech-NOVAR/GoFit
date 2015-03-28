@@ -31,11 +31,7 @@ public class ProductsPanel extends JPanel
 		this.facade = facade;
 		this.mainFrame = frame;
 		products = facade.getUserProducts();
-		reload();
-	}
 	
-	public void reload()
-	{
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		

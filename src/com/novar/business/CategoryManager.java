@@ -14,13 +14,14 @@ public abstract class CategoryManager
 	
 	
 	/**
-	 * @return a list of all the SubCategories
+	 * 
+	 * @return the list of all the MainCategories
 	 */
 	public abstract ArrayList<MainCategory> getAllMainCategories();
 	
 	/**
 	 * @param parent the MainCategory
-	 * @return a list of all the SubCategories of parent
+	 * @return the list of all the SubCategories of the MainCategory
 	 */
 	public abstract ArrayList<SubCategory> getSubCategories(MainCategory parent);
 	

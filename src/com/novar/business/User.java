@@ -372,6 +372,7 @@ public abstract class User
 	////////////// HOOKS ////////////////
 	public abstract void load() throws LoginFailedException;
 	public abstract void save() throws RegisterFailedException;
+	public abstract void loadInfo();
 	public abstract void loadRoles();
 	public abstract void loadProducts();
 	public abstract void updateForgottenPassword() throws InvalidEmailException;

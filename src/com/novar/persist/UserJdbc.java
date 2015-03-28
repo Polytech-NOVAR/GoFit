@@ -258,4 +258,43 @@ public class UserJdbc extends User
 		}
 		
 	}
+
+	@Override
+	public void loadInfo() 
+	{
+		PreparedStatement selectUser;
+		try 
+		{
+			selectUser = ConnectionUtil.connection.prepareStatement("SELECT * "
+					+ "FROM User "
+					+ "WHERE pseudo = ? ");
+
+			selectUser.setObject(1, getPseudo(), Types.VARCHAR);
+			ResultSet res = selectUser.executeQuery();
+			res.last();
+			try 
+			{
+				setEmail(res.getString("email"));
+				setFirstName(res.getString("firstName"));
+				setLastName(res.getString("lastName"));
+				setPhone(res.getString("phone"));
+				setStreet(res.getString("street"));
+				setTown(res.getString("town"));
+				setZipCode(res.getString("zipCode"));
+				setCountry(res.getString("country"));
+			} 
+			catch (SyntaxException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			loadRoles();	
+		}
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }

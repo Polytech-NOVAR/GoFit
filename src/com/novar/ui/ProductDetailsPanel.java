@@ -48,6 +48,7 @@ public class ProductDetailsPanel extends JPanel {
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		
+		
 		JLabel lblId = new JLabel("Id :");
 		springLayout.putConstraint(SpringLayout.NORTH, lblId, 200, SpringLayout.NORTH, this);
 		springLayout.putConstraint(SpringLayout.WEST, lblId, 352, SpringLayout.WEST, this);
@@ -127,6 +128,7 @@ public class ProductDetailsPanel extends JPanel {
 		springLayout.putConstraint(SpringLayout.NORTH, comboBoxCategory, -3, SpringLayout.NORTH, lblCategory);
 		springLayout.putConstraint(SpringLayout.WEST, comboBoxCategory, 6, SpringLayout.EAST, lblCategory);
 		springLayout.putConstraint(SpringLayout.EAST, comboBoxCategory, 0, SpringLayout.EAST, textFieldId);
+		
 		
 		ArrayList<MainCategory> listMainCategory = facade.getCategoryFacade().getAllMainCategories();
 		Category tempCat = null;

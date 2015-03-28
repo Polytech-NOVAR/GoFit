@@ -124,4 +124,10 @@ public interface PersistKit
 	 * @return the manager
 	 */
 	public CategoryManager makeCategoryManager();
+	
+	/**
+	 * This is the declaration of the method to make a ProductManager
+	 * @return the manager
+	 */
+	public ProductManager makeProductManager();
 }

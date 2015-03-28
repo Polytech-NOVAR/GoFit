@@ -68,7 +68,7 @@ public class ConnectedWindow extends JFrame
 		mnShop.setMaximumSize(new Dimension(1, 32767));
 		mnShop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changePanel(new ShopPanel());
+				changePanel(new ShopPanel(frame,facade));
 			}
 		});
 		menuBar.add(mnShop);

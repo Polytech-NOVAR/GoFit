@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -77,13 +78,9 @@ public class DeleteProductDialog extends JDialog {
 	
 	private void delete()
 	{
-		facade.getUser().removeProduct(product);
 		facade.getProductFacade().deleteProduct(product);
-		mainFrame.getContentPane().removeAll();
-		((ProductsPanel)mainFrame.getContentPane()).reload();
-		mainFrame.getContentPane().repaint();
-		mainFrame.getContentPane().revalidate();
-		dispose();
+		this.mainFrame.changePanel(new ProductsPanel(this.mainFrame, this.facade));
+		this.dispose();
 	}
 
 }

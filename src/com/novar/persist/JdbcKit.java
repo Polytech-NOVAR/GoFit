@@ -163,4 +163,13 @@ public class JdbcKit implements PersistKit
 	{
 		return new CategoryManagerJdbc();
 	}
+	
+	/**
+	 * This is the definition of the method to make a ProductManager
+	 * @return the manager
+	 */
+	public ProductManagerJdbc makeProductManager() 
+	{
+		return new ProductManagerJdbc();
+	}
 }

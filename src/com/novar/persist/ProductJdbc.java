@@ -19,6 +19,12 @@ import com.novar.util.ConnectionUtil;
 
 public class ProductJdbc extends Product
 {
+	
+	public ProductJdbc()
+	{
+		super();
+	}
+	
 	public ProductJdbc(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		super(data);
@@ -150,4 +156,5 @@ public class ProductJdbc extends Product
 			e.printStackTrace();
 		}
 	}
+
 }
