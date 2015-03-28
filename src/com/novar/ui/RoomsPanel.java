@@ -14,6 +14,7 @@ import com.novar.business.Room;
 
 import javax.swing.JButton;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -193,7 +194,7 @@ public class RoomsPanel extends JPanel {
 			add(btnDelete);
 		}
 		
-		JScrollPane scrollPane = new JScrollPane(this);
+		setPreferredSize(new Dimension(980, rooms.size()*60));
 	}
 	
 	private void seeMore(Room room){

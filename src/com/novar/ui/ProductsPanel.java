@@ -151,7 +151,7 @@ public class ProductsPanel extends JPanel
 			});
 			add(btnDelete);
 		}
-		setPreferredSize(new Dimension(980, products.size()*52));
+		setPreferredSize(new Dimension(980, products.size()*60));
 	}
 	
 	private void seeMore(Product room){

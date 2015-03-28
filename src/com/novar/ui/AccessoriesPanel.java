@@ -1,5 +1,6 @@
 package com.novar.ui;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -88,9 +89,7 @@ public class AccessoriesPanel extends JPanel {
 			add(btnDelete);
 		}
 		
-		JScrollPane scrollPane = new JScrollPane(this);
-		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		setPreferredSize(new Dimension(980, accs.size()*60));
 	}
 	
 	private void seeMore(Accessory acc){

@@ -11,6 +11,7 @@ import com.novar.business.Notification;
 
 import javax.swing.JButton;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -78,5 +79,7 @@ public class NotificationsPanel extends JPanel {
 			lblDatei.setFont(new Font("Calibri", Font.PLAIN, 12));
 			add(lblDatei);
 		}
+		
+		setPreferredSize(new Dimension(980, notifications.size()*60));
 	}
 }
