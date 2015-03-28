@@ -15,11 +15,19 @@ import com.novar.util.ConnectionUtil;
 public class NotificationManagerJdbc extends NotificationManager{
 
 
+	/**
+	 * This is the default constructor of a NotificationManagerJdbc. 
+	 * It is used to make an empty one.
+	 */
 	public NotificationManagerJdbc()
 	{
 		
 	}
 	
+	/**
+	 * @param receiver, an User, the User who receive the Notifications
+	 * @return an ArrayList of Notifications, all the NotificationsJdbc of the receiver
+	 */
 	@Override
 	public ArrayList<Notification> getAllNotifications(User receiver) {
 		PreparedStatement selectNotifications;
@@ -55,6 +63,10 @@ public class NotificationManagerJdbc extends NotificationManager{
 		return notifs;
 	}
 	
+	/**
+	 * @param receiver, an User, the User who receive the Notifications
+	 * @return an int, the number of NotificationsJdbc not seen by the receiver
+	 */
 	@Override
 	public int countNewNotifs(User receiver) {
 		PreparedStatement countNotifs;

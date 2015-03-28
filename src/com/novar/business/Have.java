@@ -101,7 +101,7 @@ public abstract class Have {
 	public abstract void save();
 	
 	/**
-	 * Update the Accessory in the persistence
+	 * Update the Have in the persistence
 	 */
 	public abstract void update();
 	

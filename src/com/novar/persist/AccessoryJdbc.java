@@ -15,16 +15,28 @@ import com.novar.util.ConnectionUtil;
 
 public class AccessoryJdbc extends Accessory{
 
+	/**
+	 * This is the default constructor of an AccessoryJdbc. 
+	 * It is used to make an empty one.
+	 */
 	public AccessoryJdbc()
 	{
 		super();
 	}
 	
+	/**
+	 * This is the constructor of an AccessoryJdbc. 
+	 * @param data, an HashMap
+	 * It will create a new empty Accessory and it will use all the setter of Accessory present in the HashMap.
+	 */
 	public AccessoryJdbc(HashMap<String,Object> data)
 	{
 		super(data);
 	}
 	
+	/**
+	 * Save the AccessoryJdbc into the BD
+	 */
 	public void save()
 	{
 		try 
@@ -44,6 +56,9 @@ public class AccessoryJdbc extends Accessory{
 		}
 	}
 	
+	/**
+	 * Load the attributes of an AccessoryJdbc from the BD
+	 */
 	public void load()
 	{
 		PreparedStatement selectAccessory;
@@ -68,6 +83,9 @@ public class AccessoryJdbc extends Accessory{
 		}
 	}
 	
+	/**
+	 * Load the Have, all the rooms which have the AccessoryJdbc and the quantity of it they all have, from the BD
+	 */
 	public void loadRooms()
 	{
 		PreparedStatement selectRooms;
@@ -106,6 +124,9 @@ public class AccessoryJdbc extends Accessory{
 		setRooms(rooms);
 	}
 	
+	/**
+	 * Update the AccessoryJdbc in the BD
+	 */
 	public void update(){
 		PreparedStatement updateAccessory;
 		try {
@@ -121,6 +142,9 @@ public class AccessoryJdbc extends Accessory{
 		}
 	}
 	
+	/**
+	 * Delete the AccessoryJdbc from the BD
+	 */
 	public void delete(){
 		PreparedStatement deleteAccessory;
 		this.loadRooms();

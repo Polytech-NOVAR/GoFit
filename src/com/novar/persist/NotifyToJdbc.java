@@ -15,16 +15,29 @@ import com.novar.util.ConnectionUtil;
 
 public class NotifyToJdbc extends NotifyTo{
 
+	/**
+	 * This is the default constructor of a NotifyToJdbc. 
+	 * It is used to make an empty one.
+	 */
 	public NotifyToJdbc()
 	{
 		super();
 	}
 	
+	/**
+	 * This is the constructor of a NotifyToJdbc
+	 * @param notif, a Notification
+	 * @param receiver, the receiver of this Notification
+	 * It will create a new empty NotifyToJdbc and it will set the notif and the receiver using the super constructor.
+	 */
 	public NotifyToJdbc(Notification notif, String receiver)
 	{
 		super(notif, receiver);
 	}
 
+	/**
+	 * Save the NotifyToJdbc into the BD
+	 */
 	@Override
 	public void save() {
 		try 
@@ -41,6 +54,9 @@ public class NotifyToJdbc extends NotifyTo{
 		}
 	}
 
+	/**
+	 * Update the NotifyToJdbc in the BD
+	 */
 	@Override
 	public void delete() {
 		PreparedStatement deleteNotify;
@@ -57,6 +73,9 @@ public class NotifyToJdbc extends NotifyTo{
 		}
 	}
 
+	/**
+	 * Delete the NotifyToJdbc from the BD
+	 */
 	@Override
 	public void update() {
 		PreparedStatement updateNotify;

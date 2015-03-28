@@ -14,17 +14,28 @@ import com.novar.util.ConnectionUtil;
 
 public class HaveJdbc extends Have{
 
+	/**
+	 * This is the default constructor of a HaveJdbc. 
+	 * It is used to make an empty one.
+	 */
 	public HaveJdbc()
 	{
 		super();
 	}
 	
+	/**
+	 * This is the constructor of a Have. 
+	 * @param an HashMap
+	 * It will create a new empty Have and it will use all the setter of Have present in the HashMap.
+	 */
 	public HaveJdbc(Room room, Accessory acc, int quantity)
 	{
 		super(room, acc, quantity);
 	}
 	
-	
+	/**
+	 * Save the HaveJdbc into the BD
+	 */
 	public void save()
 	{
 		try 
@@ -42,6 +53,9 @@ public class HaveJdbc extends Have{
 		}
 	}
 	
+	/**
+	 * Load the attributes of a HaveJdbc from the BD
+	 */
 	public void load()
 	{
 		PreparedStatement selectHave;
@@ -68,6 +82,9 @@ public class HaveJdbc extends Have{
 		}
 	}
 	
+	/**
+	 * Update the HaveJdbc in the BD
+	 */
 	public void update(){
 		PreparedStatement updateHave;
 		try {
@@ -84,6 +101,9 @@ public class HaveJdbc extends Have{
 		}
 	}
 	
+	/**
+	 * Delete the HaveJdbc from the BD
+	 */
 	public void delete(){
 		PreparedStatement deleteHAve;
 		try {

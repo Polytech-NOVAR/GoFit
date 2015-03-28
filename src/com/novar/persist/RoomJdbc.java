@@ -18,17 +18,28 @@ import com.novar.util.ConnectionUtil;
 
 public class RoomJdbc extends Room{
 	
+	/**
+	 * This is the default constructor of a RoomJdbc. 
+	 * It is used to make an empty one.
+	 */
 	public RoomJdbc()
 	{
 		super();
 	}
 	
+	/**
+	 * This is the constructor of a Room Jdbc. 
+	 * @param data, an HashMap
+	 * It will create a new empty RoomJdbc and it will use all the setter of Room present in the HashMap.
+	 */
 	public RoomJdbc(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		super(data);
 	}
 	
-	
+	/**
+	 * Load the attributes of a RoomJdbc from the BD
+	 */
 	public void save()
 	{
 		try 
@@ -70,6 +81,9 @@ public class RoomJdbc extends Room{
 		}
 	}
 	
+	/**
+	 * Save the RoomJdbc into the BD
+	 */
 	public void load()
 	{
 		PreparedStatement selectRoom;
@@ -105,6 +119,9 @@ public class RoomJdbc extends Room{
 		}	
 	}
 	
+	/**
+	 * Load the Type of the RoomJdbc from the BD
+	 */
 	public void loadType()
 	{
 		PreparedStatement selectType;
@@ -143,6 +160,9 @@ public class RoomJdbc extends Room{
 		}
 	}
 	
+	/**
+	 * Load the Have, all the accessories which have the RoomJdbc and the quantity of them, from the BD.
+	 */
 	public void loadAccessories()
 	{
 		PreparedStatement selectAccessories;
@@ -181,6 +201,9 @@ public class RoomJdbc extends Room{
 		setAccessories(accessories);
 	}
 	
+	/**
+	 * Update the RoomJdbc in the BD
+	 */
 	public void update(){
 		PreparedStatement updateRoom;
 		try {
@@ -211,6 +234,9 @@ public class RoomJdbc extends Room{
 		}
 	}
 	
+	/**
+	 * Delete the RoomJdbc from the BD
+	 */
 	public void delete(){
 		PreparedStatement deleteType;
 		PreparedStatement deleteRoom;
@@ -245,6 +271,11 @@ public class RoomJdbc extends Room{
 		}
 	}
 	
+	/**
+	 * Add an Accessory to this RoomJdbc and save it into the BD
+	 * @param acc, an Accessory
+	 * @param quantity, an int, the quantity of this Accessory
+	 */
 	public void addAccessory(Accessory acc, int quantity)
 	{
 		Have have = new HaveJdbc();

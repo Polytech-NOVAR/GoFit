@@ -20,16 +20,29 @@ import com.novar.util.ConnectionUtil;
 
 public class NotificationJdbc extends Notification{
 
+	/**
+	 * This is the default constructor of a NotificationJdbc. 
+	 * It is used to make an empty one.
+	 */
 	public NotificationJdbc()
 	{
 		super();
 	}
 	
+	/**
+	 * This is the constructor of a NotificationJdbc. 
+	 * @param sender, an User, 
+	 * @param message, a message
+	 * It will create a new empty NotificationJdbc and it will set the sender and the message using the super constructor.
+	 */
 	public NotificationJdbc(User sender, String message)
 	{
 		super(sender, message);
 	}
 
+	/**
+	 * Load the attributes of a NotificationJdbc from the BD
+	 */
 	@Override
 	public void load()
 	{
@@ -62,6 +75,9 @@ public class NotificationJdbc extends Notification{
 		}	
 	}
 
+	/**
+	 * Save the NotificationJdbc into the BD
+	 */
 	@Override
 	public void save()
 	{
@@ -86,6 +102,9 @@ public class NotificationJdbc extends Notification{
 		}
 	}
 
+	/**
+	 * Delete the NotificationJdbc from the BD
+	 */
 	@Override
 	public void delete(){
 		PreparedStatement deleteNotif;

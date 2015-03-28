@@ -39,7 +39,7 @@ public abstract class Room {
 	}
 	
 	/**
-	 * This is the constructor of an Accessory. 
+	 * This is the constructor of a Room. 
 	 * @param data, an HashMap
 	 * It will create a new empty Room and it will use all the setter in the HashMap.
 	 */
@@ -267,7 +267,7 @@ public abstract class Room {
 	
 	//////////////HOOKS ////////////////
 	/**
-	 * Load the attributes of an Room from the persistence
+	 * Load the attributes of a Room from the persistence
 	 */
 	public abstract void load();
 	

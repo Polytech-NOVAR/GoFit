@@ -11,11 +11,19 @@ import com.novar.util.ConnectionUtil;
 
 public class RoomManagerJdbc extends RoomManager{
 
+	/**
+	 * This is the default constructor of a RoomManagerJdbc. 
+	 * It is used to make an empty one.
+	 */
 	public RoomManagerJdbc()
 	{
 		
 	}
 	
+	/**
+	 * Load all the Room from the BD
+	 * @return an ArrayList of Room
+	 */
 	public ArrayList<Room> getAllRooms() {
 		PreparedStatement selectRooms;
 		ArrayList<Room> rooms = new ArrayList<Room>();
