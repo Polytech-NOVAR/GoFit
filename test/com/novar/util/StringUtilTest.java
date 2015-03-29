@@ -1,24 +1,29 @@
 package com.novar.util;
 
-import static org.junit.Assert.*;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 
-import org.junit.Test;
+import junit.framework.TestCase;
 
-public class StringUtilTest {
+public class StringUtilTest extends TestCase {
 
-	@Test
 	public void testToCapitalizeCase() {
-		fail("Not yet implemented");
+		String test = StringUtil.toCapitalizeCase("nico");
+		assertEquals("Nico", test);
+		
 	}
 
-	@Test
 	public void testNextSessionId() {
-		fail("Not yet implemented");
+		SecureRandom random = new SecureRandom();
+		String a = new BigInteger(30, random).toString(32); 
+		assertEquals(a.length(), 6);
 	}
 
-	@Test
 	public void testSha256() {
-		fail("Not yet implemented");
+		String test = new String();
+		test = StringUtil.sha256("a");
+		assertEquals("ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e"
+				+ "72b9807785afee48bb", test);
 	}
 
 }
