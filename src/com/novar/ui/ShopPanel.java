@@ -1,5 +1,6 @@
 package com.novar.ui;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
 
@@ -33,20 +34,8 @@ public class ShopPanel extends JPanel {
 	private JLabel lblShop;
 	private JComboBox<Category> comboBox;
 	private JPanel panel;
-	private JLabel lbProductID;
-	private JLabel lblDescritpion;
-	private JLabel lblPrice;
-	private JLabel lblCategory;
-	private JLabel lblProducti;
-	private JLabel lblDesci;
-	private JLabel lblCategoryi;
-	private JLabel lblPricei;
 	private SpringLayout springLayout;
 	private JButton btnSearch;
-	private JButton btnAdd;
-	private JLabel lblSeller;
-	private JLabel lblSelleri;
-	private JLabel lblSorry;
 	/**
 	 * Create the panel.
 	 */
@@ -102,11 +91,11 @@ public class ShopPanel extends JPanel {
 		springLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, btnSearch, -0, SpringLayout.HORIZONTAL_CENTER, this);
 		add(btnSearch);
 		
-		
 	}
 	
 	private void search()
-	{
+	{	
+
 		panel = new JPanel();
 		
 		springLayout.putConstraint(SpringLayout.NORTH, panel, 6, SpringLayout.SOUTH, btnSearch);
@@ -117,7 +106,6 @@ public class ShopPanel extends JPanel {
 		SpringLayout sl_panel = new SpringLayout();
 		panel.setLayout(sl_panel);
 		
-
 		
 		if (comboBox.getSelectedItem() == null && textField.getText().equals(""))
 			products = facade.getProductFacade().getAllProducts();
@@ -130,105 +118,107 @@ public class ShopPanel extends JPanel {
 		
 		if(products.isEmpty())
 		{
-			lblSorry = new JLabel("Sorry, no results for this search");
-			sl_panel.putConstraint(SpringLayout.NORTH, lblSorry, 63, SpringLayout.SOUTH, lblCategory);
+			JLabel lblSorry = new JLabel("Sorry, no results for this search");
+			sl_panel.putConstraint(SpringLayout.NORTH, lblSorry, 63, SpringLayout.SOUTH, this);
 			sl_panel.putConstraint(SpringLayout.EAST, lblSorry, -358, SpringLayout.EAST, panel);
 			lblSorry.setFont(new Font("Tahoma", Font.BOLD, 15));
 			panel.add(lblSorry);
 		}
 		else
 		{
-			lbProductID = new JLabel("ID");
+			JLabel lbProductID = new JLabel("ID");
 			sl_panel.putConstraint(SpringLayout.NORTH, lbProductID, 27, SpringLayout.NORTH, panel);
 			sl_panel.putConstraint(SpringLayout.WEST, lbProductID, 89, SpringLayout.WEST, panel);
 			lbProductID.setFont(new Font("Calibri", Font.BOLD, 14));
 			panel.add(lbProductID);
 			
-			lblDescritpion = new JLabel("Descritpion");
+			JLabel lblDescritpion = new JLabel("Descritpion");
 			sl_panel.putConstraint(SpringLayout.NORTH, lblDescritpion, 0, SpringLayout.NORTH, lbProductID);
 			sl_panel.putConstraint(SpringLayout.WEST, lblDescritpion, 94, SpringLayout.EAST, lbProductID);
 			lblDescritpion.setFont(new Font("Calibri", Font.BOLD, 14));
 			panel.add(lblDescritpion);
 			
-			lblPrice = new JLabel("Price");
+			JLabel lblPrice = new JLabel("Price");
 			sl_panel.putConstraint(SpringLayout.NORTH, lblPrice, 27, SpringLayout.NORTH, panel);
 			sl_panel.putConstraint(SpringLayout.WEST, lblPrice, 706, SpringLayout.WEST, panel);
 			lblPrice.setFont(new Font("Calibri", Font.BOLD, 14));
 			panel.add(lblPrice);
 			
-			lblCategory = new JLabel("Category");
+			JLabel lblCategory = new JLabel("Category");
 			sl_panel.putConstraint(SpringLayout.NORTH, lblCategory, 0, SpringLayout.NORTH, lbProductID);
 			sl_panel.putConstraint(SpringLayout.WEST, lblCategory, 148, SpringLayout.EAST, lblDescritpion);
 			lblCategory.setFont(new Font("Calibri", Font.BOLD, 14));
 			panel.add(lblCategory);
 			
-			lblSeller = new JLabel("Seller");
+			JLabel lblSeller = new JLabel("Seller");
 			sl_panel.putConstraint(SpringLayout.SOUTH, lblSeller, 0, SpringLayout.SOUTH, lbProductID);
 			sl_panel.putConstraint(SpringLayout.EAST, lblSeller, -87, SpringLayout.WEST, lblPrice);
 			lblSeller.setFont(new Font("Calibri", Font.BOLD, 14));
 			panel.add(lblSeller);
-		}
 		
-		for(int i=0; i<products.size(); i++)
-		{
-			Product producti = products.get(i);
-			
-			
-			lblProducti = new JLabel(producti.getProductID().toString());
-			sl_panel.putConstraint(SpringLayout.NORTH, lblProducti, 45*(i+1), SpringLayout.SOUTH, lbProductID);
-			sl_panel.putConstraint(SpringLayout.WEST, lblProducti, 0, SpringLayout.WEST, lbProductID);
-			lblProducti.setFont(new Font("Calibri", Font.PLAIN,12));
-			panel.add(lblProducti);
-			
-			if(producti.getDescription().length() > 25)
-				lblDesci= new JLabel(producti.getDescription().substring(0, 25)+"...");
-			else
-				lblDesci= new JLabel(producti.getDescription());
-			
-			sl_panel.putConstraint(SpringLayout.NORTH, lblDesci, 45*(i+1), SpringLayout.SOUTH, lblDescritpion);
-			sl_panel.putConstraint(SpringLayout.WEST, lblDesci, 0, SpringLayout.WEST, lblDescritpion);
-			lblDesci.setFont(new Font("Calibri", Font.PLAIN,12));
-			panel.add(lblDesci);
-			
-			lblCategoryi = new JLabel(producti.getCategory().getDescription());
-			sl_panel.putConstraint(SpringLayout.NORTH, lblCategoryi, 45*(i+1), SpringLayout.SOUTH, lblCategory);
-			sl_panel.putConstraint(SpringLayout.WEST, lblCategoryi, 0, SpringLayout.WEST, lblCategory);
-			lblCategoryi.setFont(new Font("Calibri", Font.PLAIN,12));
-			panel.add(lblCategoryi);
-			
-			if(facade.getUser().isMember())
-				lblPricei = new JLabel(producti.getDiscountPrice().toString() +" euros");
-			else
-				lblPricei = new JLabel(producti.getPrice().toString() +" euros");
-			sl_panel.putConstraint(SpringLayout.NORTH, lblPricei, 45*(i+1), SpringLayout.SOUTH, lblPrice);
-			sl_panel.putConstraint(SpringLayout.WEST, lblPricei, 0, SpringLayout.WEST, lblPrice);
-			lblPricei.setFont(new Font("Calibri", Font.PLAIN,12));
-			panel.add(lblPricei);
-			
-			btnAdd = new JButton("Add to basket");
-			sl_panel.putConstraint(SpringLayout.NORTH, btnAdd, -5, SpringLayout.NORTH, lblPricei);
-			sl_panel.putConstraint(SpringLayout.EAST, btnAdd, -10, SpringLayout.EAST, panel);
-			btnAdd.addActionListener(new ActionListener() 
+			for(int i=0; i<products.size(); i++)
 			{
-				public void actionPerformed(ActionEvent e) 
+				Product producti = products.get(i);
+				
+				
+				JLabel lblProducti = new JLabel(producti.getProductID().toString());
+				sl_panel.putConstraint(SpringLayout.NORTH, lblProducti, 45*(i+1), SpringLayout.SOUTH, lbProductID);
+				sl_panel.putConstraint(SpringLayout.WEST, lblProducti, 0, SpringLayout.WEST, lbProductID);
+				lblProducti.setFont(new Font("Calibri", Font.PLAIN,12));
+				panel.add(lblProducti);
+				
+				JLabel lblDesci;
+				if(producti.getDescription().length() > 25)
+					lblDesci= new JLabel(producti.getDescription().substring(0, 25)+"...");
+				else
+					lblDesci= new JLabel(producti.getDescription());
+				
+				sl_panel.putConstraint(SpringLayout.NORTH, lblDesci, 45*(i+1), SpringLayout.SOUTH, lblDescritpion);
+				sl_panel.putConstraint(SpringLayout.WEST, lblDesci, 0, SpringLayout.WEST, lblDescritpion);
+				lblDesci.setFont(new Font("Calibri", Font.PLAIN,12));
+				panel.add(lblDesci);
+				
+				JLabel lblCategoryi = new JLabel(producti.getCategory().getDescription());
+				sl_panel.putConstraint(SpringLayout.NORTH, lblCategoryi, 45*(i+1), SpringLayout.SOUTH, lblCategory);
+				sl_panel.putConstraint(SpringLayout.WEST, lblCategoryi, 0, SpringLayout.WEST, lblCategory);
+				lblCategoryi.setFont(new Font("Calibri", Font.PLAIN,12));
+				panel.add(lblCategoryi);
+				
+				JLabel lblPricei;
+				if(facade.getUser().isMember())
+					lblPricei = new JLabel(producti.getDiscountPrice().toString() +" euros");
+				else
+					lblPricei = new JLabel(producti.getPrice().toString() +" euros");
+				sl_panel.putConstraint(SpringLayout.NORTH, lblPricei, 45*(i+1), SpringLayout.SOUTH, lblPrice);
+				sl_panel.putConstraint(SpringLayout.WEST, lblPricei, 0, SpringLayout.WEST, lblPrice);
+				lblPricei.setFont(new Font("Calibri", Font.PLAIN,12));
+				panel.add(lblPricei);
+				
+				JButton btnAdd = new JButton("Add to basket");
+				sl_panel.putConstraint(SpringLayout.NORTH, btnAdd, -5, SpringLayout.NORTH, lblPricei);
+				sl_panel.putConstraint(SpringLayout.EAST, btnAdd, -10, SpringLayout.EAST, panel);
+				btnAdd.addActionListener(new ActionListener() 
 				{
-					addToBasket(producti);
-				}
-			});
-			panel.add(btnAdd);
-			
-			
-			lblSelleri = new JLabel(producti.getUser().getPseudo());
-			sl_panel.putConstraint(SpringLayout.NORTH, lblSelleri, 45*(i+1), SpringLayout.SOUTH, lblSeller);
-			sl_panel.putConstraint(SpringLayout.WEST, lblSelleri, 0, SpringLayout.WEST, lblSeller);
-			lblSelleri.setFont(new Font("Calibri", Font.PLAIN, 12));
-			panel.add(lblSelleri);
-			
+					public void actionPerformed(ActionEvent e) 
+					{
+						addToBasket(producti);
+					}
+				});
+				panel.add(btnAdd);
+				
+				JLabel lblSelleri = new JLabel(producti.getUser().getPseudo());
+				sl_panel.putConstraint(SpringLayout.NORTH, lblSelleri, 45*(i+1), SpringLayout.SOUTH, lblSeller);
+				sl_panel.putConstraint(SpringLayout.WEST, lblSelleri, 0, SpringLayout.WEST, lblSeller);
+				lblSelleri.setFont(new Font("Calibri", Font.PLAIN, 12));
+				panel.add(lblSelleri);
+				
+			}
 		}
 		
-
-		panel.repaint();
+		
 		panel.revalidate();
+		panel.repaint();
+
 	}
 
 	private void addToBasket(Product producti) 
