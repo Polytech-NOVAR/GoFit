@@ -51,9 +51,11 @@ public class LoginWindow extends JFrame
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		Splash splash = new Splash(0);
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					LoginWindow window = new LoginWindow();
 					window.setVisible(true);
 				} catch (Exception e) {
@@ -61,6 +63,7 @@ public class LoginWindow extends JFrame
 				}
 			}
 		});
+		splash.dispose();
 	}
 
 	/**
