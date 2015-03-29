@@ -195,20 +195,7 @@ public class EventJdbc extends Event {
 			deleteEvent.setObject(1, getEventID(), Types.INTEGER);
 			deleteEvent.executeUpdate();
 
-			if(this.getType().equals("One Time") && this.getType()!= null)
-			{
-				deleteEventOneTime= ConnectionUtil.connection.prepareStatement("DELETE FROM OneTime "
-						+ "WHERE actID = ? ");
-				deleteEventOneTime.setObject(1, getEventID(), Types.INTEGER);
-				deleteEventOneTime.executeUpdate();
-			}
-			else if (this.getType().equals("Repetitive") && this.getType()!= null)
-			{
-				deleteEventRepetitive= ConnectionUtil.connection.prepareStatement("DELETE FROM Repetitive"
-						+ "WHERE eventID = ? ");
-				deleteEventRepetitive.setObject(1, getEventID(), Types.INTEGER);
-				deleteEventRepetitive.executeUpdate();
-			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

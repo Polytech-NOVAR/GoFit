@@ -86,7 +86,7 @@ public class DeleteEvDialog extends JDialog {
 	private void delete()
 	{
 		this.facade.getActEvFacade().deleteEvent(Ev);
-		this.mainFrame.changePanel(new PanelEvents(this.mainFrame, this.facade, act));
+		this.mainFrame.changePanel(new EventsPanel(this.mainFrame, this.facade, act));
 		this.dispose();
 	}
 

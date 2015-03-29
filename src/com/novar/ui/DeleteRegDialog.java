@@ -88,7 +88,7 @@ public class DeleteRegDialog extends JDialog {
 	{
 		this.facade.getActEvFacade().deleteRegistration(this.Reg);
 		this.dispose();
-		this.mainFrame.changePanel(new PanelRegDetails(this.mainFrame, this.facade, this.Ev));
+		this.mainFrame.changePanel(new RegDetailsPanel(this.mainFrame, this.facade, this.Ev));
 
 	}
 

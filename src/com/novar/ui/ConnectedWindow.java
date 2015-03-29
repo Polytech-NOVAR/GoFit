@@ -154,7 +154,7 @@ public class ConnectedWindow extends JFrame
 
 				public void actionPerformed(ActionEvent arg0)
 				{
-					changePanel(new PanelActivities(frame,facade));
+					changePanel(new ActivitiesPanel(frame,facade));
 				}
 			});
 		}
@@ -252,7 +252,7 @@ public class ConnectedWindow extends JFrame
 			mntmMyregistrations.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
-					changePanel(new PanelRegistrationsMember(frame,facade));
+					changePanel(new RegistrationsMemberPanel(frame,facade));
 				}
 			});
 		}
@@ -322,7 +322,7 @@ public class ConnectedWindow extends JFrame
 		Registration reg= new RegistrationJdbc();
 
 
-		changePanel(new PanelRegistrations(frame,facade));
+		changePanel(new RegistrationsPanel(frame,facade));
 	}
 	
 	public MainFacade getFacade()

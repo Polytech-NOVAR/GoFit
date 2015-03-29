@@ -78,7 +78,7 @@ public class MyActivitiesPanel extends JPanel
 	
 	private void events(ConnectedWindow frame, Activity activity)
 	{
-		frame.changePanel(new PanelEvents(frame,frame.getFacade(),activity));
+		frame.changePanel(new EventsPanel(frame,frame.getFacade(),activity));
 
 	}
 }
