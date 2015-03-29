@@ -133,7 +133,7 @@ public abstract class Category
 	public abstract void load();
 	
 	/**
-	 * Save the category with all his attributes. The catID must be not null.
+	 * Save the category with all his attributes.
 	 */
 	public abstract void save();
 	

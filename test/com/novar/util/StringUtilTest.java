@@ -12,6 +12,11 @@ public class StringUtilTest {
 	}
 
 	@Test
+	public void testNextSessionId() {
+		fail("Not yet implemented");
+	}
+
+	@Test
 	public void testSha256() {
 		fail("Not yet implemented");
 	}
