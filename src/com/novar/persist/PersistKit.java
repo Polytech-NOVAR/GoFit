@@ -21,6 +21,10 @@ import com.novar.exception.LoginFailedException;
  * <br><br>
  * This interface is use in FacadeMain and JdbcKit implements this interface
  * @author Antoine JOERG
+ * @author Nicolas PELCE
+ * @author Othmane EL KOUAHY
+ * @author Romain GUILMET
+ * @author Valentin BERCOT-DUFLOS
  * @see MainFacade
  * @see JdbcKit
  */
@@ -129,7 +133,7 @@ public interface PersistKit
 	public UserManager makeUserManager();
 	
 	/**
-	 * This is the declaration of the method to make a RoomManager
+	 * This is the declaration of the method to make a ManagerManager
 	 * @param data of a RoomManager
 	 * @return the RoomManager
 	 */

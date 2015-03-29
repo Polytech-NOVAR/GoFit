@@ -3,6 +3,13 @@ package com.novar.business;
 import java.sql.Date;
 import java.util.ArrayList;
 
+/**
+ * This class show the Member Role
+ * <br><br>
+ * This class is use in every class which use User
+ * @author Antoine JOERG
+ * @see Role
+ */
 public class Member implements Role
 {
 	private String pseudoMember;

@@ -3,10 +3,7 @@ package com.novar.business;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
 import java.util.regex.*;
 
 import com.novar.exception.FalseFieldsException;
@@ -14,11 +11,20 @@ import com.novar.exception.InvalidEmailException;
 import com.novar.exception.LoginFailedException;
 import com.novar.exception.RegisterFailedException;
 import com.novar.exception.SyntaxException;
-import com.novar.persist.JdbcKit;
-import com.novar.persist.PersistKit;
-import com.novar.util.ConnectionUtil;
+import com.novar.persist.UserJdbc;
 import com.novar.util.StringUtil;
 
+/**
+ * This abstract class describe an user and allow us to make some checks about this one with these setters
+ * <br>
+ * This  real class use is UserJdbc
+ * @author Antoine JOERG
+ * @author Nicolas PELCE
+ * @author Othmane EL KOUAHY
+ * @author Romain GUILMET
+ * @author Valentin BERCOT-DUFLOS
+ * @see UserJdbc
+ */
 public abstract class User
 {
 	private String pseudo;
@@ -48,6 +54,11 @@ public abstract class User
 		setAll(data);
 	}
 	
+	/**
+	 * This method is an hydratate one, it allow to auto call setters with the name in key of the hashmap
+	 * @param data
+	 * @throws FalseFieldsException
+	 */
 	public void setAll(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		Class[] typeArg = new Class[1];
@@ -84,6 +95,11 @@ public abstract class User
 		return pseudo;
 	}
 	
+	/**
+	 * Method use to set a pseudo and check if is good with a regex
+	 * @param pseudo
+	 * @throws SyntaxException
+	 */
 	public void setPseudo(String pseudo) throws SyntaxException
 	{
 		Pattern pPseudo = Pattern.compile("^[a-zA-Z0-9-_]{6,51}$");
@@ -101,6 +117,11 @@ public abstract class User
 		return password;
 	}
 	
+	/**
+	 * Method use to set a password and check if is good with a regex
+	 * @param password
+	 * @throws SyntaxException
+	 */
 	public void setPassword(String password) throws SyntaxException
 	{
 		Pattern pPass = Pattern.compile("^[a-zA-Z0-9]{6,51}$");
@@ -118,6 +139,11 @@ public abstract class User
 		return lastName;
 	}
 	
+	/**
+	 * Method use to set a last name and check if is good with a regex
+	 * @param lastName
+	 * @throws SyntaxException
+	 */
 	public void setLastName(String lastName) throws SyntaxException
 	{
 		Pattern pLast = Pattern.compile("^[a-zA-Z-]{1,51}$");
@@ -136,6 +162,11 @@ public abstract class User
 		return firstName;
 	}
 	
+	/**
+	 * Method use to set a first name and check if is good with a regex
+	 * @param firstName
+	 * @throws SyntaxException
+	 */
 	public void setFirstName(String firstName) throws SyntaxException
 	{
 		Pattern pFirst = Pattern.compile("^[a-zA-Z-]{1,51}$");
@@ -153,6 +184,11 @@ public abstract class User
 		return phone;
 	}
 	
+	/**
+	 * Method use to set a phone number and check if is good with a regex
+	 * @param phone
+	 * @throws SyntaxException
+	 */
 	public void setPhone(String phone) throws SyntaxException
 	{
 		Pattern pTel = Pattern.compile("^0[0-9]{9}$");
@@ -171,6 +207,11 @@ public abstract class User
 		return email;
 	}
 	
+	/**
+	 * Method use to set an email address and check if is good with a regex
+	 * @param email
+	 * @throws SyntaxException
+	 */
 	public void setEmail(String email) throws SyntaxException
 	{
 		Pattern pEmail = Pattern.compile("^[a-zA-Z0-9._-]{1,64}@[a-zA-Z0-9-]{2,252}[.]{1}[a-zA-Z]{2,6}$");
@@ -188,6 +229,11 @@ public abstract class User
 		return street;
 	}
 	
+	/**
+	 * Method use to set a street and check if is good with a regex
+	 * @param street
+	 * @throws SyntaxException
+	 */
 	public void setStreet(String street) throws SyntaxException
 	{
 		Pattern pAddress = Pattern.compile("^[0-9]{1,3} [a-zA-Z- ]{2,48}$");
@@ -205,6 +251,11 @@ public abstract class User
 		return town;
 	}
 	
+	/**
+	 * Method use to set a town and check if is good with a regex
+	 * @param town
+	 * @throws SyntaxException
+	 */
 	public void setTown(String town) throws SyntaxException
 	{
 		Pattern pTown = Pattern.compile("^[a-zA-Z-]{2,51}$");
@@ -222,6 +273,11 @@ public abstract class User
 		return zipCode;
 	}
 	
+	/**
+	 * Method use to set a zip code and check if is good with a regex
+	 * @param zipCode
+	 * @throws SyntaxException
+	 */
 	public void setZipCode(String zipCode) throws SyntaxException
 	{
 		Pattern pZip = Pattern.compile("^[0-9]{5}$");
@@ -239,6 +295,11 @@ public abstract class User
 		return country;
 	}
 	
+	/**
+	 * Method use to set a country and check if is good with a regex
+	 * @param country
+	 * @throws SyntaxException
+	 */
 	public void setCountry(String country) throws SyntaxException
 	{
 		Pattern pCountry = Pattern.compile("^[a-zA-Z-]{2,51}$");

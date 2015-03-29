@@ -3,22 +3,26 @@ package com.novar.persist;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.novar.business.Administrator;
-import com.novar.business.Manager;
-import com.novar.business.Member;
 import com.novar.business.Planning;
 import com.novar.business.PlanningManager;
-import com.novar.business.Speaker;
-import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
 import com.novar.util.ConnectionUtil;
 
+/**
+ * This class allow us to manage users in the persistence. In a database SQL more precisely.
+ * @author Valentin BERCOT-DUFLOS
+ * @see JdbcKit
+ * @see PlanningManager
+ */
 public class PlanningManagerJdbc extends PlanningManager
 {
+	/**
+	 * Method use to load repetitive planning from database
+	 * @return an array list of plannings
+	 */
 	public ArrayList<Planning> loadPlanningsRepetitive() throws SQLException, FalseFieldsException
 	{
 		PreparedStatement selectPlanning;
@@ -55,6 +59,10 @@ public class PlanningManagerJdbc extends PlanningManager
 		return plannings;
 	}
 	
+	/**
+	 * Method use to load one time planning from database
+	 * @return an array list of plannings
+	 */
 	public ArrayList<Planning> loadPlanningsOneTime() throws SQLException, FalseFieldsException
 	{
 		PreparedStatement selectPlanning;

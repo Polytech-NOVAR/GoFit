@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.novar.exception.FalseFieldsException;
-import com.novar.exception.RegisterFailedException;
 import com.novar.persist.PersistKit;
 
 public class PlanningFacade

@@ -7,8 +7,15 @@ import java.sql.Date;
 import java.util.HashMap;
 
 import com.novar.exception.FalseFieldsException;
+import com.novar.persist.UserJdbc;
 import com.novar.util.StringUtil;
 
+/**
+ * This class describe a planning, this class is use in PlanningManager
+ * @author Valentin BERCOT-DUFLOS
+ * @see PlanningManager
+ * @see PlanningFacade
+ */
 public class Planning
 {
 	private String activity;
@@ -24,6 +31,11 @@ public class Planning
 		setAll(data);
 	}
 	
+	/**
+	 * This method is an hydratate one, it allow to auto call setters with the name in key of the hashmap
+	 * @param data
+	 * @throws FalseFieldsException
+	 */
 	public void setAll(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		Class[] typeArg = new Class[1];

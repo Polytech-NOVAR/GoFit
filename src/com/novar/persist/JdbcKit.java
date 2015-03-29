@@ -25,6 +25,10 @@ import com.novar.persist.UserJdbc;
  * <br><br>
  * This class implements PersistKit and return the specific Object persistence that you want.
  * @author Antoine JOERG
+ * @author Nicolas PELCE
+ * @author Othmane EL KOUAHY
+ * @author Romain GUILMET
+ * @author Valentin BERCOT-DUFLOS
  * @see PersistKit
  */
 public class JdbcKit implements PersistKit
@@ -167,7 +171,7 @@ public class JdbcKit implements PersistKit
 	}
 	
 	/**
-	 * This is the definition of the method to make a RoomManager
+	 * This is the definition of the method to make a ManagerManager
 	 * @param data of a RoomManager
 	 * @return the RoomManager with persistence methods
 	 */

@@ -7,18 +7,24 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.novar.business.Administrator;
-import com.novar.business.Manager;
-import com.novar.business.Member;
-import com.novar.business.Speaker;
 import com.novar.business.User;
 import com.novar.business.UsersManager;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.RegisterFailedException;
 import com.novar.util.ConnectionUtil;
 
+/**
+ * This class allow us to manage users in the persistence. In a database SQL more precisely.
+ * @author Valentin BERCOT-DUFLOS
+ * @see JdbcKit
+ * @see UsersManager
+ */
 public class UsersManagerJdbc extends UsersManager
 {
+	/**
+	 * Method use to load users from database
+	 * @return an array list of users from the database
+	 */
 	public ArrayList<User> loadUsers() throws SQLException, FalseFieldsException
 	{
 		PreparedStatement selectUsers;
@@ -47,6 +53,9 @@ public class UsersManagerJdbc extends UsersManager
 		return users;
 	}
 	
+	/**
+	 * Method use to save an user in database
+	 */
 	public void save(User user) throws SQLException, RegisterFailedException
 	{
 		PreparedStatement insert;
@@ -66,6 +75,9 @@ public class UsersManagerJdbc extends UsersManager
 		insert.executeUpdate();	
 	}
 	
+	/**
+	 * Method use to update an user in database
+	 */
 	public void update(User user) throws SQLException
 	{
 		PreparedStatement update;
@@ -93,6 +105,9 @@ public class UsersManagerJdbc extends UsersManager
 		update.executeUpdate();
 	}
 	
+	/**
+	 * Method use to delete an user in database
+	 */
 	public void delete(User user) throws SQLException
 	{
 		PreparedStatement delete;
