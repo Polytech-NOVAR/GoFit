@@ -196,6 +196,16 @@ public class ProductDetailsPanel extends JPanel {
 		});
 		add(btnCancel);
 		
+		JButton btnAskForA = new JButton("Ask for a new category");
+		springLayout.putConstraint(SpringLayout.NORTH, btnAskForA, -4, SpringLayout.NORTH, lblCategory);
+		springLayout.putConstraint(SpringLayout.WEST, btnAskForA, 24, SpringLayout.EAST, comboBoxCategory);
+		add(btnAskForA);
+		btnAskForA.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newCategory();
+			}
+		});
+		
 		
 		if(product != null)
 		{
@@ -215,8 +225,8 @@ public class ProductDetailsPanel extends JPanel {
 			
 			JButton btnUpdate = new JButton("Update");
 			springLayout.putConstraint(SpringLayout.NORTH, btnCancel, 0, SpringLayout.NORTH, btnUpdate);
+			springLayout.putConstraint(SpringLayout.NORTH, btnUpdate, 10, SpringLayout.SOUTH, lblErrorParse);
 			springLayout.putConstraint(SpringLayout.WEST, btnUpdate, 0, SpringLayout.WEST, textFieldId);
-			springLayout.putConstraint(SpringLayout.SOUTH, btnUpdate, -76, SpringLayout.SOUTH, this);
 			btnUpdate.setFont(new Font("Calibri", Font.PLAIN, 14));
 			btnUpdate.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -225,7 +235,6 @@ public class ProductDetailsPanel extends JPanel {
 			});
 			add(btnUpdate);
 		}
-		
 		else
 		{
 			JLabel lblProductDetails = new JLabel("Add a Product");
@@ -236,8 +245,8 @@ public class ProductDetailsPanel extends JPanel {
 			
 			JButton btnCreate = new JButton("Create");
 			springLayout.putConstraint(SpringLayout.NORTH, btnCancel, 0, SpringLayout.NORTH, btnCreate);
+			springLayout.putConstraint(SpringLayout.NORTH, btnCreate, 10, SpringLayout.SOUTH, lblErrorParse);
 			springLayout.putConstraint(SpringLayout.WEST, btnCreate, 0, SpringLayout.WEST, textFieldId);
-			springLayout.putConstraint(SpringLayout.SOUTH, btnCreate, -76, SpringLayout.SOUTH, this);
 			btnCreate.setFont(new Font("Calibri", Font.PLAIN, 14));
 			btnCreate.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -358,5 +367,11 @@ public class ProductDetailsPanel extends JPanel {
 	private void cancel()
 	{
 		this.mainFrame.changePanel(new ProductsPanel(this.mainFrame, this.facade));
+	}
+	
+	private void newCategory()
+	{
+		NewCategoryDialog register = new NewCategoryDialog(this.mainFrame, facade);
+		register.setVisible(true);
 	}
 }

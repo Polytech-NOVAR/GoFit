@@ -1,64 +1,20 @@
 package com.novar.ui;
 
-import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-
 import java.awt.Component;
-
-import javax.swing.JProgressBar;
-import javax.swing.JSpinner;
-
-import java.awt.Color;
-
-import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JTextPane;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.JEditorPane;
 import javax.swing.JMenuBar;
-import javax.swing.JPopupMenu;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JList;
 import javax.swing.JMenu;
-
 import com.novar.business.MainFacade;
-
 import java.awt.GridBagLayout;
-
-import javax.swing.JLabel;
-
-import java.awt.GridBagConstraints;
-import java.awt.Font;
-
 import java.awt.Toolkit;
-
-
-import javax.swing.SwingConstants;
-import javax.swing.JSeparator;
-
-import java.awt.Insets;
-
 import javax.swing.Box;
 import javax.swing.JMenuItem;
-
 import java.awt.Dimension;
-
-import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ConnectedWindow extends JFrame
 {	
