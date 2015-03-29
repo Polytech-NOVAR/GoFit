@@ -13,6 +13,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 
 import com.novar.business.MainFacade;
+import com.novar.business.Registration;
+import com.novar.persist.RegistrationJdbc;
 import com.novar.util.ConnectionUtil;
 
 import java.awt.GridBagLayout;
@@ -103,6 +105,9 @@ public class ConnectedWindow extends JFrame
 			JMenuItem mntmUsers = new JMenuItem("Users");
 			mnAdministrator.add(mntmUsers);
 			
+			JMenuItem mntmActivities= new JMenuItem("Activities");
+			mnAdministrator.add(mntmActivities);
+			
 			mntmCategories.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
@@ -144,6 +149,14 @@ public class ConnectedWindow extends JFrame
 					changePanel(new UsersPanel(frame));
 				}
 			});
+			
+			mntmActivities.addActionListener(new ActionListener(){
+
+				public void actionPerformed(ActionEvent arg0)
+				{
+					changePanel(new PanelActivities(frame,facade));
+				}
+			});
 		}
 		
 		if(facade.getUser().isManager())
@@ -167,6 +180,16 @@ public class ConnectedWindow extends JFrame
 				public void actionPerformed(ActionEvent arg0) 
 				{
 					changePanel(new SpeakerPanel(frame, facade));
+				}
+			});
+			
+			JMenuItem mntmRegistrations = new JMenuItem("Registrations");
+			mnManager.add(mntmRegistrations);
+
+			mntmRegistrations.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) 
+				{ 	
+					seeMore();
 				}
 			});
 			
@@ -211,6 +234,16 @@ public class ConnectedWindow extends JFrame
 				public void actionPerformed(ActionEvent arg0) 
 				{
 					changePanel(new PlanningPanel(frame));
+				}
+			});
+			
+			JMenuItem mntmMyregistrations = new JMenuItem("My Registration");
+			mnMember.add(mntmMyregistrations);
+
+			mntmMyregistrations.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) 
+				{
+					changePanel(new PanelRegistrationsMember(frame,facade));
 				}
 			});
 		}
@@ -273,6 +306,14 @@ public class ConnectedWindow extends JFrame
 	
 	private void closeWindow(){
 		dispose();
+	}
+	
+	public void seeMore()
+	{
+		Registration reg= new RegistrationJdbc();
+
+
+		changePanel(new PanelRegistrations(frame,facade));
 	}
 	
 	public MainFacade getFacade()

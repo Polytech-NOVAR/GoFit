@@ -5,12 +5,15 @@ import java.util.HashMap;
 
 import com.novar.business.Accessory;
 import com.novar.business.AccessoryManager;
+import com.novar.business.ActivityManager;
+import com.novar.business.EventManager;
 import com.novar.business.ManagerManager;
 import com.novar.business.Basket;
 import com.novar.business.BasketLine;
 import com.novar.business.Notification;
 import com.novar.business.NotificationManager;
 import com.novar.business.NotifyTo;
+import com.novar.business.RegistrationManager;
 import com.novar.business.Room;
 import com.novar.business.RoomManager;
 import com.novar.business.CategoryManager;
@@ -222,5 +225,53 @@ public class JdbcKit implements PersistKit
 	public BasketLine makeBasketLine(Product product, Basket basket, Integer quantity) 
 	{
 		return new BasketLineJdbc(product, basket, quantity);
+	}
+	
+	/**
+	 * This is the definition of the method to make an activity manager
+	 * @return the activity manager
+	 */
+	public ActivityManager makeActivityManager()
+	{
+		return new ActivityManagerJDBC();
+	}
+	
+	/**
+	 * This is the definition of the method to make a activity
+	 * @param data of a activity
+	 * @return the accessory with persistence methods
+	 * @throws FalseFieldsException
+	 */
+	public ActivityJdbc makeActivity(HashMap<String,Object> data) throws FalseFieldsException
+	{
+		return new ActivityJdbc(data);
+	}
+	
+	/**
+	 * This is the definition of the method to make an event manager
+	 * @return the event manager
+	 */
+	public EventManager makeEventManager()
+	{
+		return new EventManagerJdbc();
+	}
+	
+	public RegistrationJdbc makeRegistration(HashMap<String,Object> data) throws FalseFieldsException
+	{
+		return new RegistrationJdbc(data);
+	}
+
+	public RegistrationJdbc makeRegistrationMember(HashMap<String,Object> data) throws FalseFieldsException
+	{
+		return new RegistrationJdbc(data);
+	}
+
+	public RegistrationManager makeRegistrationManager()
+	{
+		return new RegistrationManagerJdbc();
+	}
+	public EventJdbc makeEvent(HashMap<String,Object> data) throws FalseFieldsException
+	{
+		return new EventJdbc(data);
 	}
 }

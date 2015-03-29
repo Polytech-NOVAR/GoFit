@@ -160,4 +160,40 @@ public interface PersistKit
 	 * @return the manager
 	 */
 	public BasketLine makeBasketLine(Product product, Basket basket, Integer quantity);
+	
+	/**
+	 * This is the declaration of the method to make an activity
+	 * @param data of an activity
+	 * @return the accessory
+	 * @throws FalseFieldsException
+	 */
+	public Activity makeActivity(HashMap<String,Object> data) throws FalseFieldsException;
+	
+	/**
+	 * This is the declaration of the method to make a ActivityManager
+	 * @param data of a ActivityManager
+	 * @return the ActivityManager
+	 */
+	public ActivityManager makeActivityManager();
+	
+	/**
+	 * This is the declaration of the method to make an EventManager
+	 * @param data of a ActivityManager
+	 * @return the ActivityManager
+	 */
+	public EventManager makeEventManager();
+	
+	/**
+	 * This is the declaration of the method to make an Event
+	 * @param data of an activity
+	 * @return the accessory
+	 * @throws FalseFieldsException
+	 */
+	public Event makeEvent(HashMap<String,Object> data) throws FalseFieldsException;
+
+	public Registration makeRegistration(HashMap<String, Object> mapReg) throws FalseFieldsException;
+	
+	public RegistrationManager makeRegistrationManager();
+
+	public Registration makeRegistrationMember(HashMap<String, Object> mapReg) throws FalseFieldsException;
 }

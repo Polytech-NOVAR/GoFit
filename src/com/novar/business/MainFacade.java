@@ -39,7 +39,7 @@ public class MainFacade
 	private UsersFacade usersFacade;
 	private PlanningFacade planningFacade;
 	private BasketFacade basketFacade = null;
-
+	private ActivityEventFacade ActEvFacade;
 	
 	public MainFacade(PersistKit kit)
 	{
@@ -55,7 +55,7 @@ public class MainFacade
 		usersFacade = new UsersFacade(kit);
 		planningFacade = new PlanningFacade(kit);
 		basketFacade = new BasketFacade(kit);
-
+		this.ActEvFacade= new ActivityEventFacade(kit);
 	}
 	
 	// Get User
@@ -109,6 +109,11 @@ public class MainFacade
 	public BasketFacade getBasketFacade()
 	{
 		return basketFacade;
+	}
+	
+	public ActivityEventFacade getActEvFacade()
+	{
+		return this.ActEvFacade;
 	}
 
 	// Disconnected methods
