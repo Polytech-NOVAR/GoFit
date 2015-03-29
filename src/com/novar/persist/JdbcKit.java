@@ -6,6 +6,8 @@ import java.util.HashMap;
 import com.novar.business.Accessory;
 import com.novar.business.AccessoryManager;
 import com.novar.business.ManagerManager;
+import com.novar.business.Basket;
+import com.novar.business.BasketLine;
 import com.novar.business.Notification;
 import com.novar.business.NotificationManager;
 import com.novar.business.NotifyTo;
@@ -184,6 +186,7 @@ public class JdbcKit implements PersistKit
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * This is the definition of the method to make a users manager
 	 * @param data of a user
 	 * @return the users manager with persistence methods
@@ -201,5 +204,19 @@ public class JdbcKit implements PersistKit
 	public PlanningManagerJdbc makePlanningManager()
 	{
 		return new PlanningManagerJdbc();
+	}
+	/**
+	 * This is the definition of the method to make a ProductManager
+	 * @return the manager
+	 */
+	public ProductManagerJdbc makeProductManager() 
+	{
+		return new ProductManagerJdbc();
+	}
+
+	
+	public BasketLine makeBasketLine(Product product, Basket basket, Integer quantity) 
+	{
+		return new BasketLineJdbc(product, basket, quantity);
 	}
 }

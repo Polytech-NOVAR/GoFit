@@ -4,13 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.novar.business.*;
-
-import com.novar.business.CategoryManager;
-import com.novar.business.MainCategory;
-import com.novar.business.Product;
-import com.novar.business.SubCategory;
-import com.novar.business.User;
-
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
 
@@ -151,4 +144,16 @@ public interface PersistKit
 	 * @return the manager
 	 */
 	public PlanningManager makePlanningManager();
+	
+	/**
+	 * This is the declaration of the method to make a ProductManager
+	 * @return the manager
+	 */
+	public ProductManager makeProductManager();
+	
+	/**
+	 * This is the declaration of the method to make a BasketLine
+	 * @return the manager
+	 */
+	public BasketLine makeBasketLine(Product product, Basket basket, Integer quantity);
 }

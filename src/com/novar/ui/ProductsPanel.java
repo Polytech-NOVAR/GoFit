@@ -31,11 +31,7 @@ public class ProductsPanel extends JPanel
 		this.facade = facade;
 		this.mainFrame = frame;
 		products = facade.getUserProducts();
-		reload();
-	}
 	
-	public void reload()
-	{
 		SpringLayout springLayout = new SpringLayout();
 		setLayout(springLayout);
 		
@@ -151,7 +147,8 @@ public class ProductsPanel extends JPanel
 			});
 			add(btnDelete);
 		}
-		setPreferredSize(new Dimension(980, products.size()*60));
+		
+		setPreferredSize(new Dimension(980, products.size()*54));
 	}
 	
 	private void seeMore(Product room){

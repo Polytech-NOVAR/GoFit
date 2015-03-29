@@ -15,7 +15,7 @@ public class ProductFacade
 	
 	private PersistKit kit = null;
 
-	//private ProductManager manager;
+	private ProductManager manager;
 	
 	/**
 	 * Construct a ProductFacade with the right persistKit and instantiate the manager.
@@ -24,6 +24,7 @@ public class ProductFacade
 	public ProductFacade(PersistKit kit)
 	{
 		this.kit = kit;
+		manager = kit.makeProductManager();
 	}
 	
 	/**
@@ -58,4 +59,49 @@ public class ProductFacade
 		p.update();
 	}
 	
+	
+	/**
+	 * @return the list of all the products.
+	 */
+	public ArrayList<Product> getAllProducts()
+	{
+		return manager.getAllProducts();
+	}
+	
+	
+	/**
+	 * @param string 
+	 * @return the list of the products corresponding to the string
+	 */
+	public ArrayList<Product> getProducts(String string)
+	{
+		return manager.getProducts(string);
+	}
+	
+	/**
+	 * @param category 
+	 * @return the list of the products belonging to the category
+	 */
+	public ArrayList<Product> getProducts(Category category)
+	{
+		return manager.getProducts(category);
+	}
+
+	/**
+	 * @param category
+	 * @param string 
+	 * @return the list of the products belonging to the category and related to the string
+	 */
+	public  ArrayList<Product> getProducts(Category category, String string)
+	{
+		return manager.getProducts(category, string);
+	}
+
+	public void addToBasket(Product producti, User user) 
+	{
+		user.loadBasket();
+		BasketLine basketLine = kit.makeBasketLine(producti, user.getBasket(), 1);
+		basketLine.save();
+	}
+
 }

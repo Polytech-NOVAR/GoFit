@@ -38,6 +38,8 @@ public abstract class User
 	private Speaker speaker = null;
 	private Member member = null;
 	
+	private Basket basket = null;
+
 	public User()
 	{
 		
@@ -86,7 +88,7 @@ public abstract class User
 	
 	public void setPseudo(String pseudo) throws SyntaxException
 	{
-		Pattern pPseudo = Pattern.compile("^[a-zA-Z0-9-_]{6,51}$");
+		Pattern pPseudo = Pattern.compile("^[a-zA-Z0-9-_]{5,51}$");
 		Matcher mPseudo = pPseudo.matcher(pseudo);
 		if(mPseudo.matches())
 		{
@@ -339,6 +341,14 @@ public abstract class User
 		}
 	}
 	
+	public Basket getBasket() {
+		return basket;
+	}
+
+	public void setBasket(Basket basket) {
+		this.basket = basket;
+	}
+
 	public String toString()
 	{
 		String result = new String();
@@ -365,8 +375,10 @@ public abstract class User
 	public abstract void load() throws LoginFailedException;
 	public abstract void loadAdmin();
 	public abstract void save() throws RegisterFailedException;
+	public abstract void loadInfo();
 	public abstract void loadRoles();
 	public abstract void loadProducts();
+	public abstract void loadBasket();
 	public abstract void updateForgottenPassword() throws InvalidEmailException;
 	public abstract void updateProfile() throws SQLException;
 	public abstract void updatePassword() throws SQLException;

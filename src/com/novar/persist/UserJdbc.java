@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.novar.business.Administrator;
+import com.novar.business.Basket;
 import com.novar.business.Manager;
 import com.novar.business.Product;
 import com.novar.business.Speaker;
@@ -293,10 +294,11 @@ public class UserJdbc extends User
 				selectProducts.setObject(1, getPseudo(), Types.VARCHAR);
 				ResultSet resProducts = selectProducts.executeQuery();
 				ArrayList<Product> products = new ArrayList<Product>();
+				
+				HashMap<String,Object> mapProduct = new HashMap<String,Object>();
 				while(resProducts.next())
 				{
-					
-					HashMap<String,Object> mapProduct = new HashMap<String,Object>();
+
 					mapProduct.put("ProductID", resProducts.getInt("ProductID"));
 					Product prod = new ProductJdbc(mapProduct);
 					prod.load();
@@ -310,6 +312,83 @@ public class UserJdbc extends User
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+	}
+
+	@Override
+	public void loadInfo() 
+	{
+		PreparedStatement selectUser;
+		try 
+		{
+			selectUser = ConnectionUtil.connection.prepareStatement("SELECT * "
+					+ "FROM User "
+					+ "WHERE pseudo = ? ");
+
+			selectUser.setObject(1, getPseudo(), Types.VARCHAR);
+			ResultSet res = selectUser.executeQuery();
+			res.last();
+			try 
+			{
+				setEmail(res.getString("email"));
+				setFirstName(res.getString("firstName"));
+				setLastName(res.getString("lastName"));
+				setPhone(res.getString("phone"));
+				setStreet(res.getString("street"));
+				setTown(res.getString("town"));
+				setZipCode(res.getString("zipCode"));
+				setCountry(res.getString("country"));
+			} 
+			catch (SyntaxException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			loadRoles();	
+		}
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void loadBasket() 
+	{
+		PreparedStatement selectBasket;
+		PreparedStatement insertBasket;
+		try 
+		{
+			selectBasket = ConnectionUtil.connection.prepareStatement("SELECT * "
+					+ "FROM User u, Basket b "
+					+ "WHERE u.pseudo = b.pseudo "
+					+ "AND b.state = true "
+					+ "AND u.pseudo = ? ;");
+			
+			selectBasket.setObject(1, getPseudo(), Types.VARCHAR);
+			ResultSet res = selectBasket.executeQuery();
+			
+			res.last();
+			if(res.getRow() == 0)
+			{
+				Basket basket = new BasketJdbc();
+				basket.setUser(this);
+				basket.save();
+	            this.setBasket(basket);
+			}
+			else
+			{
+				Basket basket = new BasketJdbc();
+				basket.setBasketID(res.getInt("basketID"));
+				this.setBasket(basket);
+			}
+		}
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

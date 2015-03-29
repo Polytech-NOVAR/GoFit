@@ -68,7 +68,7 @@ public class ConnectedWindow extends JFrame
 		mnShop.setMaximumSize(new Dimension(1, 32767));
 		mnShop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changePanel(new ShopPanel());
+				changePanel(new ShopPanel(frame,facade));
 			}
 		});
 		menuBar.add(mnShop);
@@ -222,6 +222,11 @@ public class ConnectedWindow extends JFrame
 		menuBar.add(mnNotification);
 		
 		JMenuItem mnBasket = new JMenuItem("Basket");
+		mnBasket.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				changePanel(new BasketPanel(frame, facade));
+			}
+		});
 		mnBasket.setMaximumSize(new Dimension(1, 32767));
 		menuBar.add(mnBasket);
 		

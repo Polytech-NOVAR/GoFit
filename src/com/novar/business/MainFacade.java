@@ -25,6 +25,8 @@ public class MainFacade
 	private CategoryFacade categoryFacade = null;
 	private UsersFacade usersFacade;
 	private PlanningFacade planningFacade;
+	private BasketFacade basketFacade = null;
+
 	
 	public MainFacade(PersistKit kit)
 	{
@@ -41,6 +43,8 @@ public class MainFacade
 		categoryFacade = new CategoryFacade(kit);
 		usersFacade = new UsersFacade(kit);
 		planningFacade = new PlanningFacade(kit);
+		basketFacade = new BasketFacade(kit);
+
 	}
 	
 	public User getUser()
@@ -76,6 +80,11 @@ public class MainFacade
 	public PlanningFacade getPlanningFacade()
 	{
 		return planningFacade;
+	}
+	
+	public BasketFacade getBasketFacade()
+	{
+		return basketFacade;
 	}
 
 	// Disconnected methods
@@ -138,5 +147,12 @@ public class MainFacade
 	public ManagerFacade getManagerFacade()
 	{
 		return this.managerFacade;
+	}
+
+	public Basket getBasket()
+	{
+		theUser.loadBasket();
+		theUser.getBasket().load();
+		return theUser.getBasket();
 	}
 }

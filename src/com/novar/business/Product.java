@@ -53,6 +53,11 @@ public abstract class Product
 	 */
 	private User user;
 	
+	public Product()
+	{
+	
+	}
+	
 	/**
 	 * Create a Product whit data of the hashmap. The number of data of the hashmap is not fixed. 
 	 * For each couple (key, value) the right setter is called.
@@ -209,7 +214,7 @@ public abstract class Product
 	public abstract void load();
 	
 	/**
-	 * Save the product with all his attributes. The productID must be not null.
+	 * Save the product with all his attributes.
 	 */
 	public abstract void save();
 	
@@ -222,7 +227,5 @@ public abstract class Product
 	 * Delete the product with. The productID must be not null.
 	 */
 	public abstract void delete();
-
-
 
 }
