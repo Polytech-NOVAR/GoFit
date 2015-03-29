@@ -28,6 +28,15 @@ public class SpeakerDetailsPanel extends JPanel {
 	private User user = null;
 
 	private JTextField textFieldName;
+	private JTextField txtFirstName;
+	private JTextField txtLastName;
+	private JTextField txtPhone;
+	private JTextField txtEmail;
+	private JTextField txtStreet;
+	private JTextField txtTown;
+	private JTextField txtZipCode;
+	private JTextField txtCountry;
+	
 	
 	/**
 	 * Create the panel.
@@ -51,25 +60,119 @@ public class SpeakerDetailsPanel extends JPanel {
 		lblName.setFont(new Font("Calibri", Font.PLAIN, 12));
 		add(lblName);
 		
+		JLabel lblFirstName = new JLabel("FName :");
+		springLayout.putConstraint(SpringLayout.NORTH, lblFirstName, 45, SpringLayout.NORTH, lblName);
+		springLayout.putConstraint(SpringLayout.WEST, lblFirstName, mainFrame.getWidth()/3, SpringLayout.WEST, this);
+		lblFirstName.setFont(new Font("Calibri", Font.PLAIN, 12));
+		add(lblFirstName);
+		
+		JLabel lblLastName = new JLabel("LName :");
+		springLayout.putConstraint(SpringLayout.NORTH, lblLastName, 30, SpringLayout.SOUTH, lblFirstName);
+		springLayout.putConstraint(SpringLayout.WEST, lblLastName, mainFrame.getWidth()/3, SpringLayout.WEST, this);
+		lblLastName.setFont(new Font("Calibri", Font.PLAIN, 12));
+		add(lblLastName);
+		
+		JLabel lblPhone = new JLabel("Phone :");
+		springLayout.putConstraint(SpringLayout.NORTH, lblPhone, 30, SpringLayout.SOUTH, lblLastName);
+		springLayout.putConstraint(SpringLayout.WEST, lblPhone, mainFrame.getWidth()/3, SpringLayout.WEST, this);
+		lblPhone.setFont(new Font("Calibri", Font.PLAIN, 12));
+		add(lblPhone);
+		
+		JLabel lblEmail = new JLabel("Email :");
+		springLayout.putConstraint(SpringLayout.NORTH, lblEmail, 30, SpringLayout.SOUTH, lblPhone);
+		springLayout.putConstraint(SpringLayout.WEST, lblEmail, mainFrame.getWidth()/3, SpringLayout.WEST, this);
+		lblEmail.setFont(new Font("Calibri", Font.PLAIN, 12));
+		add(lblEmail);
+		
+		JLabel lblStreet = new JLabel("Street :");
+		springLayout.putConstraint(SpringLayout.NORTH, lblStreet, 30, SpringLayout.SOUTH, lblEmail);
+		springLayout.putConstraint(SpringLayout.WEST, lblStreet, mainFrame.getWidth()/3, SpringLayout.WEST, this);
+		lblStreet.setFont(new Font("Calibri", Font.PLAIN, 12));
+		add(lblStreet);
+		
+		JLabel lblTown = new JLabel("Town :");
+		springLayout.putConstraint(SpringLayout.NORTH, lblTown, 30, SpringLayout.SOUTH, lblStreet);
+		springLayout.putConstraint(SpringLayout.WEST, lblTown, mainFrame.getWidth()/3, SpringLayout.WEST, this);
+		lblTown.setFont(new Font("Calibri", Font.PLAIN, 12));
+		add(lblTown);
+		
+		JLabel lblZipCode = new JLabel("ZCode :");
+		springLayout.putConstraint(SpringLayout.NORTH, lblZipCode, 30, SpringLayout.SOUTH, lblTown);
+		springLayout.putConstraint(SpringLayout.WEST, lblZipCode, mainFrame.getWidth()/3, SpringLayout.WEST, this);
+		lblZipCode.setFont(new Font("Calibri", Font.PLAIN, 12));
+		add(lblZipCode);
+		
+		JLabel lblCountry = new JLabel("Country :");
+		springLayout.putConstraint(SpringLayout.NORTH, lblCountry, 30, SpringLayout.SOUTH, lblZipCode);
+		springLayout.putConstraint(SpringLayout.WEST, lblCountry, mainFrame.getWidth()/3, SpringLayout.WEST, this);
+		lblCountry.setFont(new Font("Calibri", Font.PLAIN, 12));
+		add(lblCountry);
+		
 		textFieldName = new JTextField();
 		springLayout.putConstraint(SpringLayout.NORTH, textFieldName, 0, SpringLayout.NORTH, lblName);
-		springLayout.putConstraint(SpringLayout.WEST, textFieldName, 6, SpringLayout.EAST, lblName);
+		springLayout.putConstraint(SpringLayout.WEST, textFieldName, 20, SpringLayout.EAST, lblName);
 		add(textFieldName);
 		textFieldName.setColumns(10);
+		
+		txtFirstName = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, txtFirstName, 0, SpringLayout.NORTH, lblFirstName);
+		springLayout.putConstraint(SpringLayout.WEST, txtFirstName, 21, SpringLayout.EAST, lblFirstName);
+		add(txtFirstName);
+		txtFirstName.setColumns(10);
+		
+		txtLastName = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, txtLastName, 0, SpringLayout.NORTH, lblLastName);
+		springLayout.putConstraint(SpringLayout.WEST, txtLastName, 22, SpringLayout.EAST, lblLastName);
+		add(txtLastName);
+		txtLastName.setColumns(10);
+		
+		txtPhone = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, txtPhone, 0, SpringLayout.NORTH, lblPhone);
+		springLayout.putConstraint(SpringLayout.WEST, txtPhone, 25, SpringLayout.EAST, lblPhone);
+		add(txtPhone);
+		txtPhone.setColumns(10);
+		
+		txtEmail = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, txtEmail, 0, SpringLayout.NORTH, lblEmail);
+		springLayout.putConstraint(SpringLayout.WEST, txtEmail, 25, SpringLayout.EAST, lblEmail);
+		add(txtEmail);
+		txtEmail.setColumns(10);
+		
+		txtStreet = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, txtStreet, 0, SpringLayout.NORTH, lblStreet);
+		springLayout.putConstraint(SpringLayout.WEST, txtStreet, 25, SpringLayout.EAST, lblStreet);
+		add(txtStreet);
+		txtStreet.setColumns(10);
+		
+		txtTown = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, txtTown, 0, SpringLayout.NORTH, lblTown);
+		springLayout.putConstraint(SpringLayout.WEST, txtTown, 26, SpringLayout.EAST, lblTown);
+		add(txtTown);
+		txtTown.setColumns(10);
+		
+		txtZipCode = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, txtZipCode, 0, SpringLayout.NORTH, lblZipCode);
+		springLayout.putConstraint(SpringLayout.WEST, txtZipCode, 20, SpringLayout.EAST, lblZipCode);
+		add(txtZipCode);
+		txtZipCode.setColumns(10);
+		
+		txtCountry = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, txtCountry, 0, SpringLayout.NORTH, lblCountry);
+		springLayout.putConstraint(SpringLayout.WEST, txtCountry, 18, SpringLayout.EAST, lblCountry);
+		add(txtCountry);
+		txtCountry.setColumns(10);
 		
 		if(user != null)
 		{
 			textFieldName.setText(user.getPseudo());
-			JButton btnUpdate = new JButton("Update");
-			springLayout.putConstraint(SpringLayout.NORTH, btnUpdate, 30, SpringLayout.NORTH, this);
-			springLayout.putConstraint(SpringLayout.EAST, btnUpdate, -80, SpringLayout.EAST, this);
-			btnUpdate.setFont(new Font("Calibri", Font.PLAIN, 14));
-			btnUpdate.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					/*update();*/
-				}
-			});
-			add(btnUpdate);
+			txtFirstName.setText(user.getFirstName());
+			txtLastName.setText(user.getLastName());
+			txtPhone.setText(user.getPhone());
+			txtEmail.setText(user.getEmail());
+			txtStreet.setText(user.getStreet());
+			txtTown.setText(user.getTown());
+			txtZipCode.setText(user.getZipCode());
+			txtCountry.setText(user.getCountry());
 		}
 		else
 		{
@@ -110,11 +213,6 @@ public class SpeakerDetailsPanel extends JPanel {
 		this.mainFrame.changePanel(new SpeakerPanel(this.mainFrame, this.facade));
 	}
 	
-	/*private void update()
-	{
-		this.mainFrame.changePanel(new UpdateProfilePanel(this.mainFrame));;
-	}
-	*/
 	private void cancel()
 	{
 		this.mainFrame.changePanel(new SpeakerPanel(this.mainFrame, this.facade));
