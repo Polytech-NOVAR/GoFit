@@ -100,7 +100,7 @@ public class PanelActivities extends JPanel {
 			btnEvents.setFont(new Font("Calibri", Font.PLAIN, 12));
 			btnEvents.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					Events(act);
+					events(act);
 				}
 			});
 			add(btnEvents);
@@ -115,7 +115,7 @@ public class PanelActivities extends JPanel {
 		this.mainFrame.changePanel(new PanelActDetails(this.mainFrame, this.facade, null));
 	}
 
-	private void Events(Activity act)
+	private void events(Activity act)
 	{
 		this.mainFrame.changePanel(new PanelEvents(this.mainFrame,this.facade,act));
 

@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 import com.novar.business.Planning;
 import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
+import com.toedter.calendar.JDateChooser;
 
 public class PlanningPanel extends JPanel
 {
@@ -108,11 +109,11 @@ public class PlanningPanel extends JPanel
 			springLayout.putConstraint(SpringLayout.WEST, lblRoomDynamic, 0, SpringLayout.WEST, lblRoomOneTime);
 			add(lblRoomDynamic);
 			
-			JLabel lblDateDynamic = new JLabel("");
-			lblDateDynamic.setText("TODO");
-			springLayout.putConstraint(SpringLayout.NORTH, lblDateDynamic, position, SpringLayout.SOUTH, lblDateOneTime);
-			springLayout.putConstraint(SpringLayout.WEST, lblDateDynamic, 0, SpringLayout.WEST, lblDateOneTime);
-			add(lblDateDynamic);
+			JDateChooser dtDateDynamic = new JDateChooser(planning.getDate());
+			dtDateDynamic.setEnabled(false);
+			springLayout.putConstraint(SpringLayout.NORTH, dtDateDynamic, position, SpringLayout.SOUTH, lblDateOneTime);
+			springLayout.putConstraint(SpringLayout.WEST, dtDateDynamic, 0, SpringLayout.WEST, lblDateOneTime);
+			add(dtDateDynamic);
 		}
 		
 		position += 150;
@@ -204,11 +205,11 @@ public class PlanningPanel extends JPanel
 			springLayout.putConstraint(SpringLayout.WEST, lblEventDynamic, 0, SpringLayout.WEST, lblEventRepetitive);
 			add(lblEventDynamic);
 			
-			JLabel lblDateDynamic = new JLabel("");
-			lblDateDynamic.setText("TODO");
-			springLayout.putConstraint(SpringLayout.NORTH, lblDateDynamic, position, SpringLayout.SOUTH, lblDateRepetitive);
-			springLayout.putConstraint(SpringLayout.WEST, lblDateDynamic, 0, SpringLayout.WEST, lblDateRepetitive);
-			add(lblDateDynamic);
+			JDateChooser dtDateDynamic = new JDateChooser(planning.getDate());
+			dtDateDynamic.setEnabled(false);
+			springLayout.putConstraint(SpringLayout.NORTH, dtDateDynamic, position, SpringLayout.SOUTH, lblDateRepetitive);
+			springLayout.putConstraint(SpringLayout.WEST, dtDateDynamic, 0, SpringLayout.WEST, lblDateRepetitive);
+			add(dtDateDynamic);
 			
 			JLabel lblFrequencyDynamic = new JLabel("");
 			lblFrequencyDynamic.setText(planning.getFrequency());

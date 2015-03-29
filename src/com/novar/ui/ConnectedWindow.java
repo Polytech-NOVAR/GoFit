@@ -193,6 +193,15 @@ public class ConnectedWindow extends JFrame
 				}
 			});
 			
+			JMenuItem mntmMyActivities = new JMenuItem("MyActivities");
+			mnManager.add(mntmMyActivities);
+
+			mntmMyActivities.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) 
+				{ 	
+					changePanel(new MyActivitiesPanel(frame));
+				}
+			});
 		}
 		
 		if(facade.getUser().isSpeaker())
