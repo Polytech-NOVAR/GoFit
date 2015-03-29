@@ -92,18 +92,6 @@ public class PanelActivities extends JPanel {
 				}
 			});
 			add(btnDelete);
-
-
-			JButton btnEvents = new JButton("Events");
-			springLayout.putConstraint(SpringLayout.NORTH, btnEvents,(int)(90*multiplier), SpringLayout.NORTH, this);
-			springLayout.putConstraint(SpringLayout.WEST, btnEvents, 40, SpringLayout.WEST, btnDelete);
-			btnEvents.setFont(new Font("Calibri", Font.PLAIN, 12));
-			btnEvents.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					events(act);
-				}
-			});
-			add(btnEvents);
 		}
 	}
 
@@ -113,12 +101,6 @@ public class PanelActivities extends JPanel {
 
 	private void addOne(){
 		this.mainFrame.changePanel(new PanelActDetails(this.mainFrame, this.facade, null));
-	}
-
-	private void events(Activity act)
-	{
-		this.mainFrame.changePanel(new PanelEvents(this.mainFrame,this.facade,act));
-
 	}
 
 	private void delete(Activity act)
