@@ -5,11 +5,19 @@ import java.util.ArrayList;
 
 import com.novar.persist.PersistKit;
 
+/**
+ * This class is an abstract class used to make an AdminFacade
+ * @author PELCE Nicolas
+ */
 public class AdminFacade {
 
 
 	private PersistKit kit = null;
 	
+	/**
+	 * Construct a AdminFacade with the right persistKit and instantiate the manager.
+	 * @param kit persistence engine
+	 */
 	public AdminFacade (PersistKit kit)
 	{
 		this.kit = kit;

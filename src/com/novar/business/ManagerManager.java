@@ -1,3 +1,8 @@
+/**
+ * This class is an abstract class used to make a ManagerManager
+ * @author PELCE Nicolas
+ */
+
 package com.novar.business;
 
 import java.sql.SQLException;
