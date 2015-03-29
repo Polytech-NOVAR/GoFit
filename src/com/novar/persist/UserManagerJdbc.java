@@ -39,6 +39,7 @@ public class UserManagerJdbc extends UserManager {
 	/**
 	 * Load all the Users from the DB
 	 * @return an ArrayList of Users
+	 * @param a User
 	 */
 	public ArrayList<User> getAllUsers(User admin) {
 		PreparedStatement selectuser;
@@ -78,6 +79,7 @@ public class UserManagerJdbc extends UserManager {
 	/**
 	 * Load all the Admin from the DB
 	 * @return an ArrayList of User
+	 * @param a User
 	 */
 	public ArrayList<User> getAllAdmin(User admin) {
 		PreparedStatement selectadmin;
@@ -116,6 +118,7 @@ public class UserManagerJdbc extends UserManager {
 	/**
 	 * Load all the Managers from the DB
 	 * @return an ArrayList of Users
+	 * @param a User
 	 */
 	public ArrayList<User> getAllManager(User admin) {
 		PreparedStatement selectmanager;
@@ -153,6 +156,7 @@ public class UserManagerJdbc extends UserManager {
 	/**
 	 * Load all the Members from the DB
 	 * @return an ArrayList of Users
+	 * @param a User
 	 */
 	public ArrayList<User> getAllMember(User admin) {
 		PreparedStatement selectmember;
@@ -190,6 +194,7 @@ public class UserManagerJdbc extends UserManager {
 	
 	/**
 	 * Fix the role of Admin for an User
+	 * @param a User
 	 * 
 	 */
 	
@@ -210,6 +215,7 @@ public class UserManagerJdbc extends UserManager {
 	
 	/**
 	 * Fix the role of Manager for an User
+	 * @param a User
 	 * 
 	 */
 	
@@ -230,6 +236,7 @@ public class UserManagerJdbc extends UserManager {
 	
 	/**
 	 * Fix the role of Member for an User
+	 * @param a User
 	 * 
 	 */
 	
@@ -257,6 +264,7 @@ public class UserManagerJdbc extends UserManager {
 	
 	/**
 	 * Delete the role of Admin for an User
+	 * @param a User
 	 * 
 	 */
 	
@@ -271,6 +279,7 @@ public class UserManagerJdbc extends UserManager {
 	
 	/**
 	 * Delete the role of Manager for an User
+	 * @param a User
 	 * 
 	 */
 	
@@ -285,6 +294,7 @@ public class UserManagerJdbc extends UserManager {
 	
 	/**
 	 * Delete the role of Member for an User
+	 * @param a User
 	 * 
 	 */
 	

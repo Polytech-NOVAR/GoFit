@@ -8,6 +8,9 @@ package com.novar.exception;
 public class InvalidEmailException extends Exception {
 
 
+	/**
+	 * Display the error Adresse invalide
+	 */
 	public InvalidEmailException()
 	{
 		super("Adresse invalide.");

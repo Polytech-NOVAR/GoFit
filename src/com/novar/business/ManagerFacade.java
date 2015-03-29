@@ -23,7 +23,9 @@ public class ManagerFacade {
 	}
 	
 	/**
-	 * Take all Speaker
+	 * This is the implementation of the method to getAllSpeaker
+	 * @param a User
+	 * @return an ArrayList of Users
 	 */
 	public  ArrayList<User> getAllSpeaker(User speaker)
 	{
@@ -33,6 +35,7 @@ public class ManagerFacade {
 	
 	/**
 	 * Give the Speaker's role
+	 * @param a User
 	 */
 	public  void setSpeaker(User speaker)
 	{
@@ -42,6 +45,7 @@ public class ManagerFacade {
 		
 	/**
 	 * Delete the Speaker's role
+	 * @param a User
 	 */
 	public void deleteSpeaker(User speaker) throws SQLException
 	{
