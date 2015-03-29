@@ -15,6 +15,8 @@ public abstract class ManagerManager {
 	{
 			
 	}
+	
+	
 	public abstract ArrayList<User> getAllSpeaker(User admin);
 		
 	public abstract void setSpeaker(User speaker);
