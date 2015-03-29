@@ -8,7 +8,7 @@ import com.novar.exception.RegisterFailedException;
 
 public abstract class UsersManager
 {
-	public abstract ArrayList<User> getAllUsers() throws SQLException, FalseFieldsException;
+	public abstract ArrayList<User>loadUsers() throws SQLException, FalseFieldsException;
 	public abstract void save(User user) throws SQLException, RegisterFailedException;
 	public abstract void update(User user) throws SQLException;
 	public abstract void delete(User user) throws SQLException;

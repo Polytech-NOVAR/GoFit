@@ -21,6 +21,7 @@ public class MainFacade
 	private ProductFacade productFacade = null;
 	private CategoryFacade categoryFacade = null;
 	private UsersFacade usersFacade;
+	private PlanningFacade planningFacade;
 	
 	public MainFacade(PersistKit kit)
 	{
@@ -30,6 +31,7 @@ public class MainFacade
 		productFacade = new ProductFacade(kit);
 		categoryFacade = new CategoryFacade(kit);
 		usersFacade = new UsersFacade(kit);
+		planningFacade = new PlanningFacade(kit);
 	}
 	
 	public User getUser()
@@ -57,9 +59,14 @@ public class MainFacade
 		return categoryFacade;
 	}
 	
-	public UsersFacade  getUsersFacade()
+	public UsersFacade getUsersFacade()
 	{
 		return usersFacade;
+	}
+	
+	public PlanningFacade getPlanningFacade()
+	{
+		return planningFacade;
 	}
 
 	// Disconnected methods

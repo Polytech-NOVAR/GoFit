@@ -163,4 +163,24 @@ public class JdbcKit implements PersistKit
 	{
 		return new CategoryManagerJdbc();
 	}
+	
+	/**
+	 * This is the definition of the method to make a users manager
+	 * @param data of a user
+	 * @return the users manager with persistence methods
+	 */
+	public UsersManagerJdbc makeUsersManager()
+	{
+		return new UsersManagerJdbc();
+	}
+	
+	/**
+	 * This is the definition of the method to make a planning manager
+	 * @param data of a user
+	 * @return the users manager with persistence methods
+	 */
+	public PlanningManagerJdbc makePlanningManager()
+	{
+		return new PlanningManagerJdbc();
+	}
 }

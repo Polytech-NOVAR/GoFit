@@ -124,4 +124,16 @@ public interface PersistKit
 	 * @return the manager
 	 */
 	public CategoryManager makeCategoryManager();
+	
+	/**
+	 * This is the declaration of the method to make a users manager
+	 * @return the manager
+	 */
+	public UsersManager makeUsersManager();
+	
+	/**
+	 * This is the declaration of the method to make a planning manager
+	 * @return the manager
+	 */
+	public PlanningManager makePlanningManager();
 }
