@@ -97,4 +97,11 @@ public class ProductFacade
 		return manager.getProducts(category, string);
 	}
 
+	public void addToBasket(Product producti, User user) 
+	{
+		user.loadBasket();
+		BasketLine basketLine = kit.makeBasketLine(producti, user.getBasket(), 1);
+		basketLine.save();
+	}
+
 }

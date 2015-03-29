@@ -5,8 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.HashMap;
+
 import com.novar.business.Category;
 import com.novar.business.Product;
+import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
@@ -76,7 +78,7 @@ public class ProductJdbc extends Product
 		PreparedStatement selectProd;
 		try 
 		{
-			selectProd = ConnectionUtil.connection.prepareStatement("SELECT productID, p.description, p.price, p.discountPrice, p.quantity, p.catId, sc.parentID FROM Product p, Category c "
+			selectProd = ConnectionUtil.connection.prepareStatement("SELECT productID, p.description, p.price, p.discountPrice, p.quantity, p.catId, sc.parentID, p.pseudo FROM Product p, Category c "
 					+ "LEFT JOIN SubCategory sc on c.catID = sc.catID "
 					+ "LEFT JOIN MainCategory mc on c.catID = mc.catID "
 					+ "WHERE p.catID = c.catID "
@@ -91,6 +93,11 @@ public class ProductJdbc extends Product
 				setPrice(res.getDouble("price"));
 				setQuantity(res.getInt("quantity"));
 				setDiscountPrice(res.getDouble("discountPrice"));
+				
+				User user = new UserJdbc();
+				user.setPseudo(res.getString("pseudo"));
+				user.loadInfo();
+				setUser(user);
 				
 				Category category = null;
 				if(res.getInt("parentID") == 0)

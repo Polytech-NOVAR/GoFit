@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 import com.novar.business.Accessory;
 import com.novar.business.AccessoryManager;
+import com.novar.business.Basket;
+import com.novar.business.BasketLine;
 import com.novar.business.Notification;
 import com.novar.business.NotificationManager;
 import com.novar.business.NotifyTo;
@@ -12,7 +14,6 @@ import com.novar.business.Room;
 import com.novar.business.RoomManager;
 import com.novar.business.CategoryManager;
 import com.novar.business.Product;
-
 import com.novar.business.User;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
@@ -171,5 +172,10 @@ public class JdbcKit implements PersistKit
 	public ProductManagerJdbc makeProductManager() 
 	{
 		return new ProductManagerJdbc();
+	}
+
+	
+	public BasketLine makeBasketLine(Product product, Basket basket, Integer quantity) {
+		return new BasketLineJdbc(product, basket, quantity);
 	}
 }

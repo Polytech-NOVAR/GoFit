@@ -1,6 +1,6 @@
 package com.novar.business;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 /**
  * This abstract class represent a basket. It is composed of a list of BasketLine.
@@ -13,8 +13,10 @@ public abstract class Basket
 {
 	
 	private Integer basketID;
-	private ArrayList<BasketLine> lines;
+	private User user;
+	private ArrayList<BasketLine> lines = new ArrayList<BasketLine>();
 	private Date orderDate;
+	private Integer state;
 	
 	public Integer getBasketID() 
 	{
@@ -24,6 +26,16 @@ public abstract class Basket
 	public void setBasketID(Integer basketID) 
 	{
 		this.basketID = basketID;
+	}
+
+	public User getUser() 
+	{
+		return user;
+	}
+
+	public void setUser(User user) 
+	{
+		this.user = user;
 	}
 
 	public ArrayList<BasketLine> getLines() 
@@ -45,6 +57,18 @@ public abstract class Basket
 	{
 		this.orderDate = orderDate;
 	}
+	
+	
+	// METHODS DESIGNED TO BE OVERRIDDEN BY CONCRETE SUBCLASSES, THEY MUST BE IMPLEMENTED ---------
+
+	public Integer getState() 
+	{
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
 
 	/**
 	 * Load the basket with all his attributes. The basketID must be not null.
@@ -52,7 +76,7 @@ public abstract class Basket
 	public abstract void load();
 	
 	/**
-	 * Save the basket with all his attributes. The basketID must be not null.
+	 * Save the basket with all his attributes.
 	 */
 	public abstract void save();
 	
@@ -60,10 +84,5 @@ public abstract class Basket
 	 * Update the basket with all his attributes. The basketID must be not null.
 	 */
 	public abstract void update();
-	
-	/**
-	 * Delete the basket with. The basketID must be not null.
-	 */
-	public abstract void delete();
 	
 }

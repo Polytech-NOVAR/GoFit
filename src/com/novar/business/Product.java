@@ -214,7 +214,7 @@ public abstract class Product
 	public abstract void load();
 	
 	/**
-	 * Save the product with all his attributes. The productID must be not null.
+	 * Save the product with all his attributes.
 	 */
 	public abstract void save();
 	

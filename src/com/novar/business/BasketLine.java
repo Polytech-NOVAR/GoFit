@@ -4,6 +4,14 @@ public abstract class BasketLine
 {
 	private Product product;
 	private Integer quantity;
+	private Basket basket;
+	
+	public BasketLine(Product product, Basket basket, Integer quantity)
+	{
+		this.product = product;
+		this.basket = basket;
+		this.quantity = quantity;
+	}
 	
 	public Product getProduct() {
 		return product;
@@ -21,7 +29,17 @@ public abstract class BasketLine
 		this.quantity = quantity;
 	}
 
+	public Basket getBasket() {
+		return basket;
+	}
+
+	public void setBasket(Basket basket) {
+		this.basket = basket;
+	}
 	
+	
+	// METHODS DESIGNED TO BE OVERRIDDEN BY CONCRETE SUBCLASSES, THEY MUST BE IMPLEMENTED ---------
+
 	/**
 	 * Save the BasketLine with all his attributes.
 	 */
@@ -36,4 +54,6 @@ public abstract class BasketLine
 	 * Delete the BasketLine with.
 	 */
 	public abstract void delete();
+	
+	
 }

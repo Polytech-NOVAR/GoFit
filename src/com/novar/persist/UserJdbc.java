@@ -304,27 +304,37 @@ public class UserJdbc extends User
 	public void loadBasket() 
 	{
 		PreparedStatement selectBasket;
+		PreparedStatement insertBasket;
 		try 
 		{
 			selectBasket = ConnectionUtil.connection.prepareStatement("SELECT * "
 					+ "FROM User u, Basket b "
 					+ "WHERE u.pseudo = b.pseudo "
-					+ "AND p.pseudo = ? ;");
-
+					+ "AND b.state = true "
+					+ "AND u.pseudo = ? ;");
+			
 			selectBasket.setObject(1, getPseudo(), Types.VARCHAR);
 			ResultSet res = selectBasket.executeQuery();
 			
-			Basket basket = new BasketJdbc();
-			basket.setBasketID(res.getInt("basketID"));
-			basket.load();
-			
-			this.setBasket(basket);
+			res.last();
+			if(res.getRow() == 0)
+			{
+				Basket basket = new BasketJdbc();
+				basket.setUser(this);
+				basket.save();
+	            this.setBasket(basket);
+			}
+			else
+			{
+				Basket basket = new BasketJdbc();
+				basket.setBasketID(res.getInt("basketID"));
+				this.setBasket(basket);
+			}
 		}
 		catch (SQLException e) 
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 }

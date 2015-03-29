@@ -20,7 +20,7 @@ public class BasketJdbc extends Basket {
 		try 
 		{
 			selectBasket = ConnectionUtil.connection.prepareStatement("SELECT * "
-					+ "FROM Basket b, BasketLines bl "
+					+ "FROM Basket b, BasketLine bl "
 					+ "WHERE b.basketID = bl.basketID "
 					+ "AND b.basketID = ? ");
 
@@ -30,14 +30,12 @@ public class BasketJdbc extends Basket {
 			
 			while(res.next())
 			{
-				BasketLine line = new BasketLineJdbc();
 				
 				Product product = new ProductJdbc();
 				product.setProductID(res.getInt("productID"));
 				product.load();
-				line.setProduct(product);
 				
-				line.setQuantity(res.getInt("quantity"));
+				BasketLine line = new BasketLineJdbc(product, this, res.getInt("quantity"));
 				
 				lines.add(line);
 			}
@@ -52,21 +50,46 @@ public class BasketJdbc extends Basket {
 	}
 
 	@Override
-	public void save() {
-		// TODO Auto-generated method stub
+	public void save() 
+	{
+		PreparedStatement insertBasket;
+		try 
+		{
+				Basket basket = new BasketJdbc();
+				
+				insertBasket = ConnectionUtil.connection.prepareStatement("INSERT INTO Basket (Pseudo, state) VALUES (?, true)", PreparedStatement.RETURN_GENERATED_KEYS);
+				insertBasket.setObject(1, getUser().getPseudo(), Types.VARCHAR);
+				insertBasket.executeUpdate();
+				ResultSet key = insertBasket.getGeneratedKeys();
+	            if (key.next())
+	            	basket.setBasketID(key.getInt(1));
+		}
+		catch (SQLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
-
+	
 	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-
+	public void update()
+	{
+		try 
+		{
+			PreparedStatement updateBasket = ConnectionUtil.connection.prepareStatement("UPDATE Basket "
+					+ "SET state = ?, "
+					+ "orderDate = ? "
+					+ "WHERE basketID = ?");
+			
+			updateBasket.setObject(1, getState(),Types.INTEGER);
+			updateBasket.setObject(2, getOrderDate(),Types.DATE);
+			updateBasket.setObject(3, getBasketID(),Types.INTEGER);
+			updateBasket.executeUpdate();	
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
 	}
-
-	@Override
-	public void delete() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

@@ -47,8 +47,6 @@ public class ShopPanel extends JPanel {
 	private JLabel lblSeller;
 	private JLabel lblSelleri;
 	private JLabel lblSorry;
-	private JButton btnNewButton;
-
 	/**
 	 * Create the panel.
 	 */
@@ -58,6 +56,8 @@ public class ShopPanel extends JPanel {
 		this.mainFrame = frame;
 		springLayout = new SpringLayout();
 		setLayout(springLayout);
+		
+		facade.getUser().loadBasket();
 		
 		lblShop = new JLabel("Shop");
 		lblShop.setFont(new Font("Calibri", Font.PLAIN, 24));
@@ -233,7 +233,6 @@ public class ShopPanel extends JPanel {
 
 	private void addToBasket(Product producti) 
 	{
-		// TODO Auto-generated method stub
-		
+		facade.getProductFacade().addToBasket(producti, facade.getUser());
 	}
 }

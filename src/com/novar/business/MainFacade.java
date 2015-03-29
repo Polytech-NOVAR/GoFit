@@ -20,6 +20,7 @@ public class MainFacade
 	private NotificationFacade notificationFacade;
 	private ProductFacade productFacade = null;
 	private CategoryFacade categoryFacade = null;
+	private BasketFacade basketFacade = null;
 
 	
 	public MainFacade(PersistKit kit)
@@ -29,6 +30,7 @@ public class MainFacade
 		notificationFacade = new NotificationFacade(kit);
 		productFacade = new ProductFacade(kit);
 		categoryFacade = new CategoryFacade(kit);
+		basketFacade = new BasketFacade(kit);
 
 	}
 	
@@ -55,6 +57,12 @@ public class MainFacade
 	public CategoryFacade getCategoryFacade()
 	{
 		return categoryFacade;
+	}
+	
+	
+	public BasketFacade getBasketFacade()
+	{
+		return basketFacade;
 	}
 
 	// Disconnected methods
@@ -109,8 +117,10 @@ public class MainFacade
 		//logoff
 	}
 	
-	public void getBasketLines()
+	public Basket getBasket()
 	{
 		theUser.loadBasket();
+		theUser.getBasket().load();
+		return theUser.getBasket();
 	}
 }
