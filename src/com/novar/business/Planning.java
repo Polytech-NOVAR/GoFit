@@ -23,8 +23,8 @@ public class Planning
 	private String speaker;
 	private String room;
 	private Date date;
-	private int frequency;
-	private int nbOccurrence;
+	private String frequency;
+	private Integer nbOccurrence;
 	
 	public Planning(HashMap<String, Object> data) throws FalseFieldsException
 	{
@@ -118,10 +118,10 @@ public class Planning
 
 	public String getFrequency()
 	{
-		return String.valueOf(frequency);
+		return frequency;
 	}
 
-	public void setFrequency(int frequency)
+	public void setFrequency(String frequency)
 	{
 		this.frequency = frequency;
 	}
@@ -131,7 +131,7 @@ public class Planning
 		return String.valueOf(nbOccurrence);
 	}
 
-	public void setNbOccurrence(int nbOccurence)
+	public void setNbOccurrence(Integer nbOccurence)
 	{
 		this.nbOccurrence = nbOccurence;
 	}
