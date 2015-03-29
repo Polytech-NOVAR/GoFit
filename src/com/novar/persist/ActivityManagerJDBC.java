@@ -13,14 +13,20 @@ import com.novar.util.ConnectionUtil;
 
 
 
+/**
+ * this class serves to load list of Activities
+ * @author othmane El kouahy
+ *
+ * 
+ */
 public class ActivityManagerJDBC extends ActivityManager{
 
-	 public ActivityManagerJDBC()
- {
+	public ActivityManagerJDBC()
+	{
 
-	
- }
- 
+
+	}
+
 	public ArrayList<Activity> getAllActivities() {
 		PreparedStatement selectActivities;
 		ArrayList<Activity> activities = new ArrayList<Activity>();
@@ -37,9 +43,9 @@ public class ActivityManagerJDBC extends ActivityManager{
 					Activity act = new ActivityJdbc();
 					act.setActID(res.getInt("actID"));
 					act.load();
-					
+
 					activities.add(act);
-					
+
 				}while(res.next());
 			}
 		}

@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 import javax.swing.JLabel;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.business.Room;
 
 import javax.swing.JButton;
@@ -17,13 +17,13 @@ import java.awt.event.ActionListener;
 
 public class PanelRooms extends JPanel {
 
-	private FacadeMain facade;
+	private MainFacade facade;
 	
 	private ConnectedWindow mainFrame;
 	/**
 	 * Create the panel.
 	 */
-	public PanelRooms(ConnectedWindow frame, FacadeMain facade) {
+	public PanelRooms(ConnectedWindow frame, MainFacade facade) {
 		this.facade = facade;
 		this.mainFrame = frame;
 		SpringLayout springLayout = new SpringLayout();

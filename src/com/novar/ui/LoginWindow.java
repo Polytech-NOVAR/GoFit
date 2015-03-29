@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
 import com.novar.exception.SyntaxException;
@@ -43,7 +43,7 @@ public class LoginWindow extends JFrame
 	final public static String IMAGE_PATH = "../img/";
 	private JTextField pseudoTextField;
 	private JPasswordField passwordField;
-	private FacadeMain facade;
+	private MainFacade facade;
 	private JLabel logo;
 	private JLabel lblError;
 	
@@ -71,7 +71,7 @@ public class LoginWindow extends JFrame
 		super("GoFit");
 		PersistKit kit = new JdbcKit();
 		ConnectionUtil.start();
-		facade = new FacadeMain(kit);
+		facade = new MainFacade(kit);
 		initialize();
 	}
 

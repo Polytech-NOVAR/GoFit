@@ -33,7 +33,14 @@ import java.awt.event.MouseEvent;
 import javax.swing.JList;
 import javax.swing.JMenu;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.Activity;
+import com.novar.business.Event;
+import com.novar.business.MainFacade;
+import com.novar.business.Manager;
+import com.novar.business.Registration;
+import com.novar.business.User;
+import com.novar.persist.RegistrationJdbc;
+import com.novar.persist.UserJdbc;
 
 import java.awt.GridBagLayout;
 
@@ -57,11 +64,11 @@ import java.util.HashMap;
 
 public class ConnectedWindow extends JFrame {
 
-	
-	private FacadeMain facade;
-	
+
+	private MainFacade facade;
+
 	private JPanel contentPane;
-	
+
 	private ConnectedWindow frame;
 	private JMenuItem mnNotification;
 	/**
@@ -70,7 +77,7 @@ public class ConnectedWindow extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ConnectedWindow(FacadeMain facade) 
+	public ConnectedWindow(MainFacade facade) 
 	{
 		super("GoFit");
 		frame = this;
@@ -83,21 +90,21 @@ public class ConnectedWindow extends JFrame {
 		int height = 720;
 		int width = 980;
 		setBounds(screenWidth/6, screenHeight/10, width, height);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{624, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{14, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
-		
+
 		JMenuItem mnProfile = new JMenuItem("Profile");
 		mnProfile.setMaximumSize(new Dimension(1, 32767));
 		menuBar.add(mnProfile);
-		
+
 		JMenuItem mnShop = new JMenuItem("Shop");
 		mnShop.setMaximumSize(new Dimension(1, 32767));
 		mnShop.addActionListener(new ActionListener() {
@@ -106,76 +113,99 @@ public class ConnectedWindow extends JFrame {
 			}
 		});
 		menuBar.add(mnShop);
-		
+
 		if(facade.getUser().isAdministrator())
 		{
 			JMenu mnAdministrator = new JMenu("Admin");
 			menuBar.add(mnAdministrator);
-				
+
 			JMenuItem mntmCategories = new JMenuItem("Categories");
 			mnAdministrator.add(mntmCategories);
-			
+
 			JMenuItem mntmRooms = new JMenuItem("Rooms");
 			mnAdministrator.add(mntmRooms);
-			
+
 			JMenuItem mntmAccessories = new JMenuItem("Accessories");
 			mnAdministrator.add(mntmAccessories);
-			
+
 
 			JMenuItem mntmActivities= new JMenuItem("Activities");
 			mnAdministrator.add(mntmActivities);
-			
+
 			mntmCategories.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
 					//changePanel(new JPanelCategory());
 				}
 			});
-			
+
 			mntmRooms.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
 					changePanel(new PanelRooms(frame, facade));
 				}
 			});
-			
+
 			mntmAccessories.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
 					changePanel(new PanelAccessories(frame, facade));
 				}
 			});		
-			
+
 
 			mntmActivities.addActionListener(new ActionListener(){
-				
+
 				public void actionPerformed(ActionEvent arg0)
 				{
 					changePanel(new PanelActivities(frame,facade));
 				}
 			});
 		}
-		
+
 		if(facade.getUser().isManager())
 		{
 			JMenu mnManager = new JMenu("Manager");
 			menuBar.add(mnManager);
+
+
+			JMenuItem mntmEvents = new JMenuItem("Events");
+			mnManager.add(mntmEvents);
+
+			JMenuItem mntmRegistrations = new JMenuItem("Registrations");
+			mnManager.add(mntmRegistrations);
+
+			mntmRegistrations.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) 
+				{ 	
+					seeMore();
+				}
+			});
 		}
-		
+
 		if(facade.getUser().isSpeaker())
 		{
 			JMenu mnSpeaker = new JMenu("Speaker");
 			menuBar.add(mnSpeaker);
 		}
-		
+
 		if(facade.getUser().isMember())
 		{
 			JMenu mnMember = new JMenu("Member");
 			menuBar.add(mnMember);
-			
+
 			JMenuItem mntmProducts = new JMenuItem("Products");
 			mnMember.add(mntmProducts);
-			
+
+			JMenuItem mntmMyregistrations = new JMenuItem("My Registration");
+			mnMember.add(mntmMyregistrations);
+
+			mntmMyregistrations.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) 
+				{
+					changePanel(new PanelRegistrationsMember(frame,facade));
+				}
+			});
 			mntmProducts.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
@@ -183,10 +213,10 @@ public class ConnectedWindow extends JFrame {
 				}
 			});
 		}
-		
+
 		Component verticalStrut = Box.createVerticalStrut(20);
 		menuBar.add(verticalStrut);
-		
+
 		mnNotification = new JMenuItem("Notification");
 		mnNotification.setMaximumSize(new Dimension(1, 32767));
 		mnNotification.addActionListener(new ActionListener() {
@@ -196,22 +226,29 @@ public class ConnectedWindow extends JFrame {
 			}
 		});
 		menuBar.add(mnNotification);
-		
+
 		JMenuItem mnBasket = new JMenuItem("Basket");
 		mnBasket.setMaximumSize(new Dimension(1, 32767));
 		menuBar.add(mnBasket);
-		
+
 		JMenuItem mnLogoff = new JMenuItem("Logoff");
 		mnLogoff.setMaximumSize(new Dimension(1, 32767));
 		menuBar.add(mnLogoff);
-		
+
 		loadNotifs();
-		
+
 		ArrayList<String> receivers = new ArrayList<String>();
 		receivers.add("Antoine1");
 		this.facade.getNotificationFacade().notify(this.facade.getUser(), "tergsguh", receivers);
 	}
-	
+	public void seeMore()
+	{
+		Registration reg= new RegistrationJdbc();
+
+
+		changePanel(new PanelRegistrations(frame,facade));
+	}
+
 	public void changePanel (JPanel panel)
 	{
 		contentPane = panel;
@@ -219,7 +256,7 @@ public class ConnectedWindow extends JFrame {
 		loadNotifs();
 		validate();
 	}
-	
+
 	public void loadNotifs()
 	{
 		int nbNotif = this.facade.getNotificationFacade().countNewNotifs(this.facade.getUser());

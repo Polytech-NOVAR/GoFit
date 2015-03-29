@@ -1,12 +1,28 @@
 package com.novar.business;
 
 import java.lang.reflect.Method;
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.novar.exception.FalseFieldsException;
+import com.novar.persist.ActivityJdbc;
+import com.novar.persist.JdbcKit;
 import com.novar.util.StringUtil;
 
+
+/**
+ * This class manage all what is relative to an Activity
+ * <br><br>
+
+ * This Class is used in ActivityManager, AcitivityEventFacadeJdbcKit and ActivityJdbc
+ * @author othmane El Kouahy
+ * @see ActivityManager
+ * @see JdbcKit
+ * @see ActivityEventFacade
+ * @see ActivityJdbc
+ */
 public abstract class Activity 
 {
 	Integer actID;
@@ -17,14 +33,14 @@ public abstract class Activity
 	public Activity()
 	{
 	}
-	
-	
+
+
 	public Activity(HashMap<String,Object> data) throws FalseFieldsException
 	{
 		Class[] typeArg = new Class[1];
 		Object[] arg = new Object[1];
 		ArrayList<String> errors = new ArrayList<String>();
-		
+
 		for (String mapKey : data.keySet())
 		{
 			String setterName = "set" + StringUtil.toCapitalizeCase(mapKey);
@@ -49,19 +65,19 @@ public abstract class Activity
 		if(!errors.isEmpty())
 			throw new FalseFieldsException(errors);
 	}
-	
-	
+
+
 	public void setActID(Integer actID)
 	{
 		this.actID=actID;
 	}
 
-	
+
 	public Integer getActID()
 	{
 		return this.actID;
 	}
-	
+
 	public void setActName(String actName)
 	{
 		this.actName=actName;
@@ -70,17 +86,17 @@ public abstract class Activity
 	{
 		return this.actName;
 	}
-	
+
 	public void setActShortDescription(String shortdesc)
 	{
 		this.actShortDescription=shortdesc;
 	}
-	
+
 	public String getActShortDescription()
 	{
-	return this.actShortDescription;	
+		return this.actShortDescription;	
 	}
-	
+
 	public void setActDetailedDescription(String detailedDesc)
 	{
 		this.actDetailedDescription=detailedDesc;
@@ -89,17 +105,17 @@ public abstract class Activity
 	{
 		return this.actDetailedDescription;
 	}
-	
+
 	public void setPseudo(String pseudo)
 	{
 		this.pseudo=pseudo;
 	}
-	
+
 	public String getPseudo()
 	{
 		return this.pseudo;
 	}
-	
+
 	public abstract void load();
 	public abstract void save();
 	public abstract void update();

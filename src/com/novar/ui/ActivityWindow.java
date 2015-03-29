@@ -14,15 +14,15 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JLabel;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 public class ActivityWindow extends JFrame {
-	private FacadeMain facade;
+	private MainFacade facade;
 
-	public ActivityWindow(FacadeMain facade) {
+	public ActivityWindow(MainFacade facade) {
 		
 		
 		super("GoFit");

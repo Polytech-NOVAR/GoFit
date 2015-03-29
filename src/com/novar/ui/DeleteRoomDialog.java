@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.business.Room;
 
 import javax.swing.SpringLayout;
@@ -20,14 +20,14 @@ public class DeleteRoomDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
-	private FacadeMain facade;
+	private MainFacade facade;
 	private ConnectedWindow mainFrame;
 	private Room room;
 	
 	/**
 	 * Create the dialog.
 	 */
-	public DeleteRoomDialog(ConnectedWindow frame, FacadeMain facade, Room room) {
+	public DeleteRoomDialog(ConnectedWindow frame, MainFacade facade, Room room) {
 		super(frame, "Delete", Dialog.ModalityType.DOCUMENT_MODAL);
 		this.mainFrame = frame;
 		this.facade = facade;

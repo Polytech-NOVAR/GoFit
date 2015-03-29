@@ -4,7 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.business.Accessory;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 
 public class PanelAccDetails extends JPanel {
 
-	private FacadeMain facade;
+	private MainFacade facade;
 	private ConnectedWindow mainFrame;
 	private Accessory acc = null;
 	
@@ -30,7 +30,7 @@ public class PanelAccDetails extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PanelAccDetails(ConnectedWindow frame, FacadeMain facade, Accessory acc) {
+	public PanelAccDetails(ConnectedWindow frame, MainFacade facade, Accessory acc) {
 		this.facade = facade;
 		this.mainFrame = frame;
 		this.acc = acc;

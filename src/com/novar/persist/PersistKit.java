@@ -14,7 +14,7 @@ import com.novar.exception.LoginFailedException;
  * <br><br>
  * This interface is use in FacadeMain and JdbcKit implements this interface
  * @author Antoine JOERG
- * @see FacadeMain
+ * @see MainFacade
  * @see JdbcKit
  */
 public interface PersistKit
@@ -100,5 +100,28 @@ public interface PersistKit
 	 * @return the ActivityManager
 	 */
 	public ActivityManager makeActivityManager();
+	
+	/**
+	 * This is the declaration of the method to make an EventManager
+	 * @param data of a ActivityManager
+	 * @return the ActivityManager
+	 */
+	public EventManager makeEventManager();
+	
+	/**
+	 * This is the declaration of the method to make an Event
+	 * @param data of an activity
+	 * @return the accessory
+	 * @throws FalseFieldsException
+	 */
+	public Event makeEvent(HashMap<String,Object> data) throws FalseFieldsException;
+
+	public Registration makeRegistration(HashMap<String, Object> mapReg) throws FalseFieldsException;
+	
+	public RegistrationManager makeRegistrationManager();
+
+	public Registration makeRegistrationMember(HashMap<String, Object> mapReg) throws FalseFieldsException;
+	
+	
 	
 }

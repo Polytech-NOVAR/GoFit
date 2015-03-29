@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.business.Accessory;
 
 import javax.swing.SpringLayout;
@@ -25,14 +25,14 @@ public class DeleteAccDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
-	private FacadeMain facade;
+	private MainFacade facade;
 	private ConnectedWindow mainFrame;
 	private Accessory acc;
 	
 	/**
 	 * Create the dialog.
 	 */
-	public DeleteAccDialog(ConnectedWindow frame, FacadeMain facade, Accessory acc) {
+	public DeleteAccDialog(ConnectedWindow frame, MainFacade facade, Accessory acc) {
 		super(frame, "Delete", Dialog.ModalityType.DOCUMENT_MODAL);
 		this.mainFrame = frame;
 		this.facade = facade;

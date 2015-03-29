@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 
-import com.novar.business.FacadeMain;
+import com.novar.business.MainFacade;
 import com.novar.business.Accessory;
 import com.novar.business.Room;
 
@@ -35,7 +35,7 @@ public class AddAccDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
-	private FacadeMain facade;
+	private MainFacade facade;
 	private ConnectedWindow mainFrame;
 	private Room room;
 	private JTextField textFieldQuantity;
@@ -45,7 +45,7 @@ public class AddAccDialog extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public AddAccDialog(ConnectedWindow frame, FacadeMain facade, Room room) {
+	public AddAccDialog(ConnectedWindow frame, MainFacade facade, Room room) {
 		super(frame, "Delete", Dialog.ModalityType.DOCUMENT_MODAL);
 		this.mainFrame = frame;
 		this.facade = facade;
