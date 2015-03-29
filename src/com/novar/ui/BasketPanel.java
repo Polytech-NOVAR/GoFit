@@ -252,7 +252,7 @@ public class BasketPanel extends JPanel {
 		{
 			lblQuantitInsuffisante.setVisible(true);
 		}
-
+		
 	}
 
 	private void delete(BasketLine linei) 

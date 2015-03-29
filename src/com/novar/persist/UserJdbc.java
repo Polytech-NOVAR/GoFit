@@ -369,18 +369,17 @@ public class UserJdbc extends User
 			
 			selectBasket.setObject(1, getPseudo(), Types.VARCHAR);
 			ResultSet res = selectBasket.executeQuery();
+			Basket basket = new BasketJdbc();
+			basket.setUser(this);
 			
 			res.last();
 			if(res.getRow() == 0)
 			{
-				Basket basket = new BasketJdbc();
-				basket.setUser(this);
 				basket.save();
 	            this.setBasket(basket);
 			}
 			else
 			{
-				Basket basket = new BasketJdbc();
 				basket.setBasketID(res.getInt("basketID"));
 				this.setBasket(basket);
 			}

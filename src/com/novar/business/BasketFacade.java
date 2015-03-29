@@ -14,6 +14,8 @@ public class BasketFacade
 {
 	private PersistKit kit = null;
 	
+	private UserManager manager;
+	
 	/**
 	 * Construct a BasketFacade with the right persistKit.
 	 * @param kit persistence engine
@@ -21,6 +23,7 @@ public class BasketFacade
 	public BasketFacade(PersistKit kit)
 	{
 		this.kit = kit;
+		manager = kit.makeUserManager();
 	}
 	
 	public void more(BasketLine line)
@@ -47,7 +50,8 @@ public class BasketFacade
 			Product producti = basket.getLines().get(i).getProduct();
 			if(producti.getProductID() == 2)
 			{
-				//setMembre
+				manager.setMember(basket.getUser());
+				basket.getUser().loadRoles();
 			}
 			else
 			{

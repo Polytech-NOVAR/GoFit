@@ -67,8 +67,13 @@ public class ProductManagerJdbc extends ProductManager
 		ArrayList<Product> products = new ArrayList<Product>();
 		try 
 		{
-			selectProducts = ConnectionUtil.connection.prepareStatement("SELECT * FROM Product WHERE catID = ?; ");
+			selectProducts = ConnectionUtil.connection.prepareStatement("SELECT * FROM Product p "
+					+ "LEFT JOIN SubCategory s ON s.catID = p.catID "
+					+ "WHERE p.catID = ? "
+					+ "OR s.parentID = ?; ");
+			
 			selectProducts.setObject(1, category.getCatID(), Types.VARCHAR);
+			selectProducts.setObject(2, category.getCatID(), Types.VARCHAR);
 			
 			ResultSet res = selectProducts.executeQuery();
 			while(res.next())
@@ -146,9 +151,15 @@ public class ProductManagerJdbc extends ProductManager
 		ArrayList<Product> products = new ArrayList<Product>();
 		try 
 		{
-			selectProducts = ConnectionUtil.connection.prepareStatement("SELECT * FROM Product WHERE CatID = ? AND description LIKE ?; ");
+			selectProducts = ConnectionUtil.connection.prepareStatement("SELECT * FROM Product p "
+																		+ "LEFT JOIN SubCategory s ON s.catID = p.catID "
+																		+ "WHERE p.catID = ? "
+																		+ "OR s.parentID = ? "
+																		+ " AND description LIKE ?; ");
+			
 			selectProducts.setObject(1, category.getCatID(), Types.VARCHAR);
-			selectProducts.setObject(2, "%"+string+"%", Types.VARCHAR);
+			selectProducts.setObject(2, category.getCatID(), Types.VARCHAR);
+			selectProducts.setObject(3, "%"+string+"%", Types.VARCHAR);
 			
 			ResultSet res = selectProducts.executeQuery();
 			while(res.next())

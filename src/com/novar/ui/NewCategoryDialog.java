@@ -31,7 +31,9 @@ import javax.swing.border.EmptyBorder;
 
 
 
+
 import com.novar.business.MainFacade;
+import com.novar.business.User;
 
 import java.awt.Font;
 
@@ -125,7 +127,13 @@ public class NewCategoryDialog extends JDialog {
 	
 	private void askForAnewCategory() 
 	{
-		//facade.getNotificationFacade().notify(facade.getUser(), "I would create a new category called " + this.categoryTextField.getText(), ListeDesAdmins);
+		ArrayList<User> listAdmins = facade.getAdminFacade().getAllAdmin(facade.getUser());
+		ArrayList<String> listPseudo = new ArrayList<String>();
+		for (int i = 0; i<listAdmins.size(); i++)
+		{
+			listPseudo.add(listAdmins.get(i).getPseudo());
+		}
+		facade.getNotificationFacade().notify(facade.getUser(), "I would create a new category called " + this.categoryTextField.getText(), listPseudo);
 		closeWindow();
 	}
 }
