@@ -3,17 +3,24 @@ package com.novar.ui;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JScrollPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
+
 import com.novar.business.MainFacade;
+import com.novar.util.ConnectionUtil;
+
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
+
 import javax.swing.Box;
 import javax.swing.JMenuItem;
+
 import java.awt.Dimension;
 
 public class ConnectedWindow extends JFrame
@@ -231,6 +238,16 @@ public class ConnectedWindow extends JFrame
 		menuBar.add(mnBasket);
 		
 		JMenuItem mnLogoff = new JMenuItem("Logoff");
+		mnLogoff.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				ConnectionUtil.stop();
+				LoginWindow loginWindow = new LoginWindow();
+				loginWindow.setVisible(true);
+				closeWindow();
+			}
+		});
 		mnLogoff.setMaximumSize(new Dimension(1, 32767));
 		menuBar.add(mnLogoff);
 
@@ -252,6 +269,10 @@ public class ConnectedWindow extends JFrame
 		int nbNotif = this.facade.getNotificationFacade().countNewNotifs(this.facade.getUser());
 		String text = "Notification ("+Integer.toString(nbNotif)+")";
 		mnNotification.setText(text);
+	}
+	
+	private void closeWindow(){
+		dispose();
 	}
 	
 	public MainFacade getFacade()

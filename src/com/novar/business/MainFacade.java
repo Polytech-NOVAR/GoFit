@@ -200,7 +200,6 @@ public class MainFacade
 	public void deleteTheUser() throws SQLException
 	{
 		theUser.delete();
-		//logoff
 	}
 
 	public Basket getBasket()

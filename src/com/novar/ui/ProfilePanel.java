@@ -12,6 +12,8 @@ import java.awt.Component;
 
 import javax.swing.JButton;
 
+import com.novar.util.ConnectionUtil;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -196,16 +198,24 @@ public class ProfilePanel extends JPanel
 					try
 					{
 						frame.getFacade().deleteTheUser();
+						ConnectionUtil.stop();
+						LoginWindow loginWindow = new LoginWindow();
+						loginWindow.setVisible(true);
+						closeWindow(frame);
 					}
 					
 					catch (SQLException e1)
 					{
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
 			}
 		});
 		add(btnDelete);
+	}
+	
+	private void closeWindow(ConnectedWindow frame)
+	{
+		frame.dispose();
 	}
 }
