@@ -188,6 +188,15 @@ public class ConnectedWindow extends JFrame
 			JMenu mnManager = new JMenu("Manager");
 			menuBar.add(mnManager);
 			
+			JMenuItem mntmPlanning = new JMenuItem("Planning");
+			mnManager.add(mntmPlanning);
+			
+			mntmPlanning.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) 
+				{
+					changePanel(new PlanningPanel(frame));
+				}
+			});
 			JMenuItem mntmSpeakers = new JMenuItem("Speakers");
 			mnManager.add(mntmSpeakers);
 			
@@ -204,6 +213,17 @@ public class ConnectedWindow extends JFrame
 		{
 			JMenu mnSpeaker = new JMenu("Speaker");
 			menuBar.add(mnSpeaker);
+			
+			JMenuItem mntmPlanning = new JMenuItem("Planning");
+			mnSpeaker.add(mntmPlanning);
+			
+			mntmPlanning.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) 
+				{
+					changePanel(new PlanningPanel(frame));
+				}
+			});
+			
 		}
 		
 		if(facade.getUser().isMember())
@@ -214,10 +234,20 @@ public class ConnectedWindow extends JFrame
 			JMenuItem mntmProducts = new JMenuItem("Products");
 			mnMember.add(mntmProducts);
 			
+			JMenuItem mntmPlanning = new JMenuItem("Planning");
+			mnMember.add(mntmPlanning);
+			
 			mntmProducts.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) 
 				{
 					changePanel(new ProductsPanel(frame,facade));
+				}
+			});
+			
+			mntmPlanning.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) 
+				{
+					changePanel(new PlanningPanel(frame));
 				}
 			});
 		}

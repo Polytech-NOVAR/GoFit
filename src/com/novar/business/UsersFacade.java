@@ -18,12 +18,12 @@ public class UsersFacade
 	public UsersFacade(PersistKit kit)
 	{
 		this.kit = kit;
-		this.manager = new UsersManagerJdbc();
+		this.manager = kit.makeUsersManager();
 	}
 	
 	public ArrayList<User> getUsers() throws SQLException, FalseFieldsException
 	{
-		return manager.getAllUsers();
+		return manager.loadUsers();
 	}
 	
 	public void add(User user) throws SQLException, RegisterFailedException

@@ -19,7 +19,7 @@ import com.novar.util.ConnectionUtil;
 
 public class UsersManagerJdbc extends UsersManager
 {
-	public ArrayList<User> getAllUsers() throws SQLException, FalseFieldsException
+	public ArrayList<User> loadUsers() throws SQLException, FalseFieldsException
 	{
 		PreparedStatement selectUsers;
 		
