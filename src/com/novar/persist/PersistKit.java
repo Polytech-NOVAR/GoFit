@@ -117,10 +117,25 @@ public interface PersistKit
 	 * @return the product
 	 * @throws FalseFieldsException
 	 */
+	
 	public Product makeProduct(HashMap<String,Object> data) throws FalseFieldsException;
 
 	/**
-	 * This is the declaration of the method to make a CategoryManager
+<<<<<<< HEAD
+	 * This is the declaration of the method to make a RoomManager
+	 * @param data of a RoomManager
+	 * @return the RoomManager
+	 */
+	public UserManager makeUserManager();
+	
+	/**
+	 * This is the declaration of the method to make a RoomManager
+	 * @param data of a RoomManager
+	 * @return the RoomManager
+	 */
+	public ManagerManager makeManagerManager();
+
+	 /** This is the declaration of the method to make a CategoryManager
 	 * @return the manager
 	 */
 	public CategoryManager makeCategoryManager();

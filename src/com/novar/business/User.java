@@ -258,10 +258,7 @@ public abstract class User
 	
 	public void setAdministrator(Administrator administrator)
 	{
-		if (this.administrator == null)
-		{
-			this.administrator = administrator;
-		}
+		this.administrator = administrator;
 	}
 	
 	public boolean isAdministrator()
@@ -279,10 +276,7 @@ public abstract class User
 	
 	public void setManager(Manager manager)
 	{
-		if (this.manager == null)
-		{
-			this.manager = manager;
-		}
+		this.manager = manager;
 	}
 	
 	public boolean isManager()
@@ -318,10 +312,7 @@ public abstract class User
 	
 	public void setMember(Member member)
 	{
-		if (this.member == null)
-		{
-			this.member = member;
-		}
+		this.member = member;
 	}
 	
 	public boolean isMember()
@@ -361,19 +352,24 @@ public abstract class User
 				+ "Street : " + this.getStreet() + "\n"
 				+ "City : " + this.getTown() + "\n"
 				+ "ZipCode : " + this.getZipCode() + "\n"
-				+ "Country : " + this.getCountry() + "\n";
+				+ "Country : " + this.getCountry() + "\n"
+				+ "Role : " + this.getAdministrator() + ","
+						+ this.getMember() +
+						"," + this.getManager()+
+						"," + this.getSpeaker() + "\n";
 		
 		return result;	
 	}
 	
 	////////////// HOOKS ////////////////
 	public abstract void load() throws LoginFailedException;
+	public abstract void loadAdmin();
 	public abstract void save() throws RegisterFailedException;
 	public abstract void loadRoles();
 	public abstract void loadProducts();
 	public abstract void updateForgottenPassword() throws InvalidEmailException;
 	public abstract void updateProfile() throws SQLException;
 	public abstract void updatePassword() throws SQLException;
-	public abstract void delete() throws SQLException;
-
+    public abstract void delete()throws SQLException;
+	
 }

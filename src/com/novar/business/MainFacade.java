@@ -18,6 +18,9 @@ public class MainFacade
 	private PersistKit kit = null;
 	private RoomAccessoryFacade roomFacade;
 	private NotificationFacade notificationFacade;
+	private ProductFacade product = null;
+	private AdminFacade adminFacade;
+	private ManagerFacade managerFacade;
 	private ProductFacade productFacade = null;
 	private CategoryFacade categoryFacade = null;
 	private UsersFacade usersFacade;
@@ -26,6 +29,12 @@ public class MainFacade
 	public MainFacade(PersistKit kit)
 	{
 		this.kit = kit;
+		this.roomFacade = new RoomAccessoryFacade(kit);
+		this.notificationFacade = new NotificationFacade(kit);
+		this.adminFacade = new AdminFacade(kit);
+		this.managerFacade = new ManagerFacade(kit);
+		
+		//product = new FacadeProduct(kit);
 		roomFacade = new RoomAccessoryFacade(kit);
 		notificationFacade = new NotificationFacade(kit);
 		productFacade = new ProductFacade(kit);
@@ -119,5 +128,15 @@ public class MainFacade
 	{
 		theUser.delete();
 		//logoff
+	}
+	
+	public AdminFacade getAdminFacade()
+	{
+		return this.adminFacade;
+	}
+	
+	public ManagerFacade getManagerFacade()
+	{
+		return this.managerFacade;
 	}
 }

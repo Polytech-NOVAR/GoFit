@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Member implements Role
 {
+	private String pseudoMember;
 	private Date registrationDate;
 	
 	private ArrayList<Product> products = new ArrayList<Product>();
@@ -37,5 +38,10 @@ public class Member implements Role
 	public void setProducts(ArrayList<Product> products) 
 	{
 		this.products = products;
+	}
+	
+	public String getPseudoAdministrator()
+	{
+		return pseudoMember;
 	}
 }

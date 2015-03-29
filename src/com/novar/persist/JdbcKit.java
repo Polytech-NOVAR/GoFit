@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.novar.business.Accessory;
 import com.novar.business.AccessoryManager;
+import com.novar.business.ManagerManager;
 import com.novar.business.Notification;
 import com.novar.business.NotificationManager;
 import com.novar.business.NotifyTo;
@@ -12,8 +13,8 @@ import com.novar.business.Room;
 import com.novar.business.RoomManager;
 import com.novar.business.CategoryManager;
 import com.novar.business.Product;
-
 import com.novar.business.User;
+import com.novar.business.UserManager;
 import com.novar.exception.FalseFieldsException;
 import com.novar.exception.LoginFailedException;
 import com.novar.persist.PersistKit;
@@ -156,7 +157,25 @@ public class JdbcKit implements PersistKit
 	}
 	
 	/**
-	 * This is the definition of the method to make a CategoryManager
+	 * This is the definition of the method to make a RoomManager
+	 * @param data of a RoomManager
+	 * @return the RoomManager with persistence methods
+	 */
+	public UserManager makeUserManager()
+	{
+		return new UserManagerJdbc();
+	}
+	
+	/**
+	 * This is the definition of the method to make a RoomManager
+	 * @param data of a RoomManager
+	 * @return the RoomManager with persistence methods
+	 */
+	public ManagerManager makeManagerManager()
+	{
+		return new ManagerManagerJdbc();
+	}
+	 /** This is the definition of the method to make a CategoryManager
 	 * @return the manager
 	 */
 	public CategoryManager makeCategoryManager()
