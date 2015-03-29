@@ -1,24 +1,29 @@
 package com.novar.persist;
 
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
-import com.novar.business.Administrator;
+import java.util.ArrayList;
+
 import com.novar.business.ManagerManager;
 import com.novar.business.User;
-import com.novar.business.UserManager;
+
 import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
 
+
+/**
+ * @author PELCE Nicolas
+ * 
+ * @see ManagerManage
+ * 
+ * This concrete subclass of ManagerManager uses the Jdbc technology to perfom the methods defined in ManagerManager.
+ */
 public class ManagerManagerJdbc extends ManagerManager {
 
+	
 	public ManagerManagerJdbc()
 	{
 		

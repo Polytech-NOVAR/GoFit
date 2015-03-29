@@ -1,21 +1,34 @@
 package com.novar.persist;
 
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
-import com.novar.business.Administrator;
+import com.novar.business.MainFacade;
 import com.novar.business.User;
 import com.novar.business.UserManager;
 import com.novar.exception.SyntaxException;
 import com.novar.util.ConnectionUtil;
 
+
+/**
+ * This interface permit to change persistance how the developer decides. For the moment the persistance is only JDBC.
+ * <br><br>
+ * The persistance can change easily whit this implementation, the developer just has to add a kit, like SrKit (for Serializable class) and in the facade, the developer has to change in the constructor the change of the persistance kit.
+ * <br><br>
+ * This interface is use in FacadeMain and JdbcKit implements this interface
+ * @author PELCE Nicolas
+ * @see MainFacade
+ * @see AdminFacade
+ * @see UserManagerJdbc
+ * @see JdbcKit
+ */
 public class UserManagerJdbc extends UserManager {
 
 	public UserManagerJdbc()
@@ -23,6 +36,10 @@ public class UserManagerJdbc extends UserManager {
 		
 	}
 	
+	/**
+	 * Load all the Users from the DB
+	 * @return an ArrayList of Users
+	 */
 	public ArrayList<User> getAllUsers(User admin) {
 		PreparedStatement selectuser;
 		ArrayList<User> users = new ArrayList<User>();
@@ -58,6 +75,10 @@ public class UserManagerJdbc extends UserManager {
 		return users;
 	}
 	
+	/**
+	 * Load all the Admin from the DB
+	 * @return an ArrayList of User
+	 */
 	public ArrayList<User> getAllAdmin(User admin) {
 		PreparedStatement selectadmin;
 		ArrayList<User> users = new ArrayList<User>();
@@ -92,7 +113,10 @@ public class UserManagerJdbc extends UserManager {
 		}
 		return users;
 	}
-	
+	/**
+	 * Load all the Managers from the DB
+	 * @return an ArrayList of Users
+	 */
 	public ArrayList<User> getAllManager(User admin) {
 		PreparedStatement selectmanager;
 		ArrayList<User> users = new ArrayList<User>();
@@ -126,6 +150,10 @@ public class UserManagerJdbc extends UserManager {
 		return users;
 	}
 	
+	/**
+	 * Load all the Members from the DB
+	 * @return an ArrayList of Users
+	 */
 	public ArrayList<User> getAllMember(User admin) {
 		PreparedStatement selectmember;
 		ArrayList<User> users = new ArrayList<User>();
@@ -160,7 +188,10 @@ public class UserManagerJdbc extends UserManager {
 	}
 	
 	
-	
+	/**
+	 * Fix the role of Admin for an User
+	 * 
+	 */
 	
 	public  void setAdmin(User admin)
 	{
@@ -177,6 +208,11 @@ public class UserManagerJdbc extends UserManager {
 		}
 	}
 	
+	/**
+	 * Fix the role of Manager for an User
+	 * 
+	 */
+	
 	public  void setManager(User manager)
 	{
 		try 
@@ -191,6 +227,11 @@ public class UserManagerJdbc extends UserManager {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Fix the role of Member for an User
+	 * 
+	 */
 	
 
 	public  void setMember(User member)
@@ -214,6 +255,11 @@ public class UserManagerJdbc extends UserManager {
 		}
 	}
 	
+	/**
+	 * Delete the role of Admin for an User
+	 * 
+	 */
+	
 	public void deleteAdmin(User admin) throws SQLException
 	{
 		PreparedStatement delete;
@@ -223,6 +269,11 @@ public class UserManagerJdbc extends UserManager {
 		delete.executeUpdate();
 	}
 	
+	/**
+	 * Delete the role of Manager for an User
+	 * 
+	 */
+	
 	public void deleteManager(User manager) throws SQLException
 	{
 		PreparedStatement delete;
@@ -231,6 +282,12 @@ public class UserManagerJdbc extends UserManager {
 		delete.setObject(1, manager.getPseudo(), Types.VARCHAR);
 		delete.executeUpdate();
 	}
+	
+	/**
+	 * Delete the role of Member for an User
+	 * 
+	 */
+	
 	
 	public void deleteMember(User member) throws SQLException
 	{
