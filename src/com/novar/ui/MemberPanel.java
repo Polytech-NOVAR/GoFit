@@ -73,12 +73,27 @@ private MainFacade facade;
 			springLayout.putConstraint(SpringLayout.NORTH, btnSeeMore, (int)(90*multiplier), SpringLayout.NORTH, this);
 			springLayout.putConstraint(SpringLayout.WEST, btnSeeMore, mainFrame.getWidth()/4, SpringLayout.WEST, lblAdmini);
 			btnSeeMore.setFont(new Font("Calibri", Font.PLAIN, 12));
-			btnSeeMore.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					seeMore(admini);
+			btnSeeMore.addActionListener(new ActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					frame.changePanel(new SeeMoreUserPanel(frame, member));
 				}
 			});
 			add(btnSeeMore);
+			
+			JButton btnUpdate = new JButton("Update");
+			springLayout.putConstraint(SpringLayout.NORTH, btnUpdate, (int)(90*multiplier), SpringLayout.NORTH, this);
+			springLayout.putConstraint(SpringLayout.WEST, btnUpdate, mainFrame.getWidth()/8, SpringLayout.WEST, btnSeeMore);
+			btnUpdate.setFont(new Font("Calibri", Font.PLAIN, 12));
+			btnUpdate.addActionListener(new ActionListener()
+			{
+				public void actionPerformed(ActionEvent e)
+				{
+					frame.changePanel(new UpdateUserPanel(frame, member));
+				}
+			});
+			add(btnUpdate);
 			
 			JButton btnDelete = new JButton("Delete");
 			springLayout.putConstraint(SpringLayout.NORTH, btnDelete,(int)(90*multiplier), SpringLayout.NORTH, this);
@@ -92,11 +107,7 @@ private MainFacade facade;
 			add(btnDelete);
 		}
 	}
-	
-	private void seeMore(User user){
-		this.mainFrame.changePanel(new MemberDetailsPanel(this.mainFrame, this.facade, user));
-	}
-	
+
 	private void addOne(){
 		this.mainFrame.changePanel(new MemberDetailsPanel(this.mainFrame, this.facade, null));
 	}
