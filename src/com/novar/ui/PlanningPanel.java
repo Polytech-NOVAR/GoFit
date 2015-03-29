@@ -151,14 +151,14 @@ public class PlanningPanel extends JPanel
 		springLayout.putConstraint(SpringLayout.WEST, lblDateRepetitive, 100, SpringLayout.EAST, lblRoomRepetitive);
 		add(lblDateRepetitive);
 		
-		JLabel lblFrequencRepetitive = new JLabel("Date");
-		springLayout.putConstraint(SpringLayout.NORTH, lblFrequencRepetitive, 0, SpringLayout.NORTH, lblRoomRepetitive);
-		springLayout.putConstraint(SpringLayout.WEST, lblFrequencRepetitive, 100, SpringLayout.EAST, lblDateRepetitive);
-		add(lblFrequencRepetitive);
+		JLabel lblFrequencyRepetitive = new JLabel("Frequency");
+		springLayout.putConstraint(SpringLayout.NORTH, lblFrequencyRepetitive, 0, SpringLayout.NORTH, lblRoomRepetitive);
+		springLayout.putConstraint(SpringLayout.WEST, lblFrequencyRepetitive, 100, SpringLayout.EAST, lblDateRepetitive);
+		add(lblFrequencyRepetitive);
 		
-		JLabel lblNbOccRepetitive = new JLabel("Date");
+		JLabel lblNbOccRepetitive = new JLabel("Occurrence");
 		springLayout.putConstraint(SpringLayout.NORTH, lblNbOccRepetitive, 0, SpringLayout.NORTH, lblRoomRepetitive);
-		springLayout.putConstraint(SpringLayout.WEST, lblNbOccRepetitive, 100, SpringLayout.EAST, lblFrequencRepetitive);
+		springLayout.putConstraint(SpringLayout.WEST, lblNbOccRepetitive, 100, SpringLayout.EAST, lblFrequencyRepetitive);
 		add(lblNbOccRepetitive);
 		
 		position = 0;
@@ -212,8 +212,8 @@ public class PlanningPanel extends JPanel
 			
 			JLabel lblFrequencyDynamic = new JLabel("");
 			lblFrequencyDynamic.setText(planning.getFrequency());
-			springLayout.putConstraint(SpringLayout.NORTH, lblFrequencyDynamic, position, SpringLayout.SOUTH, lblFrequencRepetitive);
-			springLayout.putConstraint(SpringLayout.WEST, lblFrequencyDynamic, 0, SpringLayout.WEST, lblFrequencRepetitive);
+			springLayout.putConstraint(SpringLayout.NORTH, lblFrequencyDynamic, position, SpringLayout.SOUTH, lblFrequencyRepetitive);
+			springLayout.putConstraint(SpringLayout.WEST, lblFrequencyDynamic, 0, SpringLayout.WEST, lblFrequencyRepetitive);
 			add(lblFrequencyDynamic);
 			
 			JLabel lblNbOccDynamic = new JLabel("");
